@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>非父子组件传值</title>
+    <template id="myA">
+        <div>
+            <h3>组件A:{{name}}</h3>
+            <button @click="send">数据发送给B</button>
+        </div>
+    </template>
+    <template id="myB">
+        <div>
+            <h3>组件B:{{name}}</h3>
+            <div>接收到的数据 -- {{getName}}</div>
+        </div>
+    </template>
+</head>
+<body>
+<!-- 需求：
+     1. 登录组件 -> 得到用户数据
+     2. 关闭登录组件 -> 通知主页组件并将用户数据传入 -> 主页数据更新
+ -->
+<div id="root">
+    <my-a></my-a>
+    <hr>
+    <my-b></my-b>
+</div>
+<script src="libs/vue.min.js"></script>
+<script>
+    window.onload = function () {
+        let Bus = new Vue();
+        new Vue({
+            el: '#root',
+            components: {
+                'my-a': {
+                    template: '#myA',
+                    data() {
+                        return {
+                            name: 'aaa'
+                        }
+                    },
+                    methods: {
+                        send() {
+                            Bus.$emit('data-a', this.name);
+                        }
+                    }
+                },
+                'my-b': {
+                    template: '#myB',
+                    data() {
+                        return {
+                            name: 'bbb',
+                            getName: ''
+                        }
+                    },
+                    methods: {
+                        getAData() {
+                            Bus.$on('data-a', (val) => {
+                                this.getName = val;
+                            })
+                        }
+                    },
+                    mounted() {
+                        this.getAData();
+                    }
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>

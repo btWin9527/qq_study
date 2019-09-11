@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vueStudy</title>
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="libs/vue.min.js"></script>
+    <template id="myTr">
+        <tr>
+            <td>1</td>
+            <td>2</td>
+        </tr>
+    </template>
+    <template id="mySlot">
+        <div>
+            <p>my slot</p>
+            <slot name="s1"></slot>
+            <p>xxx</p>
+            <slot name="s2"></slot>
+        </div>
+    </template>
+</head>
+<body>
+<div id="app" v-cloak>
+    <!--  filter的使用模块开始 -->
+    <h2>1. 过滤器filte模块</h2>
+    <div>
+        <p v-for="(item,index) in arr1" :key="index">
+            {{item.state | divideState}}
+        </p>
+        <hr>
+    </div>
+    <!--  filter的使用模块结束 -->
+
+    <!--  多个类名样式模块开始 -->
+    <h2>2. 动态class模块</h2>
+    <div>
+        <div :class="[...trendsData]">abc</div>
+
+        <!-- 通过bool值判断样式 -->
+        <div :class="{
+        a1:true,
+        a2: false
+    }">ccc
+        </div>
+        <hr>
+    </div>
+    <!--  多个类名样式模块结束 -->
+
+    <!--  Tab切换模块开始 -->
+    <h2>3. Tab切换模块</h2>
+    <div>
+        <ul class="tab-tit">
+            <li
+                v-for="(item,index) in tabTitle"
+                :key="index"
+                @click="currentIdx = index"
+                :class="{active:currentIdx==index}">
+                {{item}}
+            </li>
+        </ul>
+        <div class="tab-con">
+            <div
+                v-for="(item,index) in tabCont"
+                :key="index"
+                v-show="currentIdx == index">
+                {{item}}
+            </div>
+        </div>
+        <hr>
+    </div>
+    <!--  Tab切换模块结束 -->
+
+    <!--  事件模块开始 -->
+    <h2>4. 事件模块</h2>
+    <div>
+        <div @click="showA" class="a">A
+            <div @click.stop="showB" class="b">B
+                <div @click.stop="showC" class="c">C1(阻止事件传播)</div>
+                <div @click="showC">C2</div>
+            </div>
+        </div>
+        <!-- 阻止链接跳转 -->
+        <a href="http://www.baidu.com" @click.prevent="showA">百度</a>
+        <!-- 只执行一次 -->
+        <button @click.once="showB">只执行一次</button>
+        <hr>
+    </div>
+    <!--  事件模块结束 -->
+
+    <!--  组件创建模块开始 -->
+    <h2>5. 组件封装</h2>
+    <div>
+        <table border="1">
+            <!-- is表示是一个组件 -->
+            <tr is="my-tr"></tr>
+            <!--            <my-tr></my-tr>-->
+        </table>
+        <hr>
+    </div>
+    <!--  组件创建模块结束 -->
+
+    <!--  插槽模块开始 -->
+    <!-- 设计模式  模板模式 -->
+    <h2>6. 插槽的使用</h2>
+    <div>
+        <my-slot>
+            <ul slot="s1">
+                <li>1</li>
+                <li>2</li>
+            </ul>
+            <ul slot="s2">
+                <li>a</li>
+                <li>b</li>
+            </ul>
+        </my-slot>
+        <hr>
+    </div>
+    <!--  插槽模块结束 -->
+
+    <!--  动态组件模块开始 -->
+    <h2>7. 动态组件</h2>
+    <div>
+        <button @click="flag='my-tr'">my-tr</button>
+        <button @click="flag='my-slot'">my-slot</button>
+        <!-- :is data变量为组件名称 -->
+        <component :is="flag"></component>
+        <hr>
+    </div>
+    <!--  动态组件模块结束 -->
+
+    <!--  状态模块开始 -->
+    <h2>7. 状态组件</h2>
+    <div>
+        <button @click="flag1='my-change1'">my-change1</button>
+        <button @click="flag1='my-change2'">my-change2</button>
+        <!-- :is data变量为组件名称 -->
+        <!--        <component :is="flag1"></component>-->
+        <!-- keep-alive缓存非活动组件 -->
+        <keep-alive>
+            <component :is="flag1"></component>
+        </keep-alive>
+        <hr>
+    </div>
+    <!--  状态模块结束 -->
+</div>
+<script src="js/index.js"></script>
+</body>
+</html>

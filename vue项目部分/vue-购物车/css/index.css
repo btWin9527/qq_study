@@ -1,0 +1,81 @@
+.shopcar {
+    margin: 20px;
+    font-family: "Microsoft YaHei UI";
+    min-width: 700px;
+}
+/* 解决vue渲染数据闪烁问题*/
+[v-cloak] {
+    display: none;
+}
+
+/* 标题样式*/
+.shopcar .shopcar_title {
+    line-height: 60px;
+    font-size: 20px;
+    font-weight: normal;
+    color: yellowgreen;
+    background-color: azure;
+}
+
+/* 搜索模块样式*/
+.shopcar_search {
+    padding: 10px 10px 20px;
+    line-height: 24px;
+    font-size: 14px;
+    display: flex;
+}
+
+.shopcar_search .shopcar_searchlab {
+    background-color: green;
+    color: #fff;
+    padding: 6px 10px;
+}
+
+.shopcar_search .shopcar_searchinp {
+    flex: 1;
+    border: 1px solid #ddd;
+    outline: none;
+    padding-left: 10px;
+}
+
+/* 表格模块*/
+.shopcar_table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.shopcar_table th,
+.shopcar_table td {
+    border: 1px solid #ddd;
+    text-align: center;
+    line-height: 24px;
+}
+
+.shopcar_table th {
+    font-weight: bold;
+}
+
+.shopcar_table td {
+    line-height: 36px;
+}
+
+.shopcar_table button {
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    padding: 4px 10px;
+    border-radius: 2px;
+    outline: none;
+}
+
+.shopcar_table button:active {
+    box-shadow: 0 0 2px #ddd;
+}
+
+.shopcar_table .shopcar_table_btn1 {
+    background-color: #eee;
+}
+
+.shopcar_table .shopcar_table_btn2 {
+    background-color: green;
+    color: #fff;
+}

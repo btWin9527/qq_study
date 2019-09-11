@@ -1,0 +1,50 @@
+/* 解决屏幕闪烁*/
+[v-cloak] {
+    display: none;
+}
+
+.a1 {
+    color: #20a0ff;
+    background-color: yellowgreen;
+}
+
+.a2 {
+    color: #42b983;
+}
+
+/*  tab切换模块样式开始 */
+ul, li {
+    padding: 0;
+    margin: 0;
+}
+
+.tab-tit li {
+    padding: 10px 15px;
+    text-align: center;
+    list-style: none;
+    cursor: pointer;
+    display: inline-block;
+}
+.tab-tit .active {
+    color: #09f;
+    border-bottom: 1px solid #09f;
+}
+.tab-con div {
+    margin: 30px;
+}
+
+/*  tab切换模块样式结束 */
+
+/*  事件冒泡模块样式开始 */
+.a {
+    border: 1px solid red;
+}
+.b {
+    border: 1px solid green;
+    width: 400px;
+}
+.c {
+    border: 1px solid blue;
+    width: 300px;
+}
+/*  事件冒泡模块样式结束 */

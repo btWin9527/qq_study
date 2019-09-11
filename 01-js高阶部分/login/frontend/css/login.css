@@ -1,0 +1,77 @@
+/*  登录模块样式开始 */
+
+.login {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    height: 100vh;
+    background: url("../img/login.jpg") no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-color: rgba(41, 50, 39, 1);
+}
+
+.login-form {
+    position: absolute;
+    top: 220px;
+    right: 60px;
+    width: 280px;
+    padding: 20px 30px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 4px;
+    box-shadow: 0 0 2px #5a5e66;
+}
+
+.form-title {
+    line-height: 36px;
+    font-size: 18px;
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+
+.form-item {
+    margin-bottom: 10px;
+}
+
+.form-item:last-of-type {
+    margin-bottom: 0;
+}
+
+.form-item .form-item-label {
+    display: inline-block;
+    width: 40px;
+    line-height: 28px;
+}
+
+
+.form-item .form-item-inp {
+    height: inherit;
+    line-height: 28px;
+    padding-left: 10px;
+    border-radius: 2px;
+    border: 1px solid #ddd;
+}
+
+.form-item .form-item-login {
+    width: 140px;
+    height: 40px;
+    margin-left: 42px;
+    border: 0;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: middle;
+    line-height: 40px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    background: rgba(255, 50, 30, 0.9);
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.form-item .form-item-login:hover {
+    background-color: #f52b00;
+}
+
+/*  登录模块样式结束 */

@@ -1,0 +1,244 @@
+*{margin:0;padding:0;}
+body { width:100%;margin:0 auto;font-size: 14px; background: #fff; overflow-y: scroll; overflow-x: hidden; *overflow-y: auto !important; }
+
+/*设置容器最大宽度为640*/
+.page-container { max-width: 640px; margin: 0 auto;}
+
+/*=============按钮样式=============*/
+
+.button{
+	color: white;
+	border-radius: 4px;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+/*普通按钮样式*/
+.button-success {
+	background: rgb(28, 184, 65); /* this is a green */
+}
+
+.button-error {
+	background: rgb(202, 60, 60); /* this is a maroon */
+}
+
+.button-warning {
+	background: rgb(223, 117, 20); /* this is an orange */
+}
+
+.button-secondary {
+	background: rgb(66, 184, 221); /* this is a light blue */
+}
+
+#main{
+	position:relative;
+	width:90%;
+	margin:20px auto 20px;
+	text-align: center;
+}
+.phone,.picture-code,.phone-code{
+	height:44px;
+	border:1px solid #226ce4!important;
+}
+.img{
+	height:44px;
+	background-color:#ccc;
+}
+.picture-code{
+	border-top-left-radius:0!important;
+	border-bottom-left-radius:0!important;
+}
+.get-code{
+	height:44px;
+	float:right;
+	font-size:0.65em;
+	padding-top:0;
+	padding-left:10px;
+	background-color:#ccc;
+}
+.login-button{
+	height:44px;
+	float:right;
+}
+.weixin div:nth-child(1){
+	position:relative;
+	height:8px;
+	margin-bottom:30px;
+}
+.weixin div:nth-child(1) p{
+	border-bottom:1px solid #ccc;
+	margin:0 0 15px;
+}
+.weixin div:nth-child(1) p span{
+	position:relative;
+	top:10px;
+	padding:0 10px;
+	color:#aaa;
+	background-color:#fff;
+}
+.weixin button{
+	height:44px;
+}
+.protocol{
+	margin:14px 0;
+	text-align: left;
+}
+.protocol label span{
+	cursor: pointer;
+	color:blue
+}
+
+    html, body {
+        width: 100%;
+        height: 100%;
+    }
+    *{
+        box-sizing: border-box;
+    }
+    .page-container {
+        width: 100%;
+        height: 100%;
+        background: url(../img/bg.jpg) no-repeat top center;
+        background-size: cover;
+        overflow: hidden;
+        color: #fff;
+        margin: 0 auto;
+        position:relative;
+    }
+    .content{
+        position: relative;
+        width: 80%;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .content .header-login {
+        /*width: 80%;*/
+        margin: 25% auto;
+        text-align: center;
+    }
+    .content .header-login img{
+        max-width: 100%;
+        max-height:100px;
+    }
+    .page-container .btn-box {
+        margin: 30px 0;
+    }
+    .page-container .btn-box a {
+        padding: 15px;
+        box-shadow: 0 2px 3px rgba(0,0,0,.4);
+    }
+    .content .btn-box a img {
+        width: 9%;
+        padding-right: 5px;
+        vertical-align: middle;
+    }
+    .page-container .clause{
+        text-align:center;
+        font-size:18px;
+    }
+    .page-container .clause span{
+        color: #70e7d1;
+        padding-left: 10px;
+    }
+    .button-success,
+    .button-error,
+    .button-warning,
+    .button-secondary {
+        color: white;
+        border-radius: 4px;
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);   
+        /* box-shadow: 0 2px 3px rgba(0,0,0,.4); */
+    }
+
+    .button-success {
+        background: rgb(28, 184, 65); /* this is a green */
+    }
+
+    .button-error {
+        background: rgb(202, 60, 60); /* this is a maroon */
+    }
+
+    .button-warning {
+        background: rgb(223, 117, 20); /* this is an orange */
+    }
+
+    .button-secondary {
+        background: rgb(66, 184, 221); /* this is a light blue */
+    }
+
+    .fn-inline-b {
+        display:inline-block;
+    }
+    .icon-i .iconfont {
+        font-size:20px!important;
+        padding: 10px;
+    }
+    .icon-i:nth-child(1) i{
+        background: #f95730;
+        border-radius: 50%;
+    }
+    .icon-i:nth-child(2) i{
+        background: #fa69b9;
+        border-radius: 50%;
+    }
+    .icon-i:nth-child(3) i{
+        background: #49dacf;
+        border-radius: 50%;
+    }
+    .icon-i:nth-child(4) i{
+        background: #908cfd;
+        border-radius: 50%;
+    }
+
+    .icon {
+        width: 100%;
+        height: 3em;
+        vertical-align: -0.15em;
+        fill: currentColor;
+        overflow: hidden;
+        font-size: 30px;
+    }
+    #count-down {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background: url(../img/pic2.jpg) no-repeat top center;
+        z-index: 2;
+        background-size: cover;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+    #count-down span {
+        float: right;
+        padding: 20px;
+    }
+    #count-down span b {
+        padding: 5px;
+    }
+    .icon-i label {
+        display: block;
+        padding: 25px 0;
+    }
+
+
+/*媒体查询判断*/
+/*iPhone 6 Plus, 6s Plus 竖屏*/
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) {
+	.login{font-size: .85rem;}
+	.getCode{font-size: .75rem;}
+}
+/*iPhone 6, 6s 竖屏*/
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
+	.login{font-size: .85rem;}
+	.getCode{font-size: .75rem;}
+}
+/*iphone5 竖屏展示*/
+@media only screen and (min-device-width : 320px) and (max-device-width : 568px){
+	.login{font-size: .85rem;}
+	.getCode{font-size: .75rem;}
+}
+
+/*Android 480宽度 */
+@media only screen and (min-device-width:361px) and (max-device-width:480px){
+	.login{font-size: .85rem;}
+	.getCode{font-size: .75rem;}
+}

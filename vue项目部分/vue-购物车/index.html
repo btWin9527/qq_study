@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue购物车</title>
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+<!--
+ 【交互需求】
++ 表格数据渲染
++ 实现商品数量修改功能（增加或减少，数量为0时禁用按钮）
++ 实现单个商品金额随数量变化动态变化
++ 实现商品总价随单个商品数量变化跟随变化
++ 实现动态搜索功能（根据商品名称模糊搜索）
+
+ -->
+<div id="shoppingCar" class="shopcar" v-cloak>
+    <!-- 标题区域 -->
+    <h2 class="shopcar_title">vue测试监听查询购物车数量及金额变化</h2>
+    <!-- 搜索模块 -->
+    <div class="shopcar_search">
+        <label for="searchShop" class="shopcar_searchlab">名称搜索</label>
+        <input type="text" id="searchShop" class="shopcar_searchinp" v-model="searchVal" placeholder="请输入查询内容">
+    </div>
+    <!-- 表格模块 -->
+    <table class="shopcar_table">
+        <tr>
+            <th>商品名称</th>
+            <th>商品数量</th>
+            <th>商品单价（元）</th>
+            <th>商品金额（元）</th>
+            <th>操作</th>
+        </tr>
+        <tr v-for="(item,index) in filterTableData" :key="index">
+            <td>{{item.name}}</td>
+            <td>
+                <button :disabled="item.count == 0" class="shopcar_table_btn1" @click="item.count--">-</button>
+                <span>{{item.count}}</span>
+                <button class="shopcar_table_btn1" @click="item.count++">+</button>
+            </td>
+            <td>{{item.price | filterPrice(2)}}</td>
+            <td>
+                {{oneShopMoney(item)  | filterPrice(2)}}
+            </td>
+            <td>
+                <button class="shopcar_table_btn2">查看详情</button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5">
+                {{totalShopNum}}
+                件商品总计（不计运费）：
+                {{totalShopMoney | filterPrice(3)}}
+            </td>
+        </tr>
+    </table>
+</div>
+<script src="./lib/vue.js"></script>
+<script src="./js/index.js"></script>
+</body>
+</html>

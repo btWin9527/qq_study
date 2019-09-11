@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>防抖</title>
+  <style>
+    .wrapper {
+      width: 100%;
+      height: 200px;
+      line-height: 200px;
+      text-align: center;
+      background-color: #000;
+      color: #fff;
+      font-size: 32px;
+    }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+</div>
+<input type="text" class="ipt">
+<script>
+  var wrapper = document.querySelector('.wrapper');
+  var ipt = document.querySelector('.ipt');
+  var count = 1;
+
+  /*
+  * 防抖的思想：
+  *   过1s之后再触发事件
+  * */
+
+  // 防抖处理
+  /* function mousemove() {
+     wrapper.innerHTML = count++;
+   }
+
+   function debounce(callback,ms) {
+     var timer ;
+     return function () {
+       clearTimeout(timer);
+       timer = setTimeout(function () {
+         callback();
+       },ms)
+     }
+   }
+
+   wrapper.addEventListener('mousemove', debounce(mousemove,1000));*/
+
+  function mousemove(e) {
+    wrapper.innerHTML = count++;
+    console.log(this);// window
+    console.log(e);
+  }
+
+
+  // 防抖处理优化
+  function debounce(callback, ms, flag) {
+    var timer, that;
+    // 优化2：处理mouse函数中事件对象的获取
+    return function (e) {
+      // 优化1：处理mousemove函数的this指向
+      that = this;
+      clearTimeout(timer);
+      // 优化3：通过flag实现页面加载后立即触发mousemove函数(传入参数3为true)
+      if (flag) {
+        var ifCall = !timer;
+        timer = setTimeout(function () {
+          timer = null;
+        }, ms);
+        if (ifCall) {
+          callback.call(that, e);
+        }
+      } else {
+        timer = setTimeout(function () {
+          callback.call(that, e);
+        }, ms);
+      }
+    }
+  }
+
+  /* wrapper.addEventListener('mousemove', debounce(mousemove, 1000, true));*/
+
+  // input
+  // 验证手机号
+  function keyup(e) {
+    var reg = /^1[34578]\d{9}$/;
+    var value = e.target.value;
+    if (reg.test(value)) {
+      console.log('验证成功了');
+    } else {
+      console.log('验证失败了');
+    }
+  }
+
+  ipt.onkeyup = debounce(keyup, 1000);
+
+</script>
+</body>
+</html>

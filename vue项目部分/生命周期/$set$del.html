@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue生命周期</title>
+
+</head>
+<body>
+<div id="root">
+    <button @click="add">添加</button>
+    <button @click="update">修改</button>
+    <button @click="deleted">删除</button>
+    {{updata}}
+    {{address.name}}
+    {{address.city}}
+</div>
+<script src="libs/vue.min.js"></script>
+<script>
+    new Vue({
+        el: '#root',
+        data: {
+            updata: 1,
+            address: {
+                id: 1,
+                name: '武汉',
+            }
+        },
+        methods: {
+            // 添加
+            add() {
+                // set将city添加到vue的监控下，之后就可以直接操作对象属性修改值
+                this.$set(this.address, 'city', '江夏');
+            },
+            // 修改
+            update() {
+                this.address.city = '洪山';
+            },
+            // 删除
+            deleted() {
+                this.$delete(this.address, 'city');
+            }
+        },
+
+
+    })
+</script>
+</body>
+</html>

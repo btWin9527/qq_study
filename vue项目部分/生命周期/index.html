@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue生命周期</title>
+
+</head>
+<body>
+<div id="root">
+    {{updata}}
+    <button @click="updata++;">修改updata</button>
+    <button @click="destroyComponent">销毁组件</button>
+</div>
+<script src="libs/vue.min.js"></script>
+<script>
+    new Vue({
+        el: '#root',
+        data: {
+            updata: 1
+        },
+        methods: {
+            destroyComponent() {
+                this.$destroy();
+            }
+        },
+        beforeCreate() {
+            console.log('beforeCreated...');
+        },
+        created() {
+            console.log('created...');
+        },
+        mounted() {
+            console.log('mounted...');
+        },
+        beforeUpdate() {
+            console.log('beforeUpdate...');
+        },
+        updated() {
+            console.log('updated...');
+        },
+        beforeDestroy() {
+            console.log('beforeDestroy...');
+        },
+        destroyed() {
+            console.log('destroyed...');
+        }
+
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/login.css">
+    <title>登录</title>
+</head>
+<body id="body">
+<div class="login">
+    <!--  登录模块开始 -->
+    <div class="login-form">
+        <h3 class="form-title">用户登录</h3>
+        <form>
+            <div class="form-item">
+                <label for="j_loginUsername"
+                       class="form-item-label">
+                    用户名
+                </label>
+                <input type="text"
+                       class="form-item-inp"
+                       id="j_loginUsername"
+                       name="username"
+                       placeholder="请输入用户名">
+            </div>
+            <div class="form-item">
+                <label
+                    class="form-item-label"
+                    for="j_loginPassword">密码</label>
+                <input type="password"
+                       id="j_loginPassword"
+                       class="form-item-inp"
+                       name="password"
+                       placeholder="请输入密码">
+            </div>
+            <div class="form-item">
+                <button class="form-item-login"
+                        id="j_loginBtn"
+                        type="button">登录
+                </button>
+            </div>
+        </form>
+    </div>
+    <!--  登录模块结束 -->
+</div>
+
+
+<!-- 导入jquery -->
+<script src="./libs/jquery.min.js"></script>
+<!-- 导入公共域名 -->
+<script src="./js/config.js"></script>
+<!-- 导入登录功能js -->
+<script src="./js/login.js"></script>
+</body>
+</html>

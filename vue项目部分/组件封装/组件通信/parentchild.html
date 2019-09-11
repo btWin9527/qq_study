@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件通信</title>
+    <template id="myAddress">
+        <div>
+            <p>{{title}} --- {{msg}}</p>
+            <ul>
+                <li v-for="(v,i) in lists">{{v}}</li>
+            </ul>
+        </div>
+    </template>
+    <!-- 父组件模板 -->
+    <template id="myParent">
+        <div>
+            <h2>接收子数据</h2>
+            <h3>this is parent component: name:{{pname}} --- age:{{page}}</h3>
+            <my-child :page="page" :pname="pname" @e-child="getSubData"></my-child>
+            <h3>字传父的数据:{{childData.cname}} --- age: {{childData.cage}}</h3>
+        </div>
+    </template>
+    <!-- 子组件模板 -->
+    <template id="myChild">
+        <div>
+            <h2>pname{{pname}}--- page {{page}}</h2>
+            <h3>this is child component: name:{{cname}} --- age:{{cage}}</h3>
+            <button @click="sendMsg">发送数据给父组件</button>
+        </div>
+    </template>
+</head>
+<body>
+<div id="root">
+    <!-- 父传子 -->
+    <div>
+        <h2>父到子</h2>
+        <my-address :msg="msg"></my-address>
+    </div>
+    <!-- 子到父 -->
+    <div>
+        <h2>子到父亲</h2>
+        <my-parent></my-parent>
+
+    </div>
+
+</div>
+<script src="libs/vue.min.js"></script>
+<script>
+    window.onload = function () {
+        new Vue({
+            components: {
+                'my-address': {
+                    template: '#myAddress',
+                    data: function () {
+                        return {
+                            title: 'title',
+                            lists: [1, 2, 3, 4, 5],
+                        }
+                    },
+                    // 父组件属性传递到子组件上
+                    props: ['msg']
+                },
+                'my-parent': { // 父
+                    template: '#myParent',
+                    data() {
+                        return {
+                            pname: 'parent',
+                            page: 30,
+                            childData: {
+                                cname: '',
+                                cage: ''
+                            },
+                        }
+                    },
+                    components: {
+                        'my-child': { // 子
+                            template: '#myChild',
+                            props: ['pname', 'page'],
+                            data() {
+                                return {
+                                    cname: 'child',
+                                    cage: 20
+                                }
+                            },
+                            methods: {
+                                sendMsg() {
+                                    this.$emit('e-child', this.cname, this.cage);
+                                }
+                            },
+                        }
+                    },
+                    methods: {
+                        getSubData(val1, val2) {
+                            this.childData = {
+                                cname: val1,
+                                cage: val2
+                            }
+                        }
+                    }
+                }
+            },
+            el: '#root',
+            data: {
+                msg: 'msg'
+            },
+            methods: {}
+        })
+    }
+</script>
+</body>
+</html>

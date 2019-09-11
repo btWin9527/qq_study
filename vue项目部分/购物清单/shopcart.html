@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>艾梯哎--购物车扩展2--分页</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="axios.js"></script>
+    <script src="index.js"></script>
+    <style>
+      .table-striped .delbtn {
+        cursor: pointer;
+        background: #428bca;
+        border: none;
+      }
+      .table-striped .delbtn[disabled] {
+        cursor: default;
+        background: #999;
+        border: none;
+      }
+    </style>
+</head> 
+<body>
+    <div id="root">
+      <div class="panel panel-info" style="margin:20px;">
+         <!-- 头部 -->
+        <div class="panel-heading">
+            <h1 style="display: inline-block;">{{name}}购物清单列表</h1>
+            <span>清单总数
+              <span class="label label-warning" >{{lists.length}}</span>
+            </span>
+            <span>未采购数
+                <span class="label label-warning" >{{count}}</span>
+              </span>
+        </div>
+        <!-- 内容 -->
+        <div class="panel-body">
+            <div class="input-group">
+              <input class="form-control" type="text" v-model="text"/> 
+              <span class="input-group-btn">
+                <button class="btn btn-primary" v-on:click="add(text)">添加</button>
+              </span>
+            </div>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>清单名称</th>
+                  <th>已采购</th>
+                  <th>状态</th>
+                  <th>删除</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(item, index) in lists">
+                  <td>{{item.name}}</td>
+                  <td><input type="checkbox" v-model="item.state" @change="countList(item.state, index)"></td>
+                  <td>{{item.state | stateFilter}}</td>
+                  <td><button type="button" class="btn btn-danger btn-sm" v-on:click="del(index)">删除</button></td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+        <!--分页-->
+        <nav style="text-align:center;">
+          <ul class="pagination">
+            <!--上一页-->
+            <li :class="{disabled:curpage==1}" @click="curpage==1?null:queryList(curpage-1)">
+              <a href="javascript:void(0)" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+
+            <li :class="{active:v==curpage}" v-for="(v,i) in pagenum" @click="queryList(v)"><a href="javascript:void(0)">{{v}}</a></li>
+
+            <!--下一页-->
+            <li :class="{disabled:curpage==pagenum}" @click="curpage==pagenum?null:queryList(curpage+1)">
+              <a href="javascript:void(0)" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+           
+    </div>
+</body>
+</html>
