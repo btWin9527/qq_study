@@ -1,15 +1,71 @@
+/*  初始化样式开始 */
+table {
+    border-collapse: collapse;
+}
+
+/*  初始化样式结束 */
+
 /*  首页模块样式开始 */
 .home {
     position: relative;
     width: 100%;
     min-height: 100vh;
     height: 100vh;
-    background: url("../img/home.jpg") no-repeat;
-    background-position: center center;
-    background-size: auto;
-    background-attachment: fixed;
-    background-color: rgba(41, 50, 39, 1);
 }
+
 
 /*  首页模块样式结束 */
 
+/*  表格搜索模块样式开始 */
+.home-search {
+    display: flex;
+    justify-content: space-between;
+    width: 600px;
+    margin: 20px auto;
+}
+
+.home-search input,
+.home-search select {
+    padding: 4px;
+    box-sizing: border-box;
+}
+
+/*  表格搜索模块样式结束 */
+
+/*  表格模块样式开始 */
+.home-table {
+    width: 600px;
+    border: 1px solid #000;
+    margin: 10px auto;
+}
+
+.home-table caption {
+    font: bold 20px/1.4em 'Microsoft YaHei UI';
+}
+
+.home-table th,
+.home-table td {
+    border: 1px solid #000;
+    text-align: center;
+    padding: 4px 0;
+}
+
+.home-table thead tr {
+    background-color: #42aaaa;
+
+}
+
+.home-table tbody tr {
+    background-color: #428bca;
+    transition: background-color .3s;
+}
+
+.home-table tbody tr:nth-of-type(even) {
+    background-color: #70e7d1;
+}
+
+.home-table tbody tr:hover {
+    background-color: #eaffea;
+}
+
+/*  表格模块样式结束 */

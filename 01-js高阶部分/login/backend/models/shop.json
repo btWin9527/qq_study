@@ -1,0 +1,28 @@
+{
+  "0": {
+    "id": 1,
+    "shopName": "apple",
+    "shopType": "0",
+    "shopPrice": "123",
+    "shopCount": 10
+  },
+  "1": {
+    "id": 2,
+    "shopName": "pear",
+    "shopType": "1",
+    "shopPrice": "321",
+    "shopCount": 12
+  },
+  "2": {
+    "shopName": "pupor",
+    "shopType": "1",
+    "shopPrice": "123",
+    "shopCount": "100"
+  },
+  "3": {
+    "shopName": "puporss",
+    "shopType": "1",
+    "shopPrice": "123",
+    "shopCount": "100"
+  }
+}

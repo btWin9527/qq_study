@@ -74,4 +74,21 @@
     background-color: #f52b00;
 }
 
+.form-item .form-item-register {
+    vertical-align: middle;
+    background-color: #42b983;
+    border: 0;
+    line-height: 40px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    padding: 0 8px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.form-item .form-item-register:hover {
+    background-color: #42aaaa;
+}
+
 /*  登录模块样式结束 */

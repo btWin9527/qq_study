@@ -20,7 +20,7 @@ const login = {
             };
             Ajax(params).then((res) => {
                 const {code, msg} = res;
-                Number(code) === 200 ? $('#body').load('./home.html') : alert(msg);
+                Number(code) === 200 ? window.location = './home/index.html' : alert(msg);
             }, (err) => {
                 $('#body').html(err.responseText);
             })
@@ -40,19 +40,24 @@ const login = {
     }
 };
 
+/* 注册功能实现*/
+// todo: 注册功能待完成
+const register = {
+    init: function () {
+
+    },
+    bind: function () {
+
+    },
+};
+
+
 /**
  * @method Ajax     封装ajax
  * @param {Object}  {url,method,dataType,data}
  * @return {Promise} 返回promise对象，处理成功和失败回调
  */
-
-function Ajax(
-    {
-        url = null,
-        method = 'GET',
-        dataType = 'json',
-        data = {}
-    }) {
+function Ajax({url = null, method = 'GET', dataType = 'json', data = {}}) {
     return new Promise((resolve, reject) => {
         $.ajax({
             url,
@@ -61,7 +66,6 @@ function Ajax(
             data,
             success: function (res) {
                 resolve(res);
-
             },
             error: function (err) {
                 reject(err);

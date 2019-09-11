@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/home.css">
+    <title>首页</title>
+</head>
+<body>
+<div class="home">
+    <!--  商品搜索模块开始 -->
+    <!--  商品搜索模块结束 -->
+    <div class="home-search">
+        <div class="form-item">
+            <input type="number" placeholder="商品数量" min="0">
+        </div>
+        <div class="form-item">
+            <input type="text" placeholder="商品名称" maxlength="10">
+        </div>
+        <div class="form-item">
+            <select>
+                <option value="-1">--请选择商品类型--</option>
+                <option value="0">水果</option>
+                <option value="1">蔬菜</option>
+            </select>
+        </div>
+    </div>
+
+    <!--  商品数据模块开始 -->
+    <table class="home-table">
+        <caption>商品数据统计</caption>
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>商品名称</th>
+            <th>商品类型</th>
+            <th>商品单价</th>
+            <th>商品数量</th>
+        </tr>
+        </thead>
+        <tbody id="j_tbody">
+        <tr>
+            <td>1</td>
+            <td>水果</td>
+            <td>apple</td>
+            <td>1234</td>
+            <td>12</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>蔬菜</td>
+            <td>apple</td>
+            <td>1234</td>
+            <td>12</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>水果</td>
+            <td>apple</td>
+            <td>1234</td>
+            <td>12</td>
+        </tr>
+        </tbody>
+    </table>
+    <!--  商品数据模块结束 -->
+    <script src="../libs/jquery.min.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/home.js"></script>
+</div>
+</body>
+</html>
