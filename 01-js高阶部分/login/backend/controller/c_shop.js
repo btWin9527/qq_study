@@ -9,7 +9,6 @@ const m_shop = require('../models/m_shop');
  */
 
 exports.handleShopList = (req, res, next) => {
-    console.log('come')
     m_shop.getShopData((data) => {
         let responseData = {
             code: 200,
@@ -28,7 +27,6 @@ exports.handleShopList = (req, res, next) => {
 
 exports.handleShopDetail = (req, res, next) => {
     const id = req.params.id ? Number(req.params.id) : 0;
-    console.log(id,'detail')
     m_shop.getShopDetail(id, (data) => {
         let responseData = null;
         if (data) {
@@ -82,7 +80,7 @@ exports.handleShopAdd = (req, res, next) => {
  */
 exports.handleShopDel = (req, res, next) => {
     const delId = req.params.id;
-    console.log(delId,'delid')
+    console.log(delId, 'delid')
     m_shop.getShopDel(delId, (data) => {
         // 1:删除成功; 0:数据传入有误
         let responseData = null;

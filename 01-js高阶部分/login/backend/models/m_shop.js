@@ -46,10 +46,12 @@ exports.getShopAdd = async (addData, callback) => {
     const shopData = await getFileData();
     // filter判断商品名称是否重复
     let keysArr = Object.keys(shopData);
+    let keysArrLen = keysArr.length;
     let backShop = keysArr.filter((keys) => shopData[keys].shopName === addData.shopName);
     if (backShop.length !== 0) return callback(0);
-    // 重新写入文件
-    shopData[keysArr.length] = addData;
+    // 重新写入文件,添加的id值为当前数组长度+1
+    addData.id = keysArrLen + 1;
+    shopData[keysArrLen] = addData;
     fs.writeFile(file, JSON.stringify(shopData), (err) => {
         if (err) {
             throw err;
