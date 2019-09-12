@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>实现移动端适配</title>
+    <script src="./flexible.js"></script>
+    <link rel="stylesheet" href="./flexible.css">
+</head>
+
+<body>
+    <!-- 
+        素材：
+            1. 1080px设计稿
+            2. logo的尺寸为180px*180px
+            3. PC最小字体12px,移动端最小字体8px
+            4. 移动端适配参考文献
+            https://juejin.im/post/5b6502686fb9a04fc34c2dfe
+        需求：
+            1. 在移动端实现设计稿中logo的显示
+            2. 在375/360/320px屏幕下显示大小一致（及该屏幕下logo大小占整个屏幕宽度的百分比一样）
+            3. 在375,360,320下,logo显示大小分别为62.5px,60px,53.3333px
+            4. 文字rem问题（字体使用px）
+            5. 进一步适配其他移动端设备
+        
+     -->
+    <div class="logo"></div>
+</body>
+
+</html>
