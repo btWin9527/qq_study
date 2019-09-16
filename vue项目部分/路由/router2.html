@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>router</title>
+    <style>
+        .active {
+            color: #f60;
+        }
+    </style>
+    <template id="home">
+        <h1>Home</h1>
+    </template>
+    <template id="news">
+        <div>
+            <h1>news</h1>
+            <!-- 参数传递 -->
+            <router-link :to=`/news/login/${uname}/${pwd}`>登录</router-link>
+            <router-link :to=`/news/regist/${uname}/${pwd}`>注册</router-link>
+            <router-view></router-view>
+        </div>
+
+    </template>
+    <template id="login">
+        <h1>login</h1>
+    </template>
+    <template id="regist">
+        <h1>regist</h1>
+    </template>
+</head>
+
+<body>
+    <div id="root">
+        <!-- 
+            参数传递
+            路由跳转
+            子路由
+         -->
+        <div>
+            <router-link :to="{name: 'home'}">Home</router-link>
+            <router-link to="/news">
+                News
+            </router-link>
+            <!-- 路由输出显示 -->
+            <router-view></router-view>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.bootcss.com/vue-router/3.1.3/vue-router.min.js"></script>
+
+    <script>
+        window.onload = function () {
+            let Home = Vue.component('Home', {
+                template: '#home'
+            });
+            let News = Vue.component('News', {
+                template: '#news',
+                data() {
+                    return {
+                        uname: 'iti',
+                        pwd: '123'
+                    }
+                }
+            });
+            let Login = Vue.component('Login', {
+                template: '#login'
+            });
+            let Regist = Vue.component('Regist', {
+                template: '#regist'
+            });
+            let routes = [{
+                    name: 'home',
+                    path: '/home',
+                    component: Home
+                },
+                {
+                    name: 'news',
+                    // 动态路由
+                    path: '/news/',
+                    component: News,
+                    children: [{
+                            path: 'login/:uname/:pwd',
+                            component: Login
+                        },
+                        {
+                            path: 'regist/:uname/:pwd',
+                            component: Regist
+                        }
+                    ]
+                },
+                {
+                    path: '/*',
+                    redirect: '/home'
+                }
+            ];
+            let router = new VueRouter({
+                routes,
+                linkActiveClass: 'active' // 设置路由样式
+            });
+
+            new Vue({
+                el: '#root',
+                router,
+                data: {
+                    id: 100
+                },
+                methods: {
+
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>
