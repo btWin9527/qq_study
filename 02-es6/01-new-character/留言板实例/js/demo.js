@@ -2,8 +2,8 @@
  * @Description: leave message module
  * @Author: guoxiaoye
  * @Date: 2019-09-12 10:16:58
- * @LastEditTime: 2019-09-12 13:54:10
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2019-09-18 14:19:29
+ * @LastEditors: sueRimn
  */
 
 $(function () {
@@ -75,30 +75,31 @@ let leaveMessage = {
     map: new Map(),
 
     // 初始化方法
-    init: function () {
+    init() {
         this.bind();
     },
     // 点击事件
-    bind: function () {
+    bind() {
         // 箭头函数处理点击事件方法内部this指向
         $('.container .submit').on('click', () => {
-            let _name = $('.name').val(),
-                _msg = $('.message').val();
+            let [_name, _msg] = [$('.name').val(), $('.message').val()];
             // 校验输入是否为空
             if (!_name || !_msg) return alert('请输入信息');
-            this.map.set(_name, _msg);
+            // 通过时间戳来解决同一人多次发言信息覆盖问题
+            let time = new Date().getTime();
+            this.map.set(_name + '_' + time, _msg);
             // 清空输入信息
             $('.name , .message').val('');
             this.handleLeaveMessage();
         })
     },
     // 留言板逻辑
-    handleLeaveMessage: function () {
+    handleLeaveMessage() {
         let str = '';
         for (let [key, value] of this.map) {
             str += `
                       <li class="list-group-item">
-                      ${key}
+                      ${key.split('_')[0]}
                       <span>说：</span>
                       ${value}
                       </li>

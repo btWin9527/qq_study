@@ -1,0 +1,21 @@
+{
+  "name": "02-extension",
+  "version": "1.0.0",
+  "description": "",
+  "main": "01-数值扩展.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.6.0",
+    "@babel/core": "^7.6.0",
+    "@babel/preset-env": "^7.6.0"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.6.0",
+    "core-js": "^3.2.1"
+  }
+}
