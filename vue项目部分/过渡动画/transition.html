@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <title>transiton动画</title>
+    <style>
+        /* 进入动画 */
+        .fade-enter-active,
+        .fade-leave-active {
+            transition: all 1s;
+        }
+        .fade-enter {
+                width: 10px;
+                height: 10px;
+                opacity: 0;
+        }
+        .fade-leave {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="flag=!flag">动画{{flag?'隐藏':'显示'}}</button>
+        <!-- 组合animated.css动画库 -->
+        <!--     <transition enter-active-class="animated bounceOut" leave-active-class="animated fadeOutDownBig">
+            <div class="div1" v-show="flag">显示动画</div>
+        </transition> -->
+        <!-- 
+            vue自定义transition动画 
+            动画声明周期:
+            before-enter
+            enter
+            after-enter
+            before-leave
+            leave
+            after-leave
+        -->
+        <transition name="fade" @before-enter="beforeEnter">
+            <div class="div1" v-show="flag">显示动画</div>
+        </transition>
+    </div>
+    <script src="https://cdn.bootcss.com/vue/2.5.2/vue.min.js"></script>
+    <script>
+        window.onload = function () {
+            new Vue({
+                el: '#app',
+                data: {
+                    flag: false,
+                },
+                methods:{
+                    beforeEnter(){
+                        console.log('动画进入前');
+                        
+                    }
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>
