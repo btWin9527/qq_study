@@ -53,3 +53,15 @@ window.onload = function () {
       let [a, ...b, c] = [1, 2, 3, 4, 5]*/
 
 }
+
+/* 数组对象去重*/
+var arr = [{name: 1}, {name: 2}, {name: 2}];
+var temp = [{name: 1}];
+var n = 0;
+for (let i = 0; i <= arr.length - 1; i++) {
+    if (temp[n].name !== arr[i].name) {
+        n++;
+        temp.push(arr[i]);
+    }
+}
+
