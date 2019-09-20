@@ -1,4 +1,4 @@
-window.onload = function () {
+/*window.onload = function () {
     //扩展运算符    ...   将数组对象转为用逗号分隔的参数序列；
     //对象中扩展运算符的运用
     var obj = {a: 1, b: 2};
@@ -47,21 +47,44 @@ window.onload = function () {
 
     //扩展运算符和解构
     let [a, ...b] = [1, 2, 3, 4, 5];
-    /*  let [a, ...b] = ['a'];
+    /!*  let [a, ...b] = ['a'];
       //错误   注意  扩展运算会只能放在最后一位
       let [...a, b] = [1, 2, 3, 4, 5]
-      let [a, ...b, c] = [1, 2, 3, 4, 5]*/
+      let [a, ...b, c] = [1, 2, 3, 4, 5]*!/
 
-}
+}*/
 
-/* 数组对象去重*/
-var arr = [{name: 1}, {name: 2}, {name: 2}];
-var temp = [{name: 1}];
-var n = 0;
-for (let i = 0; i <= arr.length - 1; i++) {
-    if (temp[n].name !== arr[i].name) {
-        n++;
-        temp.push(arr[i]);
+/**
+ * 数组对象去重
+ * 原理：
+ * 定义临时数组,存储原数组的第一项;
+ * 通过双重for循环实现去重
+ *
+ */
+const arr = [
+    {name: 1, msg: '1'},
+    {name: 3, msg: '3'},
+    {name: 2, msg: '2'},
+    {name: 2, msg: '2'},
+    {name: 3, msg: '4'},
+];
+
+function arrayObj(arr, val, key) {
+    let temp = [val];
+    for (let i = 0; i < arr.length; i++) {
+        let n = 0;
+        for (let j = 0; j < temp.length; j++) {
+            if (arr[i][key] !== temp[j][key]) {
+                n++;
+            }
+            if (n === temp.length) {
+                temp.push(arr[i])
+            }
+        }
     }
+    return temp;
 }
+
+let newArr = arrayObj(arr, arr[0], 'name');
+console.log(newArr, 'newArr');
 
