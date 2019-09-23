@@ -40,14 +40,14 @@ exports.addMessage = (req, res, next) => {
     if (data) {
       responseData = {
         code: 0,
-        data: data,
-        message: '数据请求成功'
+        data: null,
+        message: '数据添加成功'
       };
     } else {
       responseData = {
         code: 1,
         data: null,
-        message: '数据请求失败'
+        message: '数据添加失败'
       };
     }
 
