@@ -1,76 +1,22 @@
-/*window.onload = function () {
-    //扩展运算符    ...   将数组对象转为用逗号分隔的参数序列；
-    //对象中扩展运算符的运用
-    var obj = {a: 1, b: 2};
-    var obj2 = {...obj}; ////深拷贝
-    //var obj2 = obj; //浅拷贝
-    obj.b = 100;
-    obj2
-    //es5
-    var obj3 = Object.assign({b: 10}, obj);  //合并对象   将源对象复制到目标对象 第一个参数是目标对象，第二参数源对象
-
-    var obj4 = {...obj, ...{b: 4}};
-    var obj4 = {...obj, b: 4}
-
-    //数组中运用
-    //es5
-//    function fun(v){
-//        var n = 0;
-//        for(var i of v){
-//            n+=i;
-//        }
-//        return n;
-//    };
-//es6
-    function fun(x, y) {
-        return x + y;
-    };
-    fun(...[2, 5])  //2,5
-
-    var arr1 = [1, 2, 3, 4];
-    var arr2 = [5, 6, 7];
-    //合并arr1,arr2;
-    arr1.push(...arr2)//[1,2,3,4,5,6,7]
-    arr1 = arr1.concat(arr2); //es5
-    //es6
-    var a = [...arr1, ...arr2];
-
-    //深拷贝  浅拷贝
-    var arr1 = [1, 2, 3, 4];
-    //var arr2 = arr1;  //浅拷贝
-    //var arr2 = arr1.concat();//深拷贝
-    //var arr2 = arr1.slice();//深拷贝
-    var arr2 = [...arr1];//深拷贝
-    arr1[2] = 100;
-    arr2;
-    var a = [...arr1, 'a', 'b', ...arr2];
-
-    //扩展运算符和解构
-    let [a, ...b] = [1, 2, 3, 4, 5];
-    /!*  let [a, ...b] = ['a'];
-      //错误   注意  扩展运算会只能放在最后一位
-      let [...a, b] = [1, 2, 3, 4, 5]
-      let [a, ...b, c] = [1, 2, 3, 4, 5]*!/
-
-}*/
 
 /**
  * 数组对象去重
- * 原理：
- * 定义临时数组,存储原数组的第一项;
- * 通过双重for循环实现去重
- *
  */
 const arr = [
     {name: 1, msg: '1'},
     {name: 3, msg: '3'},
     {name: 2, msg: '2'},
-    {name: 2, msg: '2'},
+    {name: 2, msg: '6'},
     {name: 3, msg: '4'},
 ];
 
-function arrayObj(arr, val, key) {
-    let temp = [val];
+/* 方法一：计数器原理
+ * 原理：
+ * 定义临时数组,存储原数组的第一项;
+ * 通过双重for循环实现去重
+* */
+function arrayFor(arr, key) {
+    let temp = [arr[0]];
     for (let i = 0; i < arr.length; i++) {
         let n = 0;
         for (let j = 0; j < temp.length; j++) {
@@ -85,6 +31,38 @@ function arrayObj(arr, val, key) {
     return temp;
 }
 
-let newArr = arrayObj(arr, arr[0], 'name');
-console.log(newArr, 'newArr');
+let newArr = arrayFor(arr, 'name');
+console.log(newArr, '数组对象去重方法一');
+
+/* 方法二：Map去重（Map中key是唯一的）*/
+
+function arrayMap(arr, key) {
+    let map = new Map();
+    arr.forEach((v, i) => {
+        // 若map中没有相同的name值，则向其中添加新值（减少map赋值次数）
+        if (!map.has(v[key])) map.set(v[key], v);
+    });
+    return [...map.values()];
+}
+
+let newArr2 = arrayMap(arr, 'name');
+console.log(newArr2, '数组对象去重方法二');
+
+/* 方法三：对象覆盖去重*/
+function arrayObj(arr, key) {
+    let obj = {}, result = [];
+    arr.forEach(v => {
+        obj[v[key]] = v;
+    });
+    // todo:展开运算符优化
+    for (let k in obj) {
+        result.push(obj[k])
+    }
+    return result
+}
+
+let newArr3 = arrayObj(arr, 'name');
+console.log(newArr3, '数组对象去重方法三');
+
+
 
