@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>国庆作业</title>
+    <style>
+        .select-li {
+            color: #f60;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!-- 所有好友 -->
+    <ul>
+        <li
+                :class="{
+                'select-li':v.selectState
+                }"
+                @click="handlerSelectUsers(v,i)"
+                v-for="(v,i) in allUsers"
+                :key="v.id">
+            {{v.selectState}}----
+            {{v.name}}({{v.qq}})
+        </li>
+    </ul>
+    <!-- 已选择好友 -->
+    <ul>
+        <li v-for="(v,i) in selectUsers" :key="v.id">
+            {{v.name}}({{v.qq}})
+            <span style="color:#f50" @click="removeSelect(v,i)">删除</span>
+        </li>
+    </ul>
+</div>
+<script src="./libs/vue.min.js"></script>
+<script>
+    var vum = new Vue({
+        el: '#app',
+        data: {
+            allUsers: [
+                {name: '陈奕迅', qq: '123456', id: 1},
+                {name: '李荣浩', qq: '12345678', id: 2},
+            ],
+            selectUsers: []
+        },
+        methods: {
+            // 数据过滤，添加选中状态
+            handlerData() {
+                this.allUsers.forEach(v => v.selectState = false)
+            },
+            // 处理点击联系用户
+            handlerSelectUsers(v, i) {
+                let isExitState = this.isExitArr(v, this.selectUsers);
+                if (isExitState === -1) {
+                    this.selectUsers.push(v);
+                }else{
+                    let idx = this.selectUsers.indexOf(v);
+                    this.selectUsers.splice(idx,1);
+                }
+                // 点击元素高亮显示
+                v.selectState = !v.selectState;// 修改点击状态
+                this.allUsers.splice(i, 1, v);
+                // todo:$set取消选中时，视图显示失败
+                // this.$set(this.allUsers[i], 'selectState', !v.selectState);
+            },
+            // 处理删除联系用户
+            removeSelect(v,i){
+                // 取消联系人中对应的选中状态
+                let idx = this.allUsers.indexOf(v);
+                v.selectState = !v.selectState;// 修改点击状态
+                this.allUsers.splice(i, 1, v);
+                this.selectUsers.splice(i,1);
+            },
+            // 判断元素在数组中是否存在
+            isExitArr(val, arr) {
+                return arr.findIndex(v => val === v);
+            },
+        },
+        created() {
+            this.handlerData();
+        }
+    })
+</script>
+</body>
+</html>
