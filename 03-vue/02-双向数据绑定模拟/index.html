@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<input type="text" id="input">
+输出：<h2 class="h2"></h2>
+<script>
+  /* 双向数据绑定原理*/
+  // 创建一个空对象
+  var obj2 = {};
+  // 在对象中添加一个属性与存取描述符
+  var a;
+  Object.defineProperty(obj2, 'name', {
+    get: function () {
+      return a
+    },
+    set: function (val) {
+      a = val;
+    }
+  })
+  document.querySelector('#input').onkeyup = function (e) {
+    obj2.name = e.target.value;// 将表单数据赋值给obj2.name
+    document.querySelector('.h2').innerHTML = obj2.name;// 再将表单输入结果复制给页面显示区域，实现双向绑定
+  }
+</script>
+</body>
+</html>
