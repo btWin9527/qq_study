@@ -9,9 +9,12 @@
 * npm i babel-cli babel-preset-env -D     (转换ex5)
 *  babel-cli
 * babel-preset-env
+* 1.【运行服务】
 * npm i babel-node    (运行项目)
-* 【运行服务】
+* 2. 【配置抽离】
 * npm i babel-plugin-add-module-exports -D      （添加export default 方法）
+* 3. 【输出日志】
+* npm i winston
 * */
 import path from 'path'; // node工具--路径
 import util from 'util';// node工具包
