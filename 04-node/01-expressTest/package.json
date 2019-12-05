@@ -1,0 +1,23 @@
+{
+  "name": "01-expressTest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "myexpress.js",
+  "dependencies": {
+    "babel-node": "0.0.1-security",
+    "cookie-parser": "^1.4.4",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "babel-node myexpress.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
