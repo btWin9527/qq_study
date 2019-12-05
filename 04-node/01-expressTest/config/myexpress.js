@@ -3,12 +3,12 @@
 * 依赖下载
 * npm i
 * express
-* body-parser
-* cookie-parser
-* express-session
+* body-parser       http请求body解析
+* cookie-parser     解析cookie
+* express-session   服务端session
 * npm i babel-cli babel-preset-env -D     (转换ex5)
-*  babel-cli
-* babel-preset-env
+*  babel-cli        babel转码
+* babel-preset-env  自动根据环境转码
 * 1.【运行服务】
 * npm i babel-node    (运行项目)
 * 2. 【配置抽离】
