@@ -15,6 +15,7 @@
 * npm i babel-plugin-add-module-exports -D      （添加export default 方法）
 * 3. 【输出日志】
 * npm i winston
+* 4. 【控制器--处理接口】
 * */
 import path from 'path'; // node工具--路径
 import util from 'util';// node工具包
@@ -39,18 +40,12 @@ export default () => {
   app.use(bodyParser.json());// 创建application/json解析
   app.use(bodyParser.urlencoded({extended: true}));// // req会有一个 body属性: req.body
 
-// get接口测试
-  app.get('/info', function (req, res) {
-    console.log(req.body, req.query, req.params);
-    let data = {
-      code: 200,
-      msg: 'success'
-    };
-    res.send(JSON.stringify(data));
-  });
   // 将异步方法变为Promise(app.listen是异步)
   // 将异步回调包装成promise 增加一个方法listenAsync
   app.listenAsync = util.promisify(app.listen);
+  // 路由
+  // process.cwd() === 得到当前程序执行的目录
+  require(process.cwd() + '/app/routes/user.route.js')(app);
   return app;
 }
 
