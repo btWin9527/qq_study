@@ -16,6 +16,8 @@
 * 3. 【输出日志】
 * npm i winston
 * 4. 【控制器--处理接口】
+* 5. 【安装sequelize框架链接数据库】
+* npm i sequelize -S
 * */
 import path from 'path'; // node工具--路径
 import util from 'util';// node工具包
