@@ -6,7 +6,8 @@ const config = {
   db: {// 数据库
     database: 'jindu_loan',
     username: 'root',
-    password: 'root',
+    // password: 'root',
+    password: '12345678',
     host: '127.0.0.1',
     port: 3306,
     timezone: '+08:00', //时区
