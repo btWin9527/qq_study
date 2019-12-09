@@ -12,13 +12,13 @@ const dbConfig = config.db;
 let sequelize;
 
 //连接数据库
-try {
-  sequelize = new Sequelize(dbConfig.database,
-    dbConfig.username, dbConfig.password, dbConfig);
-  logger.info('成功连接数据库...');
-} catch (e) {//捕获错误  保存在日志文件
-  logger.error('连接数据库失败: ', e);
-  throw e;
+try{
+    sequelize = new Sequelize(dbConfig.database, 
+      dbConfig.username, dbConfig.password, dbConfig);
+    logger.info('成功连接数据库...');
+} catch(e){//捕获错误  保存在日志文件
+    logger.error('连接数据库失败: ', e);
+    throw e;
 }
 
 //把生成的模型文件导入到sequelize中，然后模型就可以操作db

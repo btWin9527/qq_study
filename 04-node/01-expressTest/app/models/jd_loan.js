@@ -5,7 +5,8 @@ module.exports = function(sequelize, DataTypes) {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true
     },
     name: {
       type: DataTypes.STRING(50),
@@ -40,7 +41,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     phone: {
-      type: DataTypes.STRING(11),
+      type: DataTypes.STRING(10),
       allowNull: true
     },
     mobile_phone: {
@@ -113,8 +114,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     status: {
       type: DataTypes.INTEGER(2),
-      allowNull: true,
-      defaultValue: '0'
+      allowNull: true
     },
     creator: {
       type: DataTypes.STRING(10),
