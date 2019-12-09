@@ -9,6 +9,8 @@ export default function (app) {
   router.route('/user/login').post(userCtrl.login);
   // 获取用户信息
   router.route('/user/info').get(userCtrl.info);
+  // 获取所有用户信息
+  router.route('/user/list').get(userCtrl.list);
   // 给所有路由添加前缀
   app.use("/api", router);
 }

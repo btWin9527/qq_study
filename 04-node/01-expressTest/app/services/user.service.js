@@ -19,7 +19,7 @@ export function findUser(account, password) {
 }
 
 /**
- * @method 根据用户id查找角色
+ * @method findRoleByUId 根据用户id查找角色
  * @param {Number} uid 用户id
  * @return {Object} role 返回用户角色
  */
@@ -31,13 +31,24 @@ export async function findRoleByUId(uid) {
       user_id: uid
     }
   });
-  console.log(uid,'uid')
-  console.log(userRole,'userRole')
   //得到角色对象
   let role = await Role.findOne({
     where: {
-      id: userRole.role_id
+      id: userRole.role_id,
+      name: userRole.role_name,
     }
   });
   return role
+}
+
+/**
+ * @method findRoleByUId 获取所有用户信息 sql
+ * @return {Object} role 返回所有角色
+ */
+export async function findAll() {
+  // 将读取数据存入User,便于使用面向对象
+  let d = await models.sequelize.query(`SELECT u.account, u.password, u.reg_time, u.creator, r.role_name 
+            from jd_user u left join jd_user_role ur on u.id=ur.user_id 
+            left join jd_role r on r.id=ur.role_id order by u.id desc `, {model: User});
+  return d;
 }
