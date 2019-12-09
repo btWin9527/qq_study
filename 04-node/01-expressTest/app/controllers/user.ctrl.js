@@ -45,7 +45,23 @@ const operations = {
       LoanStatus.RESULT.data = d;
       res.status(200).json(LoanStatus.RESULT);
     })
-  }
+  },
+  // 用户列表分页查询
+  pageList: function (req, res) {
+    let {pageNo, pageSize,name} = req.query;
+    if (pageNo && pageSize) {
+      pageNo -= 1;
+      userService.findUserList(pageNo, pageSize,name)
+        .then((d) => {
+          LoanStatus.RESULT.data = d;
+          res.status(200).json(LoanStatus.RESULT);
+        })
+        .catch((msg) => {
+          console.log(msg)
+        })
+    }
+  },
+
 };
 
 export default operations;

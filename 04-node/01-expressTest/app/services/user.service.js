@@ -52,3 +52,53 @@ export async function findAll() {
             left join jd_role r on r.id=ur.role_id order by u.id desc `, {model: User});
   return d;
 }
+
+/**
+ * @method findUserList
+ * @param {Number} pageNo   页码
+ * @param {Number} pageSize 页数
+ * @param {String} name     用户名
+ * @return {Object} result  带分页的用户列表
+ */
+export async function findUserList(pageNo, pageSize, name) {
+  let limit = pageSize;
+  let offset = pageNo * pageSize;// pageNo 数据库偏移从0开始
+  let result = {};
+  if (name) {// 模糊查询
+    // 模糊查询数据
+    let d = await models.sequelize.query(`select * from jd_user where real_name like ? limit ${offset},${limit}`, {
+      replacements: ['%' + name + '%'],
+      model: User
+    })
+    result.data = d;
+    // 模糊查询总记录
+    let count = await models.sequelize
+      .query("select count(*) num from jd_user where real_name like ?",
+        {replacements: ['%' + name + '%']})
+    if (count) {
+      //总行数
+      result.rows = count[0][0].num;
+      //总页数
+      result.pages = Math.ceil(count[0][0].num / pageSize)
+    }
+  } else {
+    // 拿到一页数据
+    let d = await User.findAll({
+      limit: Number(limit),// pageSize
+      offset: Number(offset),// 从哪条数据开始读取
+      order: [[
+        "id", "DESC"
+      ]],// 排序类型
+    });
+    result.data = d;
+    let count = await models.sequelize.query("select count(*) num from jd_user")
+    if (count) {
+      // 总行数
+      result.rows = count[0][0].num;
+      // 总页数
+      result.pages = Math.ceil(count[0][0].num / pageSize);
+    }
+  }
+
+  return result
+}
