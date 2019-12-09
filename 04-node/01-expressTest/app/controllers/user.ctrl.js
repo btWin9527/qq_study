@@ -11,7 +11,7 @@ const operations = {
       .then((data) => {
         console.log(data);
         if (data) {
-          // req.session =
+          req.session = data;// 保存用户信息到session
           res.status(200).json(data);
         } else {
           res.status(404).send('读取数据失败');

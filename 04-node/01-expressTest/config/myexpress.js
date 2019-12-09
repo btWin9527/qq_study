@@ -23,6 +23,7 @@ import path from 'path'; // node工具--路径
 import util from 'util';// node工具包
 import express from 'express';
 import bodyParser from 'body-parser';
+import session from 'express-session'
 
 export default () => {
   let app = express();
@@ -41,6 +42,15 @@ export default () => {
 // 解析json,post
   app.use(bodyParser.json());// 创建application/json解析
   app.use(bodyParser.urlencoded({extended: true}));// // req会有一个 body属性: req.body
+  // session支持
+  app.use(session({
+    secret: 'secret',// 签名
+    resave: true,// 是否允许session重新设置
+    saveUninitialized: false,// 是否保存未初始化的数据
+    cookie: {
+      maxAge: 1000 * 60 * 30// session有效期
+    }
+  }));
 
   // 将异步方法变为Promise(app.listen是异步)
   // 将异步回调包装成promise 增加一个方法listenAsync
