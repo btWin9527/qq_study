@@ -41,16 +41,10 @@ const operations = {
   },
   // 得到所有用户和角色信息 -- 登录后访问
   list: function (req, res) {
-    // 判断是否有用户信息,且token匹配相同
-    if (req.session.userInfo && req.session.userInfo.token == req.headers['token']) {
-      return userService.findAll().then((d) => {
-        LoanStatus.RESULT.data = d;
-        res.status(200).json(LoanStatus.RESULT);
-      })
-    } else {
-      res.status(200).json({"msg": "请求错误"});
-    }
-
+    return userService.findAll().then((d) => {
+      LoanStatus.RESULT.data = d;
+      res.status(200).json(LoanStatus.RESULT);
+    })
   }
 };
 
