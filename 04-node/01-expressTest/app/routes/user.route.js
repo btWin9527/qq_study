@@ -13,6 +13,9 @@ export default function (app) {
   // 获取所有用户信息
   router.route('/user/list').get(userCtrl.list);
   router.route('/user/pageList').get(userCtrl.pageList);
+  router.route('/user/create').post(userCtrl.create);
+  router.route('/user/update').post(userCtrl.update);
+  router.route('/user/delete/:id').get(userCtrl.delete);
 
   // 拦截 OPTIONS ajax跨域
   let checkLogin = (req, res, next) => {

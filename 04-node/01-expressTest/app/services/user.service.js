@@ -1,8 +1,8 @@
 'use strict';
 import models from '../models'
 
-const User = models.jd_user;// 用户模型
-const Role = models.jd_role;  //角色模型
+const User = models.jd_user; // 用户模型
+const Role = models.jd_role; //角色模型
 const UserRole = models.jd_user_role; //用户角色关系
 /**
  * @method findUser 查找用户
@@ -10,8 +10,8 @@ const UserRole = models.jd_user_role; //用户角色关系
  * @param {*} password  密码
  */
 export function findUser(account, password) {
-  return User.findOne({// 查询一条数据,User模型对象自带方法
-    where: {// 查询条件 sql
+  return User.findOne({ // 查询一条数据,User模型对象自带方法
+    where: { // 查询条件 sql
       account,
       password,
     }
@@ -49,7 +49,9 @@ export async function findAll() {
   // 将读取数据存入User,便于使用面向对象
   let d = await models.sequelize.query(`SELECT u.account, u.password, u.reg_time, u.creator, r.role_name 
             from jd_user u left join jd_user_role ur on u.id=ur.user_id 
-            left join jd_role r on r.id=ur.role_id order by u.id desc `, {model: User});
+            left join jd_role r on r.id=ur.role_id order by u.id desc `, {
+    model: User
+  });
   return d;
 }
 
@@ -62,9 +64,9 @@ export async function findAll() {
  */
 export async function findUserList(pageNo, pageSize, name) {
   let limit = pageSize;
-  let offset = pageNo * pageSize;// pageNo 数据库偏移从0开始
+  let offset = pageNo * pageSize; // pageNo 数据库偏移从0开始
   let result = {};
-  if (name) {// 模糊查询
+  if (name) { // 模糊查询
     // 模糊查询数据
     let d = await models.sequelize.query(`select * from jd_user where real_name like ? limit ${offset},${limit}`, {
       replacements: ['%' + name + '%'],
@@ -73,8 +75,9 @@ export async function findUserList(pageNo, pageSize, name) {
     result.data = d;
     // 模糊查询总记录
     let count = await models.sequelize
-      .query("select count(*) num from jd_user where real_name like ?",
-        {replacements: ['%' + name + '%']})
+      .query("select count(*) num from jd_user where real_name like ?", {
+        replacements: ['%' + name + '%']
+      })
     if (count) {
       //总行数
       result.rows = count[0][0].num;
@@ -84,11 +87,13 @@ export async function findUserList(pageNo, pageSize, name) {
   } else {
     // 拿到一页数据
     let d = await User.findAll({
-      limit: Number(limit),// pageSize
-      offset: Number(offset),// 从哪条数据开始读取
-      order: [[
-        "id", "DESC"
-      ]],// 排序类型
+      limit: Number(limit), // pageSize
+      offset: Number(offset), // 从哪条数据开始读取
+      order: [
+        [
+          "id", "DESC"
+        ]
+      ], // 排序类型
     });
     result.data = d;
     let count = await models.sequelize.query("select count(*) num from jd_user")
@@ -101,4 +106,41 @@ export async function findUserList(pageNo, pageSize, name) {
   }
 
   return result
+}
+
+/* 
+  用户添加 user -- 表单
+*/
+
+export function createUser(user) {
+  // User -- 模型对象 create -- sequelize
+  return User.create(user);
+}
+
+/* 
+  用户修改 user -- 表单
+*/
+
+export function updateUser(user) {
+  if (user && user.id) {
+    return User.findByPk(user.id)
+      .then(u => {
+        u === User.findByPk
+        return u.update(user);
+      })
+  }
+}
+
+/* 
+  删除用户 user -- 表单
+*/
+
+export function deleteUser(id) {
+  if (id) {
+    return User.destroy({
+      where: {
+        id,
+      }
+    })
+  }
 }
