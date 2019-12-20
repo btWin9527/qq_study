@@ -31,3 +31,5 @@ optimize-css-assets-webpack-plugin
 
 4. 手动配置js压缩合并
 terser-webpack-plugin
+
+5. 小图片使用base64,大图片使用单独http请求
