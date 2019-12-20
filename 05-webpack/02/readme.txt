@@ -21,3 +21,13 @@ css-loader   装载css @import
 ['style-loader','css-loader']   执行顺序从右到左
 less    less-loader
 sass    node-sass sass-loader
+
+2. 把css文件合并
+mini-css-extract-plugin     (抽取css文件，引入到Html) -- 没有压缩css
+
+3. 压缩css
+optimize-css-assets-webpack-plugin
+【】指定optimization选项后,webpack默认js压缩合并取消
+
+4. 手动配置js压缩合并
+terser-webpack-plugin

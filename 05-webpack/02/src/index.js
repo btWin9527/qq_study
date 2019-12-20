@@ -1,3 +1,5 @@
+/* 入口文件*/
+
 let my = require('./my')
 
 console.log('hello1')
