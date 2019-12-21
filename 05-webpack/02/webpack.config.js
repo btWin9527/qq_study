@@ -53,7 +53,13 @@ module.exports = {
       },
       {
         test: /\.(jpg|png)$/,
-        use:'file-loader'
+        // use:'file-loader'
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 100 * 1024// 小于等于100kb使用base64转化
+          }
+        }
       }
     ]
   }

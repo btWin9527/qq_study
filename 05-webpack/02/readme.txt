@@ -33,3 +33,6 @@ optimize-css-assets-webpack-plugin
 terser-webpack-plugin
 
 5. 小图片使用base64,大图片使用单独http请求
+
+图片装载file-loader, 不能压缩base64
+把小图片压缩车base64,    url-loader
