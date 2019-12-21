@@ -3,6 +3,7 @@ let HtmlWebpackPlugin = require('html-webpack-plugin');
 let MiniCssExtractPlugin = require('mini-css-extract-plugin')
 let OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')
 let TerserWebpackPlugin = require('terser-webpack-plugin')
+let webpack = require('webpack')
 // nodejs模块化固定用法
 module.exports = {
   // 配置css,js压缩合并
@@ -39,10 +40,30 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "main.css"
     }),
-    // 压缩css
+    // 全局变量
+    new webpack.ProvidePlugin({
+      $: 'jquery'
+    })
   ],
   module: {
     rules: [
+      {
+        test: /\.js$/,
+        use: {
+          loader: "babel-loader",
+          // 可以配置options或者使用.babelrc配置babel
+          options: {
+            presets: ['@babel/preset-env'],
+            "plugins": [
+              ["@babel/plugin-proposal-class-properties", {"loose": true}]
+            ]
+          }
+        }
+      },
+      /*{
+        test: /\.(htm|html)$/i,
+        loader: 'html-withimg-loader'
+      },*/
       {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader']
@@ -53,13 +74,13 @@ module.exports = {
       },
       {
         test: /\.(jpg|png)$/,
-        // use:'file-loader'
-        use: {
-          loader: 'url-loader',
-          options: {
-            limit: 100 * 1024// 小于等于100kb使用base64转化
-          }
-        }
+        use: 'file-loader'
+        /* use: {
+           loader: 'url-loader',
+           options: {
+             limit: 100 * 1024// 小于等于100kb使用base64转化
+           }
+         }*/
       }
     ]
   }

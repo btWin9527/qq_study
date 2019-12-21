@@ -36,3 +36,12 @@ terser-webpack-plugin
 
 图片装载file-loader, 不能压缩base64
 把小图片压缩车base64,    url-loader
+
+6. 对于img元素处理, 需要html-withimg-loader 【todo:目前打包有bug待解决】
+
+7. webpack全局变量
+-- 类似jquery全局配置
+
+8. 解析es6代码
+npm i -D @babel/core @babel/preset-env @babel/plugin-proposal-class-properties babel-loader
+

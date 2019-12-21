@@ -17,3 +17,17 @@ console.log(a)
 let img = new Image();
 img.src = a;
 document.body.appendChild(img);
+// 全局变量测试
+console.log('jquery')
+console.dir($)
+
+// es6代码测试
+let fn = () => {
+  console.log('es6...')
+}
+fn();
+class Test{
+  name="abc"
+}
+let t = new Test();
+console.log(t.name,'es6的class测试')
