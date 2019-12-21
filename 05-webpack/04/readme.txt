@@ -70,4 +70,11 @@ devServer:{
 
 方法3： nodejs配置webpack-dev-middleware
 
+10. 区分不同开发环境
+-- 开发环境
 
+-- 测试环境
+
+-- 上线环境
+
+使用webpack-merge将基类文件与子类文件合并
