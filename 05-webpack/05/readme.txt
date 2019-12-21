@@ -80,3 +80,6 @@ devServer:{
 使用webpack-merge将基类文件与子类文件合并
 基类文件 webpack.base.js
 子类文件 webpack.dev.js   webpack.prod.js
+
+11. 多个html文件打包处理
+
