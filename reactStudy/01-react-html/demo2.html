@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>react-tab多选项切换</title>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link href="css/index.css" rel="stylesheet">
+  <script src="libs/react.development.js"></script>
+  <script src="libs/react-dom.development.js"></script>
+  <script type="text/javascript" src="libs/babel.min.js"></script>
+</head>
+<body>
+<div id="app"></div>
+
+<script type="text/babel">
+  window.onload = function () {
+
+    //组件
+    class Hello extends React.Component {
+      render() {
+        return <div>hello</div>
+      }
+    }
+
+    ReactDOM.render(
+      <Hello/>,
+      document.getElementById('app')
+    )
+    // class 定义类
+    // es5类
+    function Fun(x, y) {
+      this.x = x;
+      this.y = y;
+    }
+
+    Fun.prototype.active = function () {
+      return this.x;
+    }
+    var f = new Fun(10, 20);
+    f.active();
+
+    // es6
+    class Fun2 {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+      }
+
+      active() {
+        return this.x;
+      }
+    }
+
+    var f2 = new Fun2(10, 20);
+    f2.active();
+
+    /* 在b类中拿到a的值*/
+    class A {
+      constructor() {
+        this.a = 'a'
+      }
+    }
+
+    class B extends A {// extends继承
+      constructor() {
+        super();// 关键字  父类、子类继承的一种方式，调用父构造器
+        this.b = 'b'
+      }
+    }
+
+    var b = new B();
+    console.log(b.a);
+  }
+</script>
+
+</body>
+</html>

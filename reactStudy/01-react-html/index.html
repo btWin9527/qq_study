@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>react-tab多选项切换</title>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link href="css/index.css" rel="stylesheet">
+  <script src="libs/react.development.js"></script>
+  <script src="libs/react-dom.development.js"></script>
+  <script type="text/javascript" src="libs/babel.min.js"></script>
+</head>
+<body>
+<!--
+ 1、定义一个容器 用于存放虚拟DOM
+ -->
+<div id="app"></div>
+
+<script type="text/babel">
+  window.onload = function () {
+    /*   // 2、创建虚拟DOM  React.createElement(标签名称,属性,显示的内容)
+       // <h1 class="h1">hello</h1>
+       var li1 = React.createElement('li', {className: 'li'}, '12345');
+       var li2 = React.createElement('li', {className: 'li'}, '67890');
+       var _ul = React.createElement('ul', {className: 'ul'}, li1, li2);
+       var _p = <div className="div"><h1>hello</h1></div>;   //JSX
+       //3、渲染虚拟DOM  ReactDOM.render(元素，位置)
+       ReactDOM.render(
+         _p,
+         document.getElementById("app")
+       );*/
+
+    /* react组件*/
+    // jsx是js语法的扩展，用于将模板转为html -- 语法糖 （可直接写html）
+    // 【语法糖】指计算机语言中添加的某种语法，这种语法对语言的功能并没有影响，但是更方便程序员使用。通常来说使用语法糖能够增加程序的可读性，从而减少程序代码出错的机会
+    //组件   class 定义一个类
+    class Hello extends React.Component {
+      render() {
+        return <div>hello</div>
+      }
+    }
+
+    ReactDOM.render(
+      <Hello/>,
+      document.getElementById('app')
+    )
+  }
+</script>
+
+</body>
+</html>
