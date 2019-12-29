@@ -17,6 +17,28 @@
   window.onload = function () {
     /* 实现tab切换*/
 
+    // 内容区1 -- 组件名必须大写
+    class RegionOne extends React.Component {
+      constructor() {
+        super();
+      }
+      render() {
+        return (<div>内容区域1</div>)
+      }
+    }
+    // 处理组件切换
+    class Info extends React.Component {
+      constructor() {
+        super();
+      }
+      render(n) {
+        if(this.props.type==0){
+          return
+        }else{
+
+        }
+      }
+    }
     // react中没有指令,data没有;模板引擎使用{};有state -- 当前组件中数据的状态
     class Hello extends React.Component {
       // state初始化 -- 状态是组件的私有属性，不能外部访问和修改 state数据变化,重新调用render方法(组件重新渲染)
@@ -24,7 +46,23 @@
       constructor() {
         super();
         this.state = {// 状态初始化
-          n: 1
+          n: 0,
+          list: [
+            {
+              name: '女装/男装',
+              content: '内容1',
+            }, {
+              name: '酒类/生鲜',
+              content: '内容2'
+            }, {
+              name: '标题三',
+              content: '内容3'
+
+            }, {
+              name: '标题四',
+              content: '内容4'
+            }
+          ],
         }
       }
 
@@ -34,21 +72,28 @@
       }
 
       render() {
+        var n = this.state.n;
+        var list = this.state.list;
         return (<div id="layout">
           <div id="menu">
             <div className="menu-main">
-              <a className={this.state.n==1?'menu-selected':''} onClick={() => this.change(1)}>女装/男装</a>
-              <a className={this.state.n==2?'menu-selected':''} onClick={() => this.change(2)}>酒类/生鲜</a>
-              <a>酒类/生鲜</a>
-              <a>酒类/生鲜</a>
+              {
+                list.map((v, i) => {
+                  return (
+                    <a key={i}
+                       className={n == i ? 'menu-selected' : ''}
+                       onClick={() => this.change(i)}>
+                      {v.name}
+                    </a>
+                  )
+                })
+              }
             </div>
           </div>
           <div id="main">
             <div className="content">
               <h2>一个专门从事购物的网站</h2>
-              <div>
-                <p>内容1</p>
-              </div>
+              <div><Info type={n}></Info></div>
             </div>
           </div>
         </div>)
