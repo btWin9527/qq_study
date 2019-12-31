@@ -15,18 +15,14 @@
 
 <script type="text/babel">
   window.onload = function () {
-    /* 实现tab切换*/
-
-    // react中没有指令,data没有;模板引擎使用{};有state -- 当前组件中数据的状态
-    class Hello extends React.Component {
-
-      render() {
-
-      }
-    }
-
+    let arr = ['a', 'b', 'c'];
+    var list = arr.map(function (item, index) {
+      return <div key={index}>{item}</div>
+    });
     ReactDOM.render(
-      <Hello/>,
+      <div>
+        {list}
+      </div>,
       document.getElementById('app'))
   }
 </script>
