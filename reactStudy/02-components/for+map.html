@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>for+map</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="css/index.css" rel="stylesheet">
+    <script src="js/react.development.js"></script>
+    <script src="js/react-dom.development.js"></script>
+    <script type="text/javascript" src="js/babel.min.js"></script>
+  </head>
+  <body>
+     <div id="app"></div> 
+
+    <script type="text/babel">
+    window.onload = function(){
+      //组件   class 定义一个类
+      var arr = ['a','b','c','d'];
+     
+      //map写法
+      // ReactDOM.render(
+      //   <div>
+      //     {arr.map(function(item,index){
+      //         return <div key={index}>{item}</div>
+      //     })}
+      //   </div>,
+      //   document.getElementById("app")
+      // );
+        var list = arr.map(function(item,index){
+               return <div key={index}>{item}</div>
+           });
+      // ReactDOM.render(
+      //   <div>
+      //     {list}
+      //   </div>,
+      //   document.getElementById("app")
+      // );
+
+      //for写法
+        var f = [];
+        for(var i=0;i<arr.length;i++){
+          f.push(<div key={i}>{arr[i]}</div>)
+        };
+      ReactDOM.render(
+        <div>
+          {f}
+        </div>,
+        document.getElementById("app")
+      );
+
+      //数组写法
+      var arr2 = [<div key='1'>11</div>,<div key='2'>22</div>,<div key='2'>33</div>];
+      // ReactDOM.render(
+      //   <div>
+      //     {arr2}
+      //   </div>,
+      //   document.getElementById("app")
+      // );
+
+    }
+    </script>
+    
+  </body>
+</html>
+
