@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>react</title>
+  <meta charset="UTF-8"/>
+  <script src="js/react.development.js"></script>
+  <script src="js/react-dom.development.js"></script>
+  <script type="text/javascript" src="js/babel.min.js"></script>
+</head>
+<body>
+<div id="my"></div>
+
+<script type="text/babel">
+  window.onload = function () {
+    class Form extends React.Component {
+      constructor() {
+        super();
+        this.state = {
+          value: '123456',
+          male: 'man',
+          select: 'red',
+          select2: 'aaaa'
+        }
+      };
+
+      // event表示事件对象e
+      handleChange(event) {
+        let {target: {value}} = event;
+        this.setState({value});
+      }
+
+      handleRadio(event) {
+        let {target: {value}} = event;
+        this.setState({male: value});
+      }
+
+      handleSelect(event) {
+        let {target: {value}} = event;
+        this.setState({select2: value});
+      }
+
+      render() {
+        var arr = ['aaaa', 'bbbb', 'cccc', 'dddd'];
+        return (
+          <div>
+            {/*非约束性 value由原生的DOM管理的(defaultValue 相当于原生value属性，value值是用户输入的值）*/}
+            <input type="text" defaultValue='123'/>
+            {/*约束性  由react 管理了value（value不再是死值，this.state.value）*/}
+            <input type="text" value={this.state.value} onChange={(event) => {
+              this.handleChange(event)
+            }}/>
+            <p>{this.state.value}</p>
+            <div>
+              <input type="radio" name="radio" value='man'
+                     checked={this.state.male == 'man'}
+                     onChange={(event) => this.handleRadio(event)}/>男
+              <input type="radio" name="radio" value='woman'
+                     checked={this.state.male == 'woman'}
+                     onChange={(event) => this.handleRadio(event)}/>女
+            </div>
+            <div>
+              <select>
+                <option value="red">red</option>
+                <option value="green">green</option>
+                <option value="blue">blue</option>
+              </select>
+              <select onChange={(event) => this.handleSelect(event)}>
+                {arr.map((item, index) => <option value={item} key={index}>{item}</option>)}
+              </select>
+              {this.state.select2}
+            </div>
+            <button>提交</button>
+          </div>
+        )
+      }
+    };
+    ReactDOM.render(
+      <div>
+        <Form></Form>
+      </div>,
+      document.getElementById("my")
+    );
+  }
+
+</script>
+</body>
+</html>

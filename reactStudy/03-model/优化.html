@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>react</title>
+    <meta charset="UTF-8" />
+    <script src="js/react.development.js"></script>
+    <script src="js/react-dom.development.js"></script>
+    <script type="text/javascript" src="js/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="my"></div>
+
+    <script type="text/babel">
+    window.onload = function(){
+        class Form extends React.Component{
+          constructor(){
+            super();
+            this.state = {
+              name:'123456',
+              password:'',
+              address:''
+            }
+          };
+          handleChange(event){
+            var abc = event.target.name;
+            this.setState({
+              [abc]:event.target.value   
+            })
+          };
+          submit(){
+            console.log(this.state)
+          }
+          render(){
+            return (
+              <div>
+                <div>
+                  <label>姓名：</label>
+                  <input type="text" value={this.state.name} name="name"
+                          onChange={(event)=>this.handleChange(event)}/>
+                </div>
+                <div>
+                  <label>密码：</label>
+                  <input type="password" value={this.state.password}  name="password"
+                          onChange={(event)=>this.handleChange(event)}/>
+                </div>
+                <div>
+                  <label>地址：</label>
+                  <input type="text" value={this.state.address}  name="address"
+                        onChange={(event)=>this.handleChange(event)}/>
+                </div>
+                <button onClick={()=>this.submit()}>提交</button>
+              </div>
+            )
+          }
+        };
+        ReactDOM.render(
+          <div>
+            <Form></Form>
+          </div>,
+          document.getElementById("my")
+        );
+    }
+
+    </script>
+  </body>
+</html>

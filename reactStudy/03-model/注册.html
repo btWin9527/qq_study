@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>react</title>
+    <meta charset="UTF-8" />
+    <script src="js/react.development.js"></script>
+    <script src="js/react-dom.development.js"></script>
+    <script type="text/javascript" src="js/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="my"></div>
+
+    <script type="text/babel">
+    window.onload = function(){
+        class Register extends React.Component{
+          constructor(){
+            super();
+            this.state = {
+              name:'',
+              password:'',
+              phone:'',
+              select:'北京'
+            }
+          };
+          // handleChange2(e){
+          //   var value = e.target.value;
+          //   var filter = /^[\u4E00-\u9FA5]{2,4}$/;
+          //   var error = '';
+          //   if(!value){
+          //     error = '请输入姓名' ;
+          //   }else if(!filter.test(value)){
+          //     error = '输入的格式错误' ;
+          //   }else {
+          //     error = '' ;
+          //   };
+          //   this.setState({
+          //         name:event.target.value,
+          //         nameError:error   
+          //     })
+          // }
+          handleChange1(e){
+            var value = e.target.value;
+            var name = e.target.name;
+            var filter = new RegExp(e.target.getAttribute('filter'));  //可以是字符串
+            var error = '';
+            if(!value){
+              error = '请输入信息' ;
+            }else if(!filter.test(value)){
+              error = '输入的格式错误' ;
+            }else {
+              error = '' ;
+            };
+            this.setState({
+                  [name]:e.target.value,
+                  [name+'Error']:error   
+              })
+          }
+          handleChange(event){
+            var abc = event.target.name;
+            this.setState({
+              [abc]:event.target.value   
+            })
+          };
+          submit(){
+            var {name,password,phone,select} = this.state;
+            var data = {
+              name:name,
+              password:password,
+              phone:phone,
+              select:select
+            };
+            alert(JSON.stringify(data))
+          }
+          render(){
+            var arr = ['北京','上海','广东'];
+            return (
+              <div>
+                <div>
+                  <label>姓名：</label>
+                  <input type="text" value={this.state.name} 
+                          name="name"
+                          filter='^[\u4E00-\u9FA5]{2,4}$'
+                          onChange={(event)=>this.handleChange1(event)}/>
+                  <span>{this.state.nameError}</span>
+                </div>
+                <div>
+                  <label>密码：</label>
+                  <input type="password" value={this.state.password}  
+                          name="password"
+                          filter='^[a-zA-Z0-9]\w{5,17}$'
+                          onChange={(event)=>this.handleChange1(event)}/>
+                  <span>{this.state.passwordError}</span>
+                </div>
+                <div>
+                  <label>手机号</label>
+                  <input type="text" value={this.state.phone}  
+                        name="phone"
+                        filter='^(13[0-9]|14[1|5]|18[1|5|9])\d{8}$'
+                        onChange={(event)=>this.handleChange1(event)}/>
+                  <span>{this.state.phoneError}</span>
+                </div>
+                <select value={this.state.select} name='select' onChange={(event)=>this.handleChange(event)}>
+                    {
+                      arr.map(function(item,index){
+                        return <option key={index} value={item}>{item}</option>
+                      })
+                    }
+                  </select>
+                <button onClick={()=>this.submit()}>提交</button>
+              </div>
+            )
+          }
+        };
+        ReactDOM.render(
+          <div>
+            <Register></Register>
+          </div>,
+          document.getElementById("my")
+        );
+    }
+
+    </script>
+  </body>
+</html>

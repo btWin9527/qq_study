@@ -1,0 +1,7 @@
+表单
+约束性和非约束性组件（受限/非受限）
+约束性  由react 管理了value（value不再是死值，this.state.value）
+<input type="text" value={this.state.value} onChange={()=>this.handleChange()}/>
+
+非约束性 value由原生的DOM管理的(defaultValue 相当于原生value属性，value值是用户输入的值）
+<input type="text"  defaultValue="123" />
