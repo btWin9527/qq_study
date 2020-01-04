@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>react</title>
+  <meta charset="UTF-8"/>
+  <script src="js/react.development.js"></script>
+  <script src="js/react-dom.development.js"></script>
+  <script type="text/javascript" src="js/babel.min.js"></script>
+    <style>
+        .disabled {
+            background-color: #bce8f1;
+        }
+    </style>
+</head>
+
+<body>
+<div id="my"></div>
+
+<script type="text/babel">
+  window.onload = function () {
+    class Register extends React.Component {
+      constructor() {
+        super();
+        this.state = {
+          name: '',
+          password: '',
+          phone: '',
+          select: '男',
+          nameErr: '',
+          passwordErr: '',
+          phoneErr: ''
+        }
+      };
+
+      /**
+       * @method 方法名
+       * @param {Object} event 事件对象e
+       * @return {} 返回值说明
+       */
+      handleChange(event) {
+        /* 正则匹配校验信息*/
+        let key = event.target.name;
+        let value = event.target.value.trim();
+        let reg = new RegExp(event.target.getAttribute('filter'));
+        let errInfo = '';
+        if (!value) {
+          errInfo = '请输入信息';
+        } else {
+          if (!reg.test(value)) {
+            errInfo = '输入不符合规则';
+          }
+        }
+        this.setState({
+          [key]: event.target.value,
+          [key + 'Err']: errInfo
+        })
+      };
+
+      handleSelect(event) {
+        let {target: {value}} = event;
+        this.setState({select: value});
+      }
+
+      submit() {
+        console.log(this.state)
+      }
+
+      render() {
+        var arr = ['男', '女'];
+        return (
+          <div>
+            <div>
+              <label>姓名：</label>
+              <input type="text" value={this.state.name} name="name"
+                     filter="^[\u4E00-\u9FA5]{2,4}$"
+                     onChange={(event) => this.handleChange(event)}/>
+              <span>{this.state.nameErr}</span>
+            </div>
+            <div>
+              <label>密码：</label>
+              <input type="password" value={this.state.password} name="password"
+                     filter='^[a-zA-Z0-9]\w{5,17}$'
+                     onChange={(event) => this.handleChange(event)}/>
+              <span>{this.state.passwordErr}</span>
+            </div>
+            <div>
+              <label>手机号：</label>
+              <input type="text" value={this.state.phone} name="phone"
+                     filter='^(13[0-9]|14[1|5]|18[1|5|9])\d{8}$'
+                     onChange={(event) => this.handleChange(event)}/>
+              <span>{this.state.phoneErr}</span>
+            </div>
+            <select onChange={(event) => this.handleSelect(event)}>
+              {arr.map((item, index) => <option value={item} key={index}>{item}</option>)}
+            </select>
+            <button onClick={() => this.submit()}
+                    disabled={this.state.nameErr || this.state.passwordErr || this.state.phoneErr}
+                    className={this.state.nameErr || this.state.passwordErr || this.state.phoneErr?'disabled':'' }>
+                提交</button>
+          </div>
+        )
+      }
+    };
+    ReactDOM.render(
+      <div>
+        <Register/>
+      </div>,
+      document.getElementById("my")
+    );
+  }
+
+</script>
+</body>
+
+</html>
