@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>react</title>
+    <meta charset="UTF-8" />
+    <script src="js/react.development.js"></script>
+    <script src="js/react-dom.development.js"></script>
+    <script type="text/javascript" src="js/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="my"></div>
+
+    <script type="text/babel">
+    window.onload = function(){
+      //父组件
+        class ParentList extends React.Component{
+          constructor(){
+            super();
+            this.state = {
+              data:'parent'
+            }
+          };
+          handleChange(data){
+            this.setState({
+              data:data
+            })
+          }
+          render(){
+            return (
+              <div>
+                <h1>我是父组件</h1>
+                <ChildA  callbackParent={this.handleChange.bind(this)}/>
+                <ChildB data={this.state.data}/>
+              </div>
+            )
+          }
+        };
+        // ChildA组件
+        class ChildA extends React.Component{
+          constructor(){
+            super();
+            this.state = {
+              name:'ChildA'
+            }
+          };
+          render(){
+            return (
+              <div>
+                <h1>我是ChildA子组件</h1>
+                <p>A:{this.state.name}</p>
+                <button onClick={()=>this.props.callbackParent(this.state.name)}>click</button>
+              </div>
+            )
+          }
+        };
+        // ChildB组件
+        class ChildB extends React.Component{
+          constructor(){
+            super();
+            this.state = {
+            }
+          };
+          render(){
+            return (
+              <div>
+                <h1>我是ChildB子组件</h1>
+                <p>B:{this.props.data}</p>
+              </div>
+            )
+          }
+        };
+        ReactDOM.render(
+          <div>
+            <ParentList></ParentList>
+          </div>,
+          document.getElementById("my")
+        );
+    }
+
+    </script>
+  </body>
+</html>
