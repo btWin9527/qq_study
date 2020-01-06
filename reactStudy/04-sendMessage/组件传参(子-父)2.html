@@ -1,66 +1,72 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>react</title>
-    <meta charset="UTF-8" />
-    <script src="js/react.development.js"></script>
-    <script src="js/react-dom.development.js"></script>
-    <script type="text/javascript" src="js/babel.min.js"></script>
-  </head>
-  <body>
-    <div id="my"></div>
+<head>
+  <title>react</title>
+  <meta charset="UTF-8"/>
+  <script src="js/react.development.js"></script>
+  <script src="js/react-dom.development.js"></script>
+  <script type="text/javascript" src="js/babel.min.js"></script>
+</head>
+<body>
+<div id="my"></div>
 
-    <script type="text/babel">
-    window.onload = function(){
-      //父组件
-        class ParentList extends React.Component{
-          constructor(){
-            super();
-            this.state = {
-              check:true
-            }
-          };
-          handleChange(data){
-            console.log(data);
-            this.setState({
-              check:data
-            })
-          }
-          render(){
-            return (
-              <div>
-                <h1>父组件：{this.state.check ?'yes':'no'}</h1>
-                <ChildList {...this.state} callbackParent={this.handleChange.bind(this)}/>
-              </div>
-            )
-          }
-        };
-        // 子组件
-        class ChildList extends React.Component{
-          constructor(props){
-            super();
-            this.state = {
-              
-            }
-          };
-          render(){
-            return (
-              <div>
-                <h1>我是子组件</h1>
-                <input type="checkbox" checked={this.props.check} 
-                      onChange={()=>this.props.callbackParent(!this.props.check)}/>
-              </div>
-            )
-          }
-        };
-        ReactDOM.render(
+<script type="text/babel">
+  window.onload = function () {
+    /*
+    * 通过子组件触发的事件传递数据给父组件
+    * */
+
+    //父组件
+    class ParentList extends React.Component {
+      constructor() {
+        super();
+        this.state = {
+          check: true
+        }
+      };
+
+      handleChange(data) {
+        console.log(data);
+        this.setState({
+          check: data
+        })
+      }
+
+      render() {
+        return (
           <div>
-            <ParentList></ParentList>
-          </div>,
-          document.getElementById("my")
-        );
+            <h1>父组件：{this.state.check ? 'yes' : 'no'}</h1>
+            <ChildList {...this.state} callbackParent={this.handleChange.bind(this)}/>
+          </div>
+        )
+      }
     }
 
-    </script>
-  </body>
+    // 子组件
+    class ChildList extends React.Component {
+      constructor(props) {
+        super();
+        this.state = {}
+      };
+
+      render() {
+        return (
+          <div>
+            <h1>我是子组件</h1>
+            <input type="checkbox" checked={this.props.check}
+                   onChange={() => this.props.callbackParent(!this.props.check)}/>
+          </div>
+        )
+      }
+    };
+    ReactDOM.render(
+      <div>
+        <ParentList></ParentList>
+      </div>,
+      document.getElementById("my")
+    );
+  }
+
+</script>
+</body>
 </html>

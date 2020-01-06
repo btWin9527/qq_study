@@ -1,78 +1,87 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>react</title>
-    <meta charset="UTF-8" />
-    <script src="js/react.development.js"></script>
-    <script src="js/react-dom.development.js"></script>
-    <script type="text/javascript" src="js/babel.min.js"></script>
-  </head>
-  <body>
-    <div id="my"></div>
+<head>
+  <title>react</title>
+  <meta charset="UTF-8"/>
+  <script src="js/react.development.js"></script>
+  <script src="js/react-dom.development.js"></script>
+  <script type="text/javascript" src="js/babel.min.js"></script>
+</head>
+<body>
+<div id="my"></div>
 
-    <script type="text/babel">
-    window.onload = function(){
-      //父组件
-        class ParentList extends React.Component{
-          constructor(){
-            super();
-            this.state = {
-              name:'老张',
-              age:50
-            }
-          };
-          handleChange(e){
-            this.setState({age:e.target.value})
-          }
-          handleParend(child){
-            //alert(child);
-            this.setState({age:child})
-          }
-          render(){
-            return (
-              <div>
-                <h1>我是父组件</h1>
-                <p>姓名:{this.state.name}</p>
-                <p>年龄:{this.state.age}</p>
-                <input type="text" value={this.state.age} onChange={(event)=>this.handleChange(event)} />
-                <ChildList {...this.state} handleParent={this.handleParend.bind(this)}/>
-              </div>
-            )
-          }
-        };
-        // 子组件
-        class ChildList extends React.Component{
-          constructor(props){
-            super();
-            this.state = {
-              name:'小张',
-              age:props.age
-            }
-          };
-          handleChange(e){
-            this.setState({age:e.target.value});
-            this.props.handleParent(e.target.value);
-          }
-          render(){
-            return (
-              <div>
-                <h1>我是子组件</h1>
-                <p>爸爸的姓名:{this.props.name}</p>
-                <p>爸爸的年龄:{this.props.age}</p>
-                <p>我的年龄:{this.state.age}</p>
-                <input type="text" value={this.state.age} onChange={(event)=>this.handleChange(event)} />
-              </div>
-            )
-          }
-        };
-        ReactDOM.render(
+<script type="text/babel">
+  window.onload = function () {
+    //父组件
+    class ParentList extends React.Component {
+      constructor() {
+        super();
+        this.state = {
+          name: '老张',
+          age: 50
+        }
+      };
+
+      handleChange(e) {
+        this.setState({age: e.target.value})
+      }
+
+      handleParend(child) {
+        this.setState({age: child})
+      }
+
+      render() {
+        return (
           <div>
-            <ParentList></ParentList>
-          </div>,
-          document.getElementById("my")
-        );
-    }
+            <h1>我是父组件</h1>
+            <p>姓名:{this.state.name}</p>
+            <p>年龄:{this.state.age}</p>
+            <input type="text" value={this.state.age} onChange={(event) => this.handleChange(event)}/>
+            {/* 通过bind将父组件的this传递给子组件,保证子组件调用父组件方法时，内部this指针指向父组件*/}
+            <ChildList {...this.state} handleParent={this.handleParend.bind(this)}/>
+          </div>
+        )
+      }
+    };
 
-    </script>
-  </body>
+    // 子组件
+    class ChildList extends React.Component {
+      /* 通过props传递获取父组件的值*/
+      constructor(props) {
+        super();
+        this.state = {
+          name: '小张',
+          age: props.age
+        }
+      };
+
+      handleChange(e) {
+        this.setState({age: e.target.value});
+        // 通过props调用父组件的方法,将数据传递给父组件,再通过setState修改父组件中的数据
+        this.props.handleParent(e.target.value);
+      }
+
+      render() {
+        return (
+          <div>
+            <h1>我是子组件</h1>
+            <p>爸爸的姓名:{this.props.name}</p>
+            <p>爸爸的年龄:{this.props.age}</p>
+            <p>我的年龄:{this.state.age}</p>
+            {/*value只能为当前组件state中的值*/}
+            <input type="text" value={this.state.age} onChange={(event) => this.handleChange(event)}/>
+          </div>
+        )
+      }
+    };
+    ReactDOM.render(
+      <div>
+        <ParentList></ParentList>
+      </div>,
+      document.getElementById("my")
+    );
+  }
+
+</script>
+</body>
 </html>

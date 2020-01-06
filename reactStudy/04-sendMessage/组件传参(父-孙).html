@@ -1,77 +1,86 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>react</title>
-    <meta charset="UTF-8" />
-    <script src="js/react.development.js"></script>
-    <script src="js/react-dom.development.js"></script>
-    <script type="text/javascript" src="js/babel.min.js"></script>
-  </head>
-  <body>
-    <div id="my"></div>
+<head>
+  <title>react</title>
+  <meta charset="UTF-8"/>
+  <script src="js/react.development.js"></script>
+  <script src="js/react-dom.development.js"></script>
+  <script type="text/javascript" src="js/babel.min.js"></script>
+</head>
+<body>
+<div id="my"></div>
 
-    <script type="text/babel">
-    window.onload = function(){
-      //父组件
-        class ParentList extends React.Component{
-          constructor(){
-            super();
-            this.state = {
-              color:'red'
-            }
-          };
-          render(){
-            return (
-              <div>
-                {
-                  this.props.data.map((item,index)=>{
-                    return <ChildList  key={index} text={item.text} {...this.state}/>
-                  })
-                }
-              </div>
-            )
-          }
-        };
-        // 子组件
-        class ChildList extends React.Component{
-          constructor(){
-            super();
-            this.state = {
-              
-            }
-          };
-          render(){
-            return (
-              <div>
-                <input type="text" readOnly value={this.props.text} />
-                <SunList  text={this.props.text}  color={this.props.color}/>
-              </div>
-            )
-          }
-        };
-        // 孙组件
-        class SunList extends React.Component{
-          constructor(){
-            super();
-            this.state = {
-            }
-          };
-          render(){
-            return (
-              <div>
-                <button style={{'color':this.props.color}}>{this.props.text}</button>
-              </div>
-            )
-          }
-        };
-        ReactDOM.render(
+<script type="text/babel">
+  window.onload = function () {
+    /*
+    * 父组件传递数据到孙组件
+    * {...this.state}
+    * text={this.props.text}
+    * {this.props.text}
+    * */
+
+    //父组件
+    class ParentList extends React.Component {
+      constructor() {
+        super();
+        this.state = {
+          color: 'red'
+        }
+      };
+
+      render() {
+        return (
           <div>
-            <ParentList data={[{text:'hello',id:1},{text:'bbbb',id:2},{text:'cccc',id:3}]} />
-          </div>,
-          document.getElementById("my")
-        );
-    }
+            {
+              this.props.data.map((item, index) => {
+                return <ChildList key={index} text={item.text} {...this.state}/>
+              })
+            }
+          </div>
+        )
+      }
+    };
 
-    </script>
-  </body>
+    // 子组件
+    class ChildList extends React.Component {
+      constructor() {
+        super();
+        this.state = {}
+      };
+
+      render() {
+        return (
+          <div>
+            <input type="text" readOnly value={this.props.text}/>
+            <SunList text={this.props.text} color={this.props.color}/>
+          </div>
+        )
+      }
+    };
+
+    // 孙组件
+    class SunList extends React.Component {
+      constructor() {
+        super();
+        this.state = {}
+      };
+
+      render() {
+        return (
+          <div>
+            <button style={{'color': this.props.color}}>{this.props.text}</button>
+          </div>
+        )
+      }
+    };
+    ReactDOM.render(
+      <div>
+        <ParentList data={[{text: 'hello', id: 1}, {text: 'bbbb', id: 2}, {text: 'cccc', id: 3}]}/>
+      </div>,
+      document.getElementById("my")
+    );
+  }
+
+</script>
+</body>
 </html>

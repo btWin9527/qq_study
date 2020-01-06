@@ -1,64 +1,67 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>react</title>
-    <meta charset="UTF-8" />
-    <script src="js/react.development.js"></script>
-    <script src="js/react-dom.development.js"></script>
-    <script type="text/javascript" src="js/babel.min.js"></script>
-  </head>
-  <body>
-    <div id="my"></div>
+<head>
+  <title>react</title>
+  <meta charset="UTF-8"/>
+  <script src="js/react.development.js"></script>
+  <script src="js/react-dom.development.js"></script>
+  <script type="text/javascript" src="js/babel.min.js"></script>
+</head>
+<body>
+<div id="my"></div>
 
-    <script type="text/babel">
-    window.onload = function(){
-      //父组件
-        class ParentList extends React.Component{
-          constructor(){
-            super();
-            this.state = {
-              name:'老张',
-              age:50
-            }
-          };
-          render(){
-            return (
-              <div>
-                <h1>我是父组件</h1>
-                <p>姓名:{this.state.name}</p>
-                <p>年龄:{this.state.age}</p>
-                <ChildList {...this.state}/>
-              </div>
-            )
-          }
-        };
-        // 子组件
-        class ChildList extends React.Component{
-          constructor(){
-            super();
-            this.state = {
-              name:'小张',
-              age:20
-            }
-          };
-          render(){
-            return (
-              <div>
-                <h1>我是子组件</h1>
-                <p>爸爸的姓名:{this.props.name}</p>
-                <p>爸爸的年龄:{this.props.age}</p>
-              </div>
-            )
-          }
-        };
-        ReactDOM.render(
+<script type="text/babel">
+  window.onload = function () {
+    //父组件 -- 通过{...this.state}将父组件state中的数据全部传递给子组件
+    class ParentList extends React.Component {
+      constructor() {
+        super();
+        this.state = {
+          name: '父组件',
+          age: 50
+        }
+      };
+
+      render() {
+        return (
           <div>
-            <ParentList></ParentList>
-          </div>,
-          document.getElementById("my")
-        );
-    }
+            <h1>我是父组件</h1>
+            <p>姓名:{this.state.name}</p>
+            <p>年龄:{this.state.age}</p>
+            <ChildList {...this.state}/>
+          </div>
+        )
+      }
+    };
 
-    </script>
-  </body>
+    // 子组件 -- 通过this.props接受父组件的值
+    class ChildList extends React.Component {
+      constructor() {
+        super();
+        this.state = {
+          name: '子组件',
+          age: 20
+        }
+      };
+
+      render() {
+        return (
+          <div>
+            <h1>我是子组件</h1>
+            <p>爸爸的姓名:{this.props.name}</p>
+            <p>爸爸的年龄:{this.props.age}</p>
+          </div>
+        )
+      }
+    };
+    ReactDOM.render(
+      <div>
+        <ParentList></ParentList>
+      </div>,
+      document.getElementById("my")
+    );
+  }
+
+</script>
+</body>
 </html>
