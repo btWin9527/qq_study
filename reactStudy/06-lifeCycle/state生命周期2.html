@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>生命周期</title>
+  <meta charset="UTF-8"/>
+  <script src="js/react.development.js"></script>
+  <script src="js/react-dom.development.js"></script>
+  <script src="js/babel.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+
+<script type="text/babel">
+  class Hello extends React.Component {
+    constructor() {
+      super();
+      this.state = {
+        n: 1
+      };
+    };
+
+    shouldComponentUpdate(nextProps, nextState) {//
+      console.log('在组件接收到新的props或者state时被调用');
+      // 在render函数调用前判断 如果 state中的值不变  通过return false阻止render调用
+      return nextState.n != this.state.n // 通过return false阻止render调用
+    }
+
+    handleClick() {
+      this.setState({
+        n: 2
+      })
+    }
+
+    render() {
+      console.log('render');
+      return (
+        <div>
+          <button onClick={() => this.handleClick()}>{this.state.n}</button>
+        </div>
+      );
+    }
+  };
+  ReactDOM.render(
+    <Hello/>,
+    document.getElementById('example')
+  );
+</script>
+</body>
+</html>

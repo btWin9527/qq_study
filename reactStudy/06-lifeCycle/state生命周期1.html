@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>生命周期</title>
+  <meta charset="UTF-8"/>
+  <script src="js/react.development.js"></script>
+  <script src="js/react-dom.development.js"></script>
+  <script src="js/babel.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+
+<script type="text/babel">
+  class Hello extends React.Component {
+    constructor() {
+      super();
+      this.timer = null; //定时器属性值
+      this.state = {
+        opacity: 1
+      };
+    };
+
+    componentDidMount() {
+      console.log('组件完成挂载');
+      this.timer = setInterval(() => {
+        var o = this.state.opacity;
+        o -= 0.08;
+        if (o < 0.1) {
+          o = 1
+        }
+        this.setState({opacity: o})
+      }, 500)
+    };
+
+    /* 组件进行销毁 */
+    componentWillUnmount() {
+      console.log('在组件从 DOM 中移除的时候立刻被调用');
+      clearInterval(this.timer)
+    }
+
+    render() {
+      return (
+        <div>
+          <h1 style={{opacity: this.state.opacity}}>1233432432325</h1>
+
+        </div>
+      );
+    }
+  }
+
+  ReactDOM.render(
+    <Hello/>,
+    document.getElementById('example')
+  );
+</script>
+</body>
+</html>

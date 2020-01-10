@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>生命周期</title>
+  <meta charset="UTF-8"/>
+  <script src="js/react.development.js"></script>
+  <script src="js/react-dom.development.js"></script>
+  <script src="js/babel.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+
+<script type="text/babel">
+  class Hello extends React.Component {
+    constructor() {
+      super();
+      this.state = {
+        data: 0
+      };
+    };
+
+    setNum() {
+      this.setState({data: ++this.state.data})  //++在后 先赋值后加1，++在前，先加1再赋值
+    }
+
+    render() {
+      return (
+        <div>
+          <button onClick={() => this.setNum()}>ADD</button>
+          <p>{this.state.data}</p>
+          <Num myNum={this.state.data}/>
+        </div>
+      );
+    }
+  };
+
+  class Num extends React.Component {
+    componentWillMount() {
+      console.log('组件将要挂载');
+    };
+
+    componentDidMount() {
+      console.log('组件完成挂载');
+    };
+
+    componentWillUpdate() {
+      console.log('组件将要更新-在组件接收到新的props或者state但还没有render时被调用。在初始化时不会被调用。');
+    };
+
+    shouldComponentUpdate(nextProps, nextState) {
+      console.log('在组件接收到新的props或者state时被调用');
+      return true;// 通过返回值判断是否进行render()操作
+    }
+
+    componentDidUpdate() {
+      console.log('在组件完成更新后立即调用。在初始化时不会被调用');
+    }
+
+    render() {
+      console.log('render');
+      return (
+        <div>
+          <p>{this.props.myNum}</p>
+        </div>
+      );
+    }
+  };
+
+  ReactDOM.render(
+    <Hello/>,
+    document.getElementById('example')
+  );
+</script>
+</body>
+</html>

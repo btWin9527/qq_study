@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>金渡教育</title>
+  <link rel="stylesheet" type="text/css" href="css/common.css">
+  <link rel="stylesheet" href="font/iconfont.css">
+  <script src="js/react.development.js"></script>
+  <script src="js/react-dom.development.js"></script>
+  <script src="js/babel.min.js"></script>
+<body>
+<!--页面容器-->
+<div class="index-content" id="app"></div>
+<script type="text/babel">
+  /* 页面容器dom元素 */
+  let appDom = document.querySelector('#app');
+
+  /* 轮播图组件 */
+  class Banner extends React.Component {
+    constructor() {
+      super();
+      this.timer = null; //定时器属性值
+      this.state = {
+        n: 0,
+        images: [
+          "img/banner1.jpg",
+          "img/banner2.jpg",
+          "img/banner3.jpg",
+          "img/banner4.jpg",
+          "img/banner5.jpg"
+        ]
+      };
+    };
+
+    componentDidMount() {
+      console.log('组件完成挂载');
+      this.autoPlay()
+    };
+
+    /* 设置自动轮播 */
+    autoPlay() {
+      this.timer = setInterval(() => {
+        this.play()
+      }, 2000)
+    }
+
+    play() {
+      this.state.n++;
+      if (this.state.n == this.state.images.length) {// 重置轮播
+        this.state.n = 0;
+      }
+      this.setState({n: this.state.n})
+    }
+
+    /* 手动切换轮播图 */
+    curChange(i) {
+      this.setState({n: i})
+    }
+
+    /* 组件销毁先清除定时器 */
+    componentWillUnmount() {
+      console.log('在组件从 DOM 中移除的时候立刻被调用');
+      clearInterval(this.timer)
+    }
+
+    render() {
+      const {n, images} = this.state;
+      var img = images.map((item, index) => {
+        return <img key={index} src={item} style={{display: (index == n) ? 'block' : 'none'}}/>
+      });
+      var _li = images.map((item, index) => {
+        return <li key={index} className={index == n ? "selected" : ""} onClick={() => this.curChange(index)}></li>
+      });
+      return (
+        <div className="banner">
+          {img}
+          <div className="banner-circle">
+            <ul>
+              {_li}
+            </ul>
+          </div>
+        </div>
+      );
+    }
+  }
+
+  /* 分类tab组件 */
+  class Category extends React.Component {
+    constructor() {
+      super();
+      this.state = {
+        lists: [
+          {name: '在线咨询1', icon: 'icon-shenghuo', color: '#f60'},
+          {name: '在线咨询2', icon: 'icon-jiaoyu', color: '#fa69b9'},
+          {name: '在线咨询3', icon: 'icon-11', color: '#f00'},
+          {name: '在线咨询4', icon: 'icon-jiazheng', color: '#f60'},
+          {name: '在线咨询5', icon: 'icon-shenghuo', color: '#f60'},
+          {name: '在线咨询6', icon: 'icon-shenghuo', color: '#f60'}
+        ]
+      };
+    };
+
+    render() {
+      var list = this.state.lists.map((item, index) => {
+        return (
+          <div className="category" key={index}>
+            <i className={['iconfont' + ' ' + item.icon]} style={{background: item.color}}></i>
+            <label>{item.name}</label>
+          </div>
+        )
+      });
+      return (
+        <div className="index-category">
+          {list}
+        </div>
+      );
+    }
+  }
+
+  ReactDOM.render(
+    <div>
+      <Banner/>
+      <Category/>
+    </div>, appDom);
+</script>
+</body>
+</html>

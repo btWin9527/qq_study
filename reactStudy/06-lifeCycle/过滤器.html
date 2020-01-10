@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>过滤器</title>
+  <meta charset="UTF-8"/>
+  <script src="js/react.development.js"></script>
+  <script src="js/react-dom.development.js"></script>
+  <script src="js/babel.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+<script type="text/babel">
+  class Hello extends React.Component {
+    constructor() {
+      super();
+      this.state = {
+        value: ''
+      };
+    };
+
+    /* 通过方法调用，实现文本的格式化 */
+    action(n) {
+      if (n > 20) {
+        return '已经20喽'
+      } else {
+        return '还小'
+      }
+    }
+
+    action2(n) {
+      switch (n) {
+        case 1:
+          return '上线'
+        case 2:
+          return '离线'
+        default:
+          return n
+      }
+    }
+
+    action3(n) {
+      var d = new Date(n * 1000);
+      return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+    }
+
+    toShortShow(d, i) {
+      if (!d) return;
+      if (d.length > i) {
+        var s = d.substr(0, i);
+        return s + '...'
+      } else {
+        return d
+      }
+    }
+
+    handleChange(e) {
+      this.setState({
+        value: e.target.value
+      })
+    }
+
+    render() {
+      const user = {
+        name: 'abc',
+        age: 18,
+        n: 2,
+        date: '1577190576'
+      };
+      return (
+        <div>
+          <h1>{this.action(user.age)}</h1>
+          <h1>{this.action2(user.n)}</h1>
+          <h1>{this.action3(user.date)}</h1>
+          <input type="text" value={this.state.value} onChange={(e) => this.handleChange(e)}/>
+          <h1>{this.toShortShow(this.state.value, 5)}</h1>
+        </div>
+      );
+    }
+  };
+  ReactDOM.render(
+    <Hello/>,
+    document.getElementById('example')
+  );
+</script>
+</body>
+</html>
