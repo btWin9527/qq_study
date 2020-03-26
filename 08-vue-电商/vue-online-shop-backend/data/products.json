@@ -1,0 +1,13 @@
+{
+  "_id": {
+    "$oid": "5e194c1b2dfe031505deaf67"
+  },
+  "name": "iPhone",
+  "description": "iPhone是美国苹果公司研发的智能手机系列，搭载苹果公司研发的iOS操作系统",
+  "image": "https://i.gadgets360cdn.com/large/iPhone11_leak_1567592422045.jpg",
+  "price": 2000,
+  "manufacturer": {
+    "$oid": "5e194b192dfe031505deaf62"
+  },
+  "__v": 0
+}
