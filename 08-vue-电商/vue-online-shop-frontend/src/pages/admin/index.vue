@@ -10,6 +10,9 @@
             <li>
               <router-link to="/admin/new">New Products</router-link>
             </li>
+            <li>
+              <router-link to="/admin/products">Products</router-link>
+            </li>
           </ul>
         </div>
         <router-view></router-view>

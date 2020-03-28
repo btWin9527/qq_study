@@ -1,12 +1,15 @@
 <template>
   <div>
     <div class="title">
-      <h1>{{msg}}</h1>
+      <h1>In Stock</h1>
     </div>
+    <product-list></product-list>
   </div>
 </template>
 
 <script>
+  import ProductList from "@/components/products/ProductList";
+
   export default {
     name: 'home',
     data() {
@@ -14,6 +17,9 @@
         msg: 'Welcome to Your Vue.js App'
       }
     },
+    components: {
+      'product-list': ProductList,
+    }
   }
 </script>
 
