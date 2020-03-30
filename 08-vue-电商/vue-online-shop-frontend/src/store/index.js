@@ -65,7 +65,6 @@ export default new Vuex.Store({
     allProducts({commit}) {
       commit('ALL_PRODUCTS');
       axios.get(`${API_BASE}/products`).then(response => {
-        console.log('response', response)
         commit('ALL_PRODUCTS_SUCCESS', {
           products: response.data,
         })
