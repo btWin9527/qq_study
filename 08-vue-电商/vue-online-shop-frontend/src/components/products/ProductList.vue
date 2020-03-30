@@ -8,8 +8,8 @@
         <div :key="product._id" class="product">
           <p class="product__name">产品名称：{{product.name}}</p>
           <p class="product__description">介绍：{{product.description}}</p>
-          <p class="product__price">价格：{{product.manufacturer}}</p>
-          <p class="product__manufacturer">生产厂商：{{product.manufacturer}}</p>
+          <p class="product__price">价格：{{product.manufacturer.name}}</p>
+          <p class="product__manufacturer">生产厂商：{{product.manufacturer.name}}</p>
           <img :src="product.image" alt="" class="product__image">
           <button @click="addToCart(product)"></button>
         </div>
@@ -24,6 +24,11 @@
     computed: {
       products() {
         return this.$store.state.products;
+      }
+    },
+    created() {
+      if (this.products.length === 0) {
+        this.$store.dispatch('allProducts');
       }
     },
     methods: {
