@@ -20,6 +20,20 @@ export default new Vuex.Store({
     // all manufacturers
     manufacturers: [],
   },
+  getters: {
+    allProducts(state) {
+      // 返回本地中的数据
+      return state.products;
+    },
+    productById: (state, getters) => id => {
+      // 通过传入的id参数进行一系列操作并返回本地数据
+      if (getters.allProducts.length > 0) {
+        return getters.allProducts.filters(p => p._id == id)[0];
+      } else {
+        return state.product;
+      }
+    },
+  },
   mutations: {
     ADD_TO_CART(state, payload) {
       const {product} = payload;
@@ -36,6 +50,14 @@ export default new Vuex.Store({
       const {products} = payload;
       state.showLoader = false;
       state.products = products;
+    },
+    PRODUCT_BY_ID(state) {
+      state.showLoader = true;
+    },
+    PRODUCT_BY_ID_SUCCESS(state, payload) {
+      state.showLoader = false;
+      const {product} = payload;
+      state.product = product;
     }
   },
   actions: {
@@ -46,6 +68,16 @@ export default new Vuex.Store({
         console.log('response', response)
         commit('ALL_PRODUCTS_SUCCESS', {
           products: response.data,
+        })
+      })
+    },
+    // 通过id查询制造商
+    productById({commit}, payload) {
+      commit('PRODUCT_BY_ID');
+      const {productId} = payload;
+      axios.get(`${API_BASE}/products/${productId}`).then(response => {
+        commit('PRODUCT_BY_ID_SUCCESS', {
+          product: response.data,
         })
       })
     }

@@ -12,8 +12,7 @@
   export default {
     computed: {
       product() {
-        console.log(this.$store)
-        return this.$store.state.products[0];
+        return this.$store.getters.products[0];
       }
     },
   }

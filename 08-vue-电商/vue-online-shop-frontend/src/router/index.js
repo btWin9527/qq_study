@@ -21,18 +21,18 @@ export default new Router({
         {
           path: 'new',
           name: 'New',
-          component: ()=> import("_pages/admin/New")
+          component: () => import("_pages/admin/New")
         },
         // 编辑商品信息
         {
           path: 'edit/:id',
           name: 'Edit',
-          component: ()=> import("_pages/admin/Edit")
+          component: () => import("_pages/admin/Edit")
         },
         {
           path: 'products',
           name: 'Products',
-          component: ()=> import("_pages/admin/Products")
+          component: () => import("_pages/admin/Products")
         },
       ]
     },
@@ -42,5 +42,11 @@ export default new Router({
       name: 'Cart',
       component: () => import("_pages/Cart")
     },
+    // 产品详情
+    {
+      path: '/detail/:id',
+      name: 'Detail',
+      component: () => import("_pages/Detail")
+    }
   ]
 })
