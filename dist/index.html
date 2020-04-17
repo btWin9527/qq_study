@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<button id="whatsAppBtn" onclick="shareWhatApp()">whatsApp分享</button>
+<button id="telegramBtn" onclick="shareTelegram()">Telegram分享</button>
+<button id="facebookBtn" onclick="shareFacebook()">Facebook分享</button>
+<button id="twitterBtn" onclick="shareTwitter()">Twitter分享</button>
+<script>
+  var href_com = 'http://www.chendahai.cn/static/share/index.html';// 分享链接
+  var text_com = 'This is my plan,let\'s play together';// 分享标题
+
+  /* twitter分享 */
+  function shareTwitter() {
+    // twitter 分享链接
+    window.open(`https://twitter.com/share?text=${text_com}&url=${href_com}`, '_blank');
+  }
+
+  /* facebook分享 */
+  function shareFacebook() {
+    var u = href_com;
+    var t = text_com;
+    window.open("http://www.facebook.com/sharer.php?u=" + encodeURIComponent(u) + "&t=" + encodeURIComponent(t), "sharer");
+  }
+
+  /* whatsapp分享 */
+  function shareWhatApp(str) {
+    var u = href_com;
+    var t = text_com;
+    window.open("http://web.whatsapp.com/send?text=" + encodeURIComponent(t) + encodeURIComponent("nn" + u) + "&via=lopscoop");
+  }
+
+  function shareTelegram() {
+
+  }
+</script>
+</body>
+</html>
