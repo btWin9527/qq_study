@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+    .gxy-container {
+      max-width: 600px;
+    }
+
+    .gxy-article {
+      font-size: 16px;
+      line-height: 20px;
+      margin-bottom: 40px;
+    }
+
+    .gxy-box {
+      display: flex;
+      flex-wrap: wrap;
+      width: 500px;
+      border: 2px dotted rgb(96, 139, 168);
+    }
+
+    .gxy-box__item {
+      border: 2px solid rgb(96, 139, 168);
+      border-radius: 5px;
+      background-color: rgba(96, 139, 168, .2);
+      width: 200px;
+    }
+  </style>
+  <title>flex-wrap使用</title>
+</head>
+<body>
+<h3>flex-wrap使用</h3>
+<main class="gxy-container">
+  <article class="gxy-article">
+    为了实现多行效果，请为属性flex-wrap添加一个属性值wrap。 现在，如果您的项目太大而无法全部显示在一行中，则会换行显示
+  </article>
+  <div class="gxy-box">
+    <div class="gxy-box__item">One</div>
+    <div class="gxy-box__item">Two</div>
+    <div class="gxy-box__item">Three</div>
+  </div>
+</main>
+
+</body>
+</html>
