@@ -42,14 +42,15 @@ class FormComp extends Component {
     const area = Object.keys(options)
       .filter(i => options[i].selected === true)
       .map(i => options[i].value)
-    console.log(area,'area')
+    console.log(area, 'area')
     this.setState({area,})
   }
 
   render() {
-    const {radioValue, coffee,area} = this.state;
+    const {radioValue, coffee, area} = this.state;
     return (
       <div>
+        <h2>表单相关组件</h2>
         {/* 单选框 */}
         <div className="item-container">
           <h3>单选框：</h3>
@@ -122,6 +123,7 @@ class FormComp extends Component {
             <option value="hangzhou">杭州</option>
           </select>
         </div>
+        <hr/>
       </div>
     )
   }
