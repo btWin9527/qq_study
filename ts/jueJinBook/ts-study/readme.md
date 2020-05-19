@@ -233,3 +233,105 @@ let x: [string,number];
     }
     console.log(Month.isSummer(Month.January)); // false
 ```
+
+### 2.4 接口(interface)
+
+> 接口一般用于描述一种非基本类型的其它自定义类型
+
+```ts
+    // ?: 表示可选属性, readonly表示只读属性
+    interface User {
+        name: string;
+        age?: number;
+       readonly isMale: boolean;
+       say: (words:string)=>string;
+    }
+
+    const getUserName = (user:User) => user.name
+
+    // 属性检查
+    interface Config {
+        width?: number;
+    }
+    function CalculateAreas(config:Config):{area:number} {
+      let square = 100;
+      if(config.width) {
+        square = config.width * config.width;  
+      }
+        return {area: square};
+    }
+    let mySquare = CalculateAreas({width:5});
+    
+    // 可索引类型 (可索引类型具有一个索引签名，它描述了对象索引的类型，还有相应的索引返回值类型)
+    interface Phone {
+        [name: string]:string
+    }
+    interface User {
+        name: string;
+        age?: number;
+        readonly isMale: boolean;
+        say: () => string;
+        phone: Phone;
+    }
+    
+    // 继承接口
+    interface VIPUser extends User {
+        broadcast: () => void
+    }
+   /*
+    // 继承多个接口
+    interface VIPUser extends User, SupperUser{
+        broadcast: () => void
+    }
+   */
+```
+
+### 2.5 类(Class)
+
+> es6已经有class出现
+
+```ts
+// 抽象类 (abstract 关键字是用于定义抽象类和在抽象类内部定义抽象方法)
+    abstract class Animal {
+        abstract makeSound(): void;
+        move(): void {
+            console.log('roaming the earch ...');    
+    }
+   }
+// 访问限定符 (public/ private/ protected)
+    // 在ts中，成员默认为public,此成员是可以被外部访问
+    class Car {
+        public run() {
+            console.log('启动...')  
+      }
+        private test: 'test';
+        protected newWords: 'words';
+    }
+    const car = new Car();
+    car.run(); // 启动...
+    // private : 只能被类的内部访问
+    // car.test; 
+
+    // protected: 只可以被类的内部及类的子类访问
+    class GTR extends Car {
+        init() {
+            console.log(this.newWords);
+        }
+    }
+    const gtr = new GTR();
+    gtr.init(); // words
+
+// class 可以作为接口
+    export default class Props {
+        public children: Array<React.ReactElement<any>> | React.ReactElement<any> | never = [];
+        public speed: number = 500;
+        public height: number = 160;
+        public animation: string = 'eseInOutQuad';
+        public isAuto: boolean = true;
+        public autoPlayInterval: number = 4500;
+        public afterChange: ()=>{};
+        public beforeChange: ()=>{};
+        public selectedColor: string;
+        public showDots: boolean = true;
+    }
+```
