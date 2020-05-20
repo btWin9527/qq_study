@@ -335,3 +335,143 @@ let x: [string,number];
         public showDots: boolean = true;
     }
 ```
+
+### 2.6 函数
+
+```ts
+// 可选参数 - (一个函数的参数可能不存在，需要使用可选参数定义)
+const add = (a:number, b?:number)=> a + (b ? b : 0);
+
+// 默认参数 - (在参数后赋值)
+const addTwo = (a:number, b = 10) => a + b;
+
+// 剩余参数 - (...表示剩余参数, 而剩余参数rest则是一个由number组成的数组, 在本函数中用reduce进行累加求和)
+/*
+    reduce()方法介绍: 
+    arr.reduce(callback, [initialValue]);
+    参数介绍：
+        - callback:函数中包含4个参数
+            - previousValue (上一次调用回调返回的值, 或者是提供的初始值(initialValue))
+            - currentValue ( 数组中当前被处理的元素)
+            - index ( 当前元素在数组中的索引 )
+            - array ( 调用的数组 )
+        - initialValue (作为第一次调用callback的第一个参数)
+    example1:
+    const arr = [1, 2, 3, 4, 5];
+    const sum = arr.reduce((pre,item)=>{ return pre + item; },0); // 15    
+    example2: (计算一个字符串中每个字符出现的次数)
+    const str = 'jsadsdfsa';
+    const obj = str.split('').reduce((pre,item)=>{
+        return pre[item]? pre[item]++ : pre[item] = 1;
+    },{});
+*/
+const addThird = (a: number, ...rest: number[]) => rest.reduce((a,b)=> a + b,a);
+
+// 重载 (Overload)
+// 传入三个参数会报错
+function assigned(a: number, b?:number, c?: number, d?: any) {
+    if(b === undefined && c === undefined && d === undefined){
+        b = c = d = a;
+    }else if(c === undefined && d === undefined){
+        c = a;
+        d = b;
+    }
+    return {
+        top: a,
+        right: b,
+        bottom: c,  
+        left: d 
+   }
+}
+// 为了解决上面问题，函数重载出现 -- 用同样的函数名声明参数分别为1、2、4情况下
+interface Direction {
+  top: number,
+  bottom?: number,
+  left?: number,
+  right?: number
+}
+function assigned(all: number): Direction
+function assigned(topAndBottom: number, leftAndRight: number): Direction
+function assigned(top: number, right: number, bottom: number, left: number): Direction
+
+function assigned(a: number, b?: number,c?: number, d?: number ){
+    if(b === undefined && c === undefined && d === undefined){
+        b = c = d = a;
+    } else if (c === undefined && d === undefined){
+        c = a;
+        d = b;
+    }
+    return {
+        top: a,
+        right: b,
+        bottom: c,
+        left: d
+    }
+}
+assigned(1)
+assigned(1,2)
+assigned(1,2,3)
+assigned(1,2,3,4)
+```
+
+### 2.7 泛型(generic) -- (灵活，可复用)
+
+```ts
+function returnItem(para: number): number {
+   return para
+}
+
+// 情景：出现和上述函数一致的函数，只是传入参数类型不同，则需要使用泛型（一个变量：代表传入的类型，然后再返回这个变量，只用于表示类型而不是数值）
+function returnItem<T>(para: T): T {
+  return para;
+}
+
+// 多个类型参数
+function swap<T,U>(tuple:[T, U]): [U, T] {
+  return [tuple[1], tuple[0]];
+}
+
+swap([7, 'seven']); // ['seven', 7]
+
+// 泛型变量
+// 场景：函数接收一个数组,如何把数组的长度打印出来，最后返回这个数组
+function getArrayLength<T>(arg: Array<T>) {
+  console.log((arg as Array<any>).length)
+  return arg
+}
+// 泛型接口
+interface ReturnItemFn<T> {
+  (para: T): T
+}
+const returnItemTwo: ReturnItemFn<number>= para => para;
+
+// 泛型类
+// 需求：写一个栈的数据结构 (简化版)
+class Stake<T> {
+    private arr: T[] = [];
+    public push(item: T) {
+        this.arr.push(item);
+    }
+    public pop() {
+        this.arr.pop();
+    }
+}
+// 泛型约束
+// Params类型表示是number 或 string其中之一
+type Params = number | string;
+class Stack<T extends Params> {
+    private arr: T[] = [];
+    public push(item: T) {
+        this.arr.push(item);
+    }
+    public pop() {
+        thia.arr.pop();
+    }
+}
+const stack1 = new Stack<number>()
+const stack2 = new Stack<boolean>()
+
+// 泛型约束与索引类型
+
+```
+
