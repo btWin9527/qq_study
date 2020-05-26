@@ -472,6 +472,150 @@ const stack1 = new Stack<number>()
 const stack2 = new Stack<boolean>()
 
 // 泛型约束与索引类型
+// 需求：设计一个函数，函数接收两个参数，一个是对象，另一是对象上的属性，返回该对象的该属性值
+// 对obj和key进行约束，约束key只存在于obj属性的类型，索引类型实现<U extends keyof T>
+function getValue<T extends object, U extends keyof T>(obj:T,key:U) {
+  return obj[key];
+}
+// 需求： 约束我们的泛型，只被允许实现以下两个接口类型
+// 使用交叉类型进行多类型约束
+interface FirstInterface {
+    doSomething(): number
+}
+interface SecondInterface {
+  doSomethingElse(): string
+}
+class Demo<T extends FirstInterface & SecondInterface> {
+    private genericProperty: T
+    useT() {
+        this.genericProperty.doSomething()
+        this.genericProperty.doSomethingElse()
+    }
+}
+
+// 泛型与new
+// 需求： 声明一个泛型，拥有构造函数
+function factory<T>(type:{new():T}):T { // {new():T} 表示type是可被构造的
+  return new type();
+}
+```
+
+## 3. 类型应用
+
+### 3.1 类型断言与类型守卫
+
+```ts
+// 1. 类型断言(少用)
+// 需求：定义对象，为对象赋值
+interface Person {
+  name: string;
+  age: number;
+}
+const person = {} as Person;
+person.name = 'xiaomuzhu';
+person.age = 20;
+// 2. 类型守卫
+// instanceof
+class Person {
+    name = 'xiaomuzhu';
+    age = 20;
+}
+class Animal {
+    name = 'petty';
+    color = 'pink';
+}
+function getSomething(arg: Person | Animal) {
+  // 类型细化判断
+    if(arg instanceof Person){
+        // console.log(arg.color); // err
+        console.log(arg.age);
+    }
+    if(arg instanceof Animal) {
+        // console.log(arg.age); // err
+        console.log(arg.color); 
+    }
+}
+// in -- (x in y 表示x属性在y中存在)
+/*
+    上面判断修改为：
+    'age' in arg
+    'color' in arg
+*/
+// 字面量类型守卫(**)
+type Foo = {
+    kind: 'foo'; // 字面量类型
+    foo: number;
+};
+type Bar = {
+    kind: 'foo'; // 字面量类型
+    bar: number;
+};
+function doStuff(arg: Foo | Bar) {
+     if(arg.kind === 'foo'){
+  
+    }else{
+    
+    }
+}
 
 ```
 
+### 3.2 类型兼容性
+
+> 类型兼容性用户确定一个类型是否能赋值给其他类型
+
+```ts
+// 1. 结构类型
+// 结构类型的规则： 若x要兼容y, 则y至少具有x相同的属性
+class Person {
+    constructor(public weight: number, public name: string, public born: string) {
+    
+    }
+}
+interface Dog {
+  name: string,
+  weight: number
+}
+let x: Dog;
+x = new Person(120,'cxk','1996-12-12');
+
+// 2. 函数类型
+// 函数类型规则：看x是否能赋值给y, 首先看他们的参数列表
+// x的每个参数必须能在y里找到对应类型的参数，注意的是参数的名字相同与否无所谓，只看它们的类型
+
+let x2 = (a: number) => 0;
+let y2 = (b:number, s: number) => 0;
+y2 = x2; 
+
+// 3. 枚举的类型 
+enum Status {
+    Ready,
+    Waiting
+}
+let status = Status.Ready;
+let num = 0;
+status = num;
+num = status;
+
+// 4. 类的类型兼容
+class Animal {
+    feet: number;
+    constructor(name: string, numFeet: number){}
+}
+class Size {
+    feet: number;
+    constructor(meters: number) {}
+}
+let a: Animal;
+let s: Size;
+a = s;
+s = a;
+
+```
+
+### 3.3 高级类型
+
+```ts
+// 1. 交叉类型
+
+```
