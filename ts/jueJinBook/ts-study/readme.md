@@ -617,5 +617,264 @@ s = a;
 
 ```ts
 // 1. 交叉类型
+// 从两个对象中创建一个新对象，新对象拥有两个对象所有的功能
+interface IAnyObject {
+  [prop:string]: any
+}
 
+function mixin <T extends IAnyObject, U extends IAnyObject>(first: T, second: U): T & U {
+  const result = <T & U>{};
+  for(let id in first){
+      (<T>result)[id] = first[id];
+    }
+  for(let id in second){
+    if(!result.hasOwnProperty(id)){
+        (<U>result)[id] = second[id];
+      }
+    }
+  return result;
+}
+
+const x = mixin({a: 'hello'}, {b: 42});
+// 现在x拥有a属性与b属性
+const a = x.a;
+const b = x.b;
+
+// 2. 联合类型
+function formatCommandline(command:string[]|string) {
+  let line = '';
+  if(typeof command === 'string'){
+    line = command.trim();
+  }else {
+    line = command.join(' ').trim();
+  }
+}
+
+// 3. 类型别名
+type some = boolean | string;
+const b2: some = true;
+const c2: some = 'hello';
+// const d2: some = 123;
+type Container<T> = {value: T};
+type Tree<T> = {
+    value: T;
+    left: Tree<T>;
+    right: Tree<T>;
+}
+
+type Alias = {num: number};
+interface Interface {
+  num: number;
+}
+declare function aliased(arg: Alias): Alias;
+declare function interfaced(arg: Interface): Interface;
+```
+
+### 3.4 可辨识联合类型
+```ts
+// 1. 字面量类型(真值字面量类型,数字字面量类型,枚举字面量类型,大整数字面量类型,字符串字面量类型)
+const a: 2344 = 2344; 
+type Direction = 'North' | 'East' | 'South' | 'West';
+function move(distance: number, direction:Direction) {
+  // ...
+}
+// 2. 类型字面量
+type Foo = {
+    baz: [
+        number,
+        'xiaomuzhu'
+    ];
+    toString(): string;
+    readonly [Symbol.iterator]: 'github';
+    0x1: 'foo';
+    'bar': 12n;
+}
+// 3. 可辨识联合类型
+// 创建用户和删除用户
+interface Info {
+  username: string
+}
+type UserAction = | {
+    id: number
+    action: 'delete'
+    info: Info
+} |
+{
+    action: 'create'
+    info: Info
+}
+const UserReducer = (userAction: UserAction)=> {
+    switch (userAction.action) {
+      case 'delete':
+        console.log(userAction.id);
+        break;
+      default:
+        break;
+    }
+}
+```
+
+## 4. 装饰器
+
+### 4.1 多种装饰器
+
+> Python中最早引入，作用是给一个已有的方法或类扩展一些新的行为，而不直接修改本身
+> js使用babel-plugin-transform-decorators-legacy支持decorator, ts需要在tsconfig.json中开启experimentalDecorators
+```ts
+// 1. 类装饰器
+// 需求：声明一个函数addAge去给Class的属性age添加年龄
+function addAge(constructor: Function) {
+  constructor.prototype.age = 18;
+}
+
+@addAge
+class Person {
+    name: string;
+    age!: number;
+    constructor() {
+        this.name = 'xiaomuzhu';
+    }
+}
+let person = new Person();
+console.log(person.age);
+// 当装饰器作为修饰类的时候，会把构造器传递进去。 constructor.prototype.age 就是在每一个实例化对象上面添加一个 age 值 这里我们的 addAge 就添加了一个 age 值.
+
+// 2. 属性/ 方法装饰器
+// 分别给Person类加上say和run方法
+// 声明装饰器修饰方法/属性
+function method(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  console.log(target);
+  console.log('prop'+ propertyKey);
+  console.log("desc " + JSON.stringify(descriptor) + "\n\n");
+  descriptor.writable = false;
+};
+class Person {
+    name: string;
+    constructor() {
+        this.name = 'xiaomuzhu';
+    }
+    @method
+    say(){
+        return 'instance method';
+    }
+    @method
+    static run() {
+        return 'static method'; 
+   }
+}
+const xmz = new Person();
+xmz.say = function() {
+  return 'edit'
+}
+// 打印结果，检查是否成功修改实例方法
+console.log(xmz.say());
+```
+
+
+### 4.2 高级装饰器
+
+```ts
+// 1. 参数装饰器
+/*
+target —— 当前对象的原型，也就是说，假设 Person 是当前对象，那么当前对象 target 的原型就是 Person.prototype
+propertyKey —— 参数的名称，上例中指的就是 greet
+index —— 参数数组中的位置，比如上例中参数 name 的位置是 1, message 的位置为 0
+*/
+function logParameter(target:Object,propertyKey: string, index: number) {
+  console.log(target, propertyKey, index);
+}
+class Person {
+    greet(@logParameter message: string, @logParameter name: string): string {
+        return `${message} ${name}`;
+    }
+}
+const p = new Person();
+p.greet('hello','xiaomuzhu');
+// 2. 装饰器工厂
+// 需求： 需要几个装饰器，分别把一个类中的部分属性、类本身、方法、参数的名称打印出来
+function log(...args: any[]) {
+  switch(args.length){
+    case 1:
+        return logClass.apply(this, args);
+    case 2:
+        return logProperty.apply(this, args);
+    case 3:
+        if(typeof args[2]==='number'){
+        return logParameter.apply(this,args);
+    }
+    return logMethod.apply(this, args);
+    default:
+     throw new Error("Decorators are not valid here!");
+  }
+}
+// 3. 装饰器顺序
+/*
+    参数装饰器，然后依次是方法装饰器，访问符装饰器，或属性装饰器应用到每个实例成员。
+    参数装饰器，然后依次是方法装饰器，访问符装饰器，或属性装饰器应用到每个静态成员。
+    参数装饰器应用到构造函数。
+    类装饰器应用到类。
+*/
+function f() {
+    console.log("f(): evaluated");
+    return function (target, propertyKey: string, descriptor: PropertyDescriptor) {
+        console.log("f(): called");
+    }
+}
+
+function g() {
+    console.log("g(): evaluated");
+    return function (target, propertyKey: string, descriptor: PropertyDescriptor) {
+        console.log("g(): called");
+    }
+}
+
+class C {
+    @f()
+    @g()
+    method() {}
+}
+// f(): evaluated
+// g(): evaluated
+// g(): called
+// f(): called
+```
+
+## 5. Reflect Metadata
+
+> 主要左右是在声明时添加和读取元数据
+```ts
+// 1. 安装依赖
+// npm i reflect-metadata --save
+// 2. 配置开启emitDecoratorMetadata
+// 例子：
+@Reflect.metadtata('name','A')
+class A {
+    @Reflect.metadata('hello', 'world')
+    public hello(): string {
+        return 'hello world'
+    }
+}
+Reflect.getMetadata('name', A) // 'A'
+Reflect.getMetadata('hello', new A()) // 'world'
+// 设置、获取元数据
+import 'reflect-metadata';
+@Reflect.metadata('name', 'xiaomuzhu')
+class Person {
+    @Reflect.metadata('time', '2019/10/10')
+    public say(): string {
+        return 'hello'
+    }
+}
+console.log(Reflect.getMetadata('name',Person)) // xiaomuzhu
+console.log(Reflect.getMetadata('time',new Person, 'say')) // xiaomuzhu
+// 内置元数据
+// 获取方法的类型
+const type = Reflect.getMetadata("design:type", new Person, 'say')
+// [Function: Function]
+// 获取参数的类型,返回数组
+const typeParam = Reflect.getMetadata("design:paramtypes", new Person, 'say')
+// [Function: String]
+// 使用 design:returntype 元数据键获取有关方法返回类型的信息
+const typeReturn = Reflect.getMetadata("design:returntype", new Person, 'say')
+// [Function: String]
 ```
