@@ -1,12 +1,8 @@
-/*
- * 优化处理：vant按需引入
- * */
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const merge = require("webpack-merge");
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const tsImportPluginFactory = require("ts-import-plugin");
+
 module.exports = {
-  lintOnSave: false,
+  lintOnSave: true,
   chainWebpack: config => {
     config.module
       .rule("ts")
