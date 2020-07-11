@@ -2,11 +2,10 @@ import React, {Component} from 'react';
 import {Form, Icon, Input, Button, notification} from 'antd';
 import 'antd/dist/antd.css';
 
-//const FormItem = Form.Item;
-
+/* 登录组件 */
 class LoginPage extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       name: 'abc'
     }
@@ -16,11 +15,10 @@ class LoginPage extends Component {
     e.preventDefault();  //取消默认行为
     this.props.form.validateFields((err, values) => {  //校验  err 校验不通过   values 当前对象{username: "23423", password: "4324"}
       if (!err) {
-        //console.log('Received values of form: ', values);
         const {username, password} = values;
-        if (username == 123 && password == 123) { //判断用户名和密 码是否是123
-          //跳转
-          this.props.history.push('/index');
+        console.log(values, 'values')
+        if (username === 'admin' && password === 'admin') { //判断用户名和密码是否是admin
+          this.props.history.push('/index'); //跳转
           sessionStorage.setItem('name', username);
           //sessionStorage.getItem(key);
           //sessionStorage.removeItem(key);
@@ -32,8 +30,8 @@ class LoginPage extends Component {
   };
   openNotification = () => {   //提示用户名和密码
     notification.open({
-      message: '用户名和密码',
-      description: 123,
+      message: '登录校验',
+      description: '请输入正确的用户名和密码',
       duration: 3,
       icon: <Icon type="smile" style={{color: '#108ee9'}}/>,
     });
@@ -64,11 +62,9 @@ class LoginPage extends Component {
             />,
           )}
         </Form.Item>
-
         <Button type="primary" htmlType="submit" className="login-form-button">
           Log in
         </Button>
-
       </Form>
     );
   }
