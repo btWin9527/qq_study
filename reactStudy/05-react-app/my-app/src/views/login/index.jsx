@@ -18,7 +18,7 @@ class LoginPage extends Component {
         const {username, password} = values;
         console.log(values, 'values')
         if (username === 'admin' && password === 'admin') { //判断用户名和密码是否是admin
-          this.props.history.push('/index'); //跳转
+          this.props.history.push('/home'); //跳转
           sessionStorage.setItem('name', username);
           //sessionStorage.getItem(key);
           //sessionStorage.removeItem(key);
