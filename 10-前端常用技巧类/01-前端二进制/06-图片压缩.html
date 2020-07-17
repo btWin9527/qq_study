@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>图片压缩</title>
+</head>
+<body>
+<!--
+  图片压缩操作：
+   利用Canvas 对象提供的 toDataURL() 方法，该方法接收 type 和 encoderOptions 两个可选参数
+    type: 图片格式，more为image/png , encoderOptions 用于表示图片的质量, 在指定图片格式为 image/jpeg 或image/webp的情况下，可以从0到1选择图片指令，超出范围，则默认设置为0.92
+ -->
+<button id="compressbtn">图片压缩</button>
+<div style="display: flex;">
+  <div style="flex: 33.3%;">
+    <p>预览容器</p>
+    <img id="previewContainer" width="230" height="230"
+         style="border: 2px dashed blue;"/>
+  </div>
+  <div style="flex: 33.3%;">
+    <p>Canvas容器</p>
+    <canvas id="canvas" width="230" height="230"
+            style="border: 2px dashed grey;">
+    </canvas>
+  </div>
+  <div style="flex: 33.3%;">
+    <p>压缩预览容器</p>
+    <img id="compressPrevContainer" width="230" height="230"
+         style="border: 2px dashed green;"/>
+  </div>
+</div>
+<script>
+  window.onload = function () {
+    // 图片预览
+    const image = document.querySelector("#previewContainer");
+    const canvas = document.querySelector("#canvas");
+
+    fetch("https://avatars3.githubusercontent.com/u/4220799")
+      .then((response) => response.blob())
+      .then((blob) => {
+        const objectURL = URL.createObjectURL(blob);
+        image.src = objectURL;
+        image.onload = () => {
+          draw();
+        };
+      });
+
+    function draw() {
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(image, 0, 0, 230, 230);
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imageData.data;
+    }
+
+    // 图片压缩
+    const compressbtn = document.querySelector('#compressbtn');
+    const compressImage = document.querySelector('#compressPrevContainer');
+    console.log(compressbtn,'compressbtn')
+    compressbtn.addEventListener('click', compress);
+
+    function compress(quality = 80, mimeType = "image/webp") {
+      const imageDataURL = canvas.toDataURL(mimeType, quality / 100);
+      compressImage.src = imageDataURL;
+    }
+  }
+</script>
+</body>
+</html>

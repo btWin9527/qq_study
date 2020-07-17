@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<!--
+    使用场景：显示图片时，需要对图片进行特殊处理，如解密图片数据，可以考虑在web worker使用fetch api 获取图片数据进行解密操作
+    兼容性： IE不支持,OperaMini不支持，安卓低版本不支持，兼容性相对一般
+ -->
+<h3>获取远程图片预览示例</h3>
+<img id="previewContainer" alt="" style="width: 50%">
+<script>
+  const image = document.querySelector("#previewContainer");
+
+  fetch("https://avatars3.githubusercontent.com/u/4220799")
+    .then((response) => response.blob())
+    .then((blob) => {
+      const objectURL = URL.createObjectURL(blob);
+      image.src = objectURL;
+      image.onload = () => {
+      };
+    });
+</script>
+</body>
+</html>

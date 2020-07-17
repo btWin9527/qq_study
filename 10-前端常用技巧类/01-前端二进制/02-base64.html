@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<script>
+  // btoa: 该函数能够基于二进制数据 “字符串” 创建一个 base64 编码的 ASCII 字符串
+  // atob: 该函数可以解码通过base64编码的字符串数据
+  // todo: atob兼容性在移动端比较差，建议使用 base64.js 中encode和decode来处理base64编码和解码
+  // 1. btoa使用示例
+  const name = 'Semlinker';
+  const encodedName = btoa(name);
+  console.log(encodedName, 'encodedName'); // U2VtbGlua2Vy
+  // 2. atob使用示例
+  const encodedNames = 'U2VtbGlua2Vy';
+  const names = atob(encodedNames);
+  console.log(names, 'names'); // Semlinker
+
+</script>
+</body>
+</html>

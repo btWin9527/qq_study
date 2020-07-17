@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>获取远程图片并灰度化</title>
+  <style>
+    /*
+    支持IE6-9和Webkit浏览器(Chrome 18+, Safari 6.0+, and Opera 15+),Firefox上无效果
+    */
+    /*  img {
+        -webkit-filter: grayscale(1); !* Webkit *!
+        filter: gray; !* IE6-9 *!
+        filter: grayscale(1); !* W3C *!
+      }*/
+    /* 推荐使用：图片灰度化操作 */
+    html {
+      overflow-y: scroll;
+      filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
+      -webkit-filter: grayscale(100%);
+    }
+  </style>
+</head>
+<body>
+<h3>页面图片灰度化</h3>
+<div>
+  <div style="display: flex;">
+    <div style="flex: 50%;">
+      <p>预览容器</p>
+      <img
+        src="https://avatars3.githubusercontent.com/u/4220799"
+        width="230"
+        height="230"
+        style="border: 2px dashed blue;"
+      />
+    </div>
+    <div style="flex: 50%;">
+      <p>预览容器</p>
+      <img
+        src="https://avatars3.githubusercontent.com/u/4220799"
+        width="230"
+        height="230"
+        style="border: 2px dashed blue;"
+      />
+    </div>
+  </div>
+  <div style="display: flex;">
+    <div style="flex: 50%;">
+      <p>预览容器</p>
+      <img
+        src="https://avatars3.githubusercontent.com/u/4220799"
+        width="230"
+        height="230"
+        style="border: 2px dashed blue;"
+      />
+    </div>
+    <div style="flex: 50%;">
+      <p>预览容器</p>
+      <img
+        src="https://avatars3.githubusercontent.com/u/4220799"
+        width="230"
+        height="230"
+        style="border: 2px dashed blue;"
+      />
+    </div>
+  </div>
+</div>
+</body>
+</html>

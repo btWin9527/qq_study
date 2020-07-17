@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>FileReader API 本地图片预览</title>
+</head>
+<body>
+<input type="file" accept="image/*" onchange="loadFile(event)">
+<img id="previewContainer">
+<script>
+  /**
+   * @method loadFile      图片加载
+   * @param {Object} event 事件对象e
+   * @description           FileReader除了支持把 File/Blob 对象转换为 Data URL 之外，还提供了readAsArrayBuffer()和readAsText()方法，把File/Blob对象转换为其他的数据格式
+   * 兼容性：Opera Mini不支持, IE6-9不支持, 安卓2.1~2.3不支持， 其他低版本浏览器不支持，兼容性较好
+   */
+  /*
+  * Data URL
+  * todo: 如果图片较大，图片的色彩层次比较丰富，则不适合使用这种方式，因为该图片经过 base64 编码后的字符串非常大，会明显增大 HTML 页面的大小，从而影响加载速度
+  * 例子： data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD...
+  * 格式：由四部分组成，前缀(data:)、 指示数据类型的MIME类型、若非文本则为可选的base64标记、数据本身;
+  *       data:[<mediatype>][;base64],<data>
+          mediatype: MIME类型的字符串
+  * */
+  const loadFile = function (event) {
+    const reader = new FileReader();
+    reader.onload = function () {
+      const output = document.querySelector('#previewContainer');
+      output.src = reader.result;
+    }
+    reader.readAsDataURL(event.target.files[0]); // 把本地图片对应的File对象转换为 Data URL
+  }
+</script>
+</body>
+</html>
