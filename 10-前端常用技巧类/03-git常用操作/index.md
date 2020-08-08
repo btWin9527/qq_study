@@ -50,3 +50,23 @@ doc/*.txt
 doc/**/*.pdf
 ```
 
+## 3. git合并
+
+### 3.1 Fast-forward(--ff)
+
+> 快速合并, 不会创建新的提交，而是会把我们正在合并的分支上的提交直接合并到当前分支(如果你的当前分支相比较你想要合并的分支没有任何提交, 则可以使用快速合并)
+
+```shell script
+master$ git merge dev
+
+```
+
+### 3.2 No-fast-foward(--no-ff)
+
+> 如果我们在当前分支上提交我们想要合并的分支不具备的改变，git将执行 no-fast-forward，git会在当前分支创建merging commit
+
+```shell script
+git merge --no-ff -m "merge with no-ff" master
+```
+
+
