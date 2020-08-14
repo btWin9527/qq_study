@@ -83,3 +83,24 @@ SplitTimes.propTypes = {
   splits: PropTypes.arrayOf(PropTypes.number)
 }
 ```
+
+## 3. 配置样式引入
+
+> 使用  react-app-rewired 和 styled-jsx 配置
+
+```shell script
+  npm install react-app-rewired styled-jsx
+```
+
+> 配置package.json文件, script部分
+
+```json
+{
+"scripts": {
+     "start": "react-scripts start",
+     "build": "react-scripts build",
+     "test": "react-scripts test --env=jsdom",
+     "eject": "react-scripts eject"
+   }
+}
+```
