@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>h5-socket推送</title>
+</head>
+<body>
+<h2>Websocket Echo Client</h2>
+<div id="output"></div>
+<script>
+  // 初始化连接和事件
+  function setup() {
+    output = document.getElementById("output");
+    ws = new WebSocket("ws://echo.websocket.org/echo");
+    // 监听open
+    ws.onopen = function (e) {
+      log("Connected");
+      sendMessage("Hello WebSocket! send");
+    }
+    // 监听close
+    ws.onclose = function (e) {
+      log("Disconnected: " + e.reason);
+    }
+    //监听errors
+    ws.onerror = function (e) {
+      log("Error ");
+    }
+    // 监听 messages
+    ws.onmessage = function (e) {
+      log("Message received: " + e.data);
+      //收到消息后关闭
+      ws.close();
+    }
+  }
+
+  // 发送消息
+  function sendMessage(msg) {
+    ws.send(msg);
+    log("Message sent");
+  }
+
+  // logging
+  function log(s) {
+    var p = document.createElement("p");
+    p.style.wordWrap = "break-word";
+    p.textContent = s;
+    output.appendChild(p);
+    // Also log information on the javascript console
+    console.log(s);
+  }
+
+  // Start
+  setup();
+
+
+  // websocket api学习
+  /*
+  * var Socket = new WebSocket(url, [protocol] );
+  * url:连接的URL
+  * protocol: 指定可接受的子协议
+  * */
+  /*
+  * WebSocket对象有三个属性：readyState, bufferedAmount, Protocol
+  * readyState:
+  * connecting    0     连接正在进行，还未建立
+  * open          1     连接已经建立，可以发送消息
+  * closing       2     连接正则关闭
+  * closed        3     连接已经关闭或不能打开
+  * */
+  /*  var Socket = new WebSocket("ws://echo.websocket.org", ["com.kaazing.echo", "example.imaginary.protocol"])
+    Socket.onopen = function (e) {
+      console.log(Socket.protocol, 'protocol')
+    }*/
+  // 接受文本消息的事件处理实例
+  /*  Socket.onmessage = function (e) {
+      if (typeof e.data === 'string') {
+        console.log('String message received', e, e.data)
+      } else {
+        console.log('Other message received', e, e.data)
+      }
+    }
+    // 设置二进制数据类型(默认类型为blob)
+    Socket.binaryType = 'blob';
+    Socket.onmessage = function (e) {
+      if (e.data instanceof Blob) {
+        console.log('Blob message received', e.data);
+        var blob = new Blob(e.data);
+      }
+    }
+
+    // ArrayBuffer
+    Socket.binaryType = 'arraybuffer';
+    Socket.onmessage = function (e) {
+      if (e.data instanceof ArrayBuffer) {
+        console.log('ArrayBuffer Message Received', +e.data)
+        var a = new Uint8Array(e.data);
+      }
+    }
+
+    // error
+    Socket.onerror = function (e) {
+      console.log('WebSocket Error', e);
+    }
+    // 关闭连接
+    Socket.onclose = function (e) {
+      console.log('connection close', e);
+    }
+
+    /!* webSocket方法 *!/
+    // send (需要在open事件触发之后再发送消息)
+    Socket.onopen = function (e) {
+      Socket.send('Hello WebSocket');
+    }*/
+
+</script>
+</body>
+</html>
