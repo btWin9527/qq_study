@@ -1,12 +1,14 @@
-import React,{Component} from 'react'
+import React, {Component} from 'react'
+import XiaoJiejie from "./XiaoJiejie";
 
 class App extends Component {
   render() {
     return (
       <div>
-        app组件
+        <XiaoJiejie/>
       </div>
     )
   }
 }
+
 export default App;
