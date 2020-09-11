@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="libs/react.development.js"></script>
+  <script src="libs/react-dom.development.js"></script>
+  <script type="text/javascript" src="libs/babel.min.js"></script>
+  <style>
+    .FancyBorder {
+      padding: 10px 10px;
+      border: 10px solid;
+    }
+
+    .FancyBorder-blue {
+      border-color: blue;
+    }
+
+    .Dialog-title {
+      margin: 0;
+      font-family: sans-serif;
+    }
+
+    .Dialog-message {
+      font-size: larger;
+    }
+  </style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  /* props.children实现类似vue中插槽的左右 */
+  function FancyBorder(props) {
+    return (<div className={'FancyBorder FancyBorder-' + props.color}> {props.children}</div>);
+  }
+
+  function WelcomeDialog() {
+    return (
+      <FancyBorder>
+        <h1 className="Dialog-title">Welcome</h1>
+        <p className="Dialog-message">Thank you for visiting our spacecraft!</p>
+      </FancyBorder>
+    );
+  }
+
+  ReactDOM.render(<WelcomeDialog/>, document.getElementById('root'))
+</script>
+</body>
+</html>
