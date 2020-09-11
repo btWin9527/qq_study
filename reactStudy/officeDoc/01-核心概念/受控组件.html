@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="libs/react.development.js"></script>
+  <script src="libs/react-dom.development.js"></script>
+  <script type="text/javascript" src="libs/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  class NameForm extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {value: ''};
+    }
+
+    handleChange(e) {
+      this.setState({value: e.target.value})
+    }
+
+    handleSubmit(e) {
+      alert('提交内容' + this.state.value);
+      e.preventDefault();
+    }
+
+    render() {
+      return (
+        <form onSubmit={(e) => this.handleSubmit(e)}>
+          <label>
+            名字
+            <input type="text" value={this.state.value} onChange={(e) => this.handleChange(e)}/>
+          </label>
+          <input type="submit" value="提交"/>
+        </form>
+      )
+    }
+  }
+
+  ReactDOM.render(<NameForm/>, document.getElementById('root'));
+</script>
+</body>
+</html>
