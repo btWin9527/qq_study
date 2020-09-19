@@ -4,12 +4,15 @@
   <meta charset="UTF-8">
   <title>绘制其他剪纸图形</title>
   <style>
-      body {
-          background: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600345307006&di=9bd7de930f626451d35c41fe29d8ca5f&imgtype=0&src=http%3A%2F%2Fattach.bbs.miui.com%2Fforum%2F201303%2F18%2F233119quyrec7to3ws3rco.jpg");
-      }
+    body {
+      background: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600345307006&di=9bd7de930f626451d35c41fe29d8ca5f&imgtype=0&src=http%3A%2F%2Fattach.bbs.miui.com%2Fforum%2F201303%2F18%2F233119quyrec7to3ws3rco.jpg");
+    }
   </style>
 </head>
 <body>
+<!--
+  todo: canvas绘制图像时，两个重叠的图形，如果绘制方向不一致，则会出现镂空效果
+-->
 <canvas id="canvas" width="600" height="600"></canvas>
 </body>
 <script>
@@ -62,7 +65,9 @@
   }
 
   function addCirclePath() {
-    context.arc(100, 100, 40, 0, Math.PI * 2, true);
+    // context.arc(100, 100, 40, 0, Math.PI * 2, true);
+    // context.arc(100, 100, 40, 0, Math.PI * 2, true);
+    rect(100, 100, 40, 100, true);
   }
 
   //Init……
