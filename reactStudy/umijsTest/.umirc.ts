@@ -11,15 +11,15 @@ export default defineConfig({
       component: '@/pages/index',
       wrappers: ['@/wrappers/auth']
     },
-    {exact: true, path: '/login', component: '@/pages/login'},
+    {exact: true, path: 'login', component: '@/pages/login'},
     {
-      exact: true,
-      path: '/test',
+      path: 'test',
       component: '@/pages/test',
       routes:[
         {
-          path: '/test/test1',
-          component: '@/pages/test/test1'
+          path: 'test1',
+          component: '@/pages/test/test1',
+          exact: true,
         }
       ]
     },

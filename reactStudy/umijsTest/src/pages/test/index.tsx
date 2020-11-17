@@ -1,7 +1,6 @@
 import React from 'react';
 
-export default (props) => {
-
+export default (props:any) => {
   return (
     <div>
       <h1>Page test</h1>
