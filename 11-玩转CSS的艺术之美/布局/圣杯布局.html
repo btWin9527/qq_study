@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>两列布局</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* css2布局 */
+    /*    .layout {
+          width: 100vw;
+          height: 400px;
+          font-size: 50px;
+          font-weight: bold;
+          color: #fff;
+          text-align: center;
+        }
+
+        .layout_left {
+          float: left;
+          width: 200px;
+          height: 100%;
+          background-color: palevioletred;
+        }
+
+        .layout_right {
+          float: right;
+          width: 200px;
+          height: 100%;
+          background-color: lightskyblue;
+        }
+
+        .layout_main {
+          margin: 0 200px;
+          overflow: hidden;
+          height: 100%;
+          background-color: darkseagreen;
+        }*/
+
+    /* flex布局 */
+    .layout {
+      display: flex;
+      width: 100vw;
+      height: 400px;
+      font-size: 50px;
+      font-weight: bold;
+      color: #fff;
+      text-align: center;
+    }
+
+    .layout_left {
+      width: 200px;
+      background-color: palevioletred;
+    }
+
+    .layout_right {
+      width: 200px;
+      background-color: lightskyblue;
+    }
+
+    .layout_main {
+      flex: 1;
+      background-color: darkseagreen;
+    }
+
+  </style>
+</head>
+<body>
+<!--
+  圣杯布局：
+  两侧定宽，中间自适应
+-->
+<div class="layout">
+  <!--<div class="layout_left">LEFT</div>
+  <div class="layout_right">RIGHT</div>
+  <div class="layout_main">MAIN</div>-->
+  <div class="layout_left">LEFT</div>
+  <div class="layout_main">MAIN</div>
+  <div class="layout_right">RIGHT</div>
+</div>
+</body>
+</html>

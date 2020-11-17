@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  .center-layout {
+    line-height: 400px;
+    text-align: center;
+    font-size: 0;
+    background-color: #bce8f1;
+  }
+
+  .box {
+    display: inline-block;
+    vertical-align: middle;
+    width: 100px;
+    height: 100px;
+    background-color: indianred;
+  }
+</style>
+<body>
+<!--
+  水平居中
+  + margin: 0 auto;width:fit-content;
+  + 行内元素 text-align: center;
+  + position + left + transform: translateX(-50%)
+  + display: flext; justify-content: center;
+-->
+<!--
+  垂直居中
+  + 块级元素 + padding-top/bottom  块级元素
+  + 行内元素 + line-height
+  + display: table-cell; vertical-align: middle;
+  + position + top/bottom +  transform:translateY(-50%)
+  + display: flex; align-items: center;
+-->
+
+<div class="center-layout">
+  <div class="box"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>两列布局</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* css2布局 */
+    /*  .layout {
+        width: 100vw;
+        height: 400px;
+        font-size: 50px;
+        font-weight: bold;
+        color: #fff;
+        text-align: center;
+      }
+
+      .layout_left {
+        float: left;
+        width: 200px;
+        height: 100%;
+        background-color: palevioletred;
+      }
+
+      .layout_right {
+        margin-left: 200px;
+        height: 100%;
+        background-color: lightskyblue;
+      }*/
+    /* flex布局 */
+    .layout {
+      display: flex;
+      width: 100vw;
+      height: 400px;
+      font-size: 50px;
+      font-weight: bold;
+      color: #fff;
+      text-align: center;
+    }
+
+    .layout_left {
+      width: 200px;
+      background-color: palevioletred;
+    }
+
+    .layout_right {
+      flex: 1;
+      background-color: lightskyblue;
+    }
+
+  </style>
+</head>
+<body>
+<!--
+  两列布局：
+  一侧定宽，另一侧自适应，且两列高度固定相同
+-->
+<div class="layout">
+  <div class="layout_left">LEFT</div>
+  <div class="layout_right">RIGHT</div>
+</div>
+</body>
+</html>

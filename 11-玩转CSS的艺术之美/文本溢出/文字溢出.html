@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>文字溢出</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 600px;
+      overflow: hidden;
+      border: 1px solid #000;
+    }
+
+    /* 单行溢出 */
+    .text__ellipsis-one {
+      overflow: hidden;
+      /*
+      text-overflow:
+      clip      修剪文本
+      ellipsis  显示省略号来代表被修剪的文本
+      string    使用给定的字符串来代表被修剪的文本
+      */
+      text-overflow: ellipsis;
+      /*
+       white-space:
+       normal   空白被浏览器忽略(默认)
+       pre      空白会被浏览器保留
+       nowrap   文本不换行，文本同一行上继续
+       pre-wrap 保留空白符序列，正常换行
+       pre-line 合并空白符序列，但保留换行符
+       inline   继承父元素该属性值
+      */
+      white-space: nowrap;
+    }
+
+    /* 多行文本溢出 */
+    /* 旧版flex  */
+  </style>
+
+</head>
+<body>
+<div class="container">
+  <h2>单行文字溢出</h2>
+  <div class="text__ellipsis-one">
+    玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美
+  </div>
+  <h2>多行文字溢出</h2>
+  <div class="text__ellipsis-moreline">
+    玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美玩转CSS的艺术之美
+  </div>
+</div>
+</body>
+</html>
