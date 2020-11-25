@@ -52,6 +52,12 @@
             component: './ListTableList',
           },
           {
+            name: 'hooks',
+            icon: 'HighlightOutlined',
+            path: '/hooks',
+            component: './HooksStudy'
+          },
+          {
             component: './404',
           },
         ],
