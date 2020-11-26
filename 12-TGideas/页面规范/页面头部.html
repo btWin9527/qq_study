@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>页面头部</title>
+  <!-- 移动端Meta配置 -->
+  <!--
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+  &lt;!&ndash; 为了防止页面数字被识别为电话号码 &ndash;&gt;
+  <meta name="format-detection" content="telephone=no">
+  &lt;!&ndash; 让添加到主屏幕的网页再次打开时全屏显示 &ndash;&gt;
+  <meta content="yes" name="mobile-web-app-capable">
+  <meta content="yes" name="apple-mobile-web-app-capable">
+  <meta name="robots" content="all">
+  <meta name="author" content="Tencent-CP">
+  <meta name="Copyright" content="Tencent">
+  <meta name="Description" content="页面描述内容">
+  <meta name="keywords" content="页面关键字">
+  -->
+
+  <!-- PC端Meta -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="robots" content="all">
+  <meta name="author" content="Tencent-CP">
+  <meta name="Copyright" content="Tencent">
+  <meta name="Description" content="页面描述内容">
+  <meta name="keywords" content="页面关键字">
+</head>
+<body>
+
+<script>
+  /* 双端页面需要判断跳转 */
+  // PC端添加
+  (function () {
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+      var a = document.referrer,
+        b = {
+          "baidu.com": "seo_baidu",
+          "sogou.com": "seo_sogou",
+          "sm.cn": "seo_sm",
+          "so.com": "seo_360",
+          "bing.com": "seo_bing",
+          "google.com": "seo_google"
+        },
+        c;
+      for (c in b) {
+        if (-1 !== a.indexOf(c)) {
+          a = b[c];
+          if (window.sessionStorage) {
+            sessionStorage.setItem("channel", a);
+          } else {
+            var d = d || 0, b = "";
+            0 !== d && (b = new Date, b.setTime(b.getTime() + 1000 * d), b = "; expires=" + b.toGMTString());
+            document.cookie = "channel=" + escape(a) + b + "path=/";
+          }
+          break;
+        }
+      }
+      window.location.href = "/m/" + location.search;
+    }
+  })();
+
+  // 移动端添加
+ /* if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+    window.location.href = "PC端专题地址" + location.search;
+  }*/
+</script>
+</body>
+</html>
