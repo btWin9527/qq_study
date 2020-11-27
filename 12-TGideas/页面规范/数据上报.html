@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>数据统计</title>
+  <script src="//ossweb-img.qq.com/images/js/PTT/ping_tcss_tgideas_https_min.js"></script>
+  <script>
+    //此段代码不能放到外链JS中，
+    var setSite = { //设置网站属性
+      siteType: "a20160711xxx", //必填项:"os"代表是官网，如果不是，则填写actName例如a20160701xxx
+      pageType: "index", //必填项:本页面的定位；按照页面含义填写例如main||list||detail||download||share||page1||pageN,不支持点(.)、下划线(_)
+      pageName: "首页", //必填项:页面中文名
+      project: "other", //选填项:如果是官网模块则是必填;按照模块内容，填写固定的对应值;官网微社区base;同人站doujin;赛事match;故事站story;文化站history;粉丝站fans;爆料站coming;论坛bbs;皮肤skin;默认other;
+      osact: 0 //选填项:默认是0。osact=0表示非官网专题；osact=pc表示pc官网/pc官网专题；osact=m表示移动官网/移动官网专题；osact=ingame表示微社区/微社区专题
+    };
+    if (typeof (pgvMain) == 'function') pgvMain();//千万不能忘记！
+  </script>
+</head>
+<body>
+<!-- 曝光埋点：用来统计官网的模块的曝光量和模块点击  -->
+<div class="news" exposure-tag="英文名，中文解释"></div>
+<div class="news" exposure-tag="news,新闻"></div>
+
+<!-- 按钮上报 -->
+<!-- 开始游戏 -->
+<a href="#" onclick="PTTsendClick('btn','start','开始游戏')">开始游戏</a>
+<!-- 分享给朋友 -->
+<a href="#" onclick="PTTSendClick('btn','share','分享')">分享给朋友</a>
+<!-- 预约 -->
+<a href="#" onclick="PPTSendClick('btn','download','预约')">预约</a>
+<!-- 下载游戏 -->
+<a href="#" onclick="PTTSendClick('btn','download','下载游戏');">下载游戏</a>
+<!-- 视频播放 -->
+<a href="#" onclick="PTTSendClick('btn','playvideo','播放视频');">播放视频</a>
+
+<!-- 移动端 -->
+<a href="javascript:;" id="btnStart">开始游戏</a>
+<script src="//ossweb-img.qq.com/images/js/mobile_build/util/zepto.js"></script>
+<script>
+  $("#btnStart").tap(function () {
+    PTTSendClick('btn', 'start', '开始游戏');
+  });
+</script>
+
+<!-- h5页面加载流失 -->
+<script>
+  PTTSendClick('page','loadstart','开始加载');
+
+  PTTSendClick('page','loadend','加载结束');
+</script>
+
+</body>
+</html>
