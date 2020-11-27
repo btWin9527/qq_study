@@ -1,0 +1,57 @@
+/* 1. 移动端常用reset.css (文字版本) */
+/* reset */
+html, body, div, p, ul, li, dl, dt, dd, em, i, span, a, img, input, h1, h2, h3, h4, h5 {
+  margin: 0;
+  padding: 0
+}
+
+a, img, input {
+  border: none;
+}
+
+body {
+  font: 14px/1.75 -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul, li {
+  list-style: none
+}
+
+
+/*  2. 移动端常用reset.css (无文字版本) */
+/* 移动端页面不需要设置微软雅黑、宋体等字体，终端浏览器字体取决于设备上的系统字体 */
+/* reset */
+html, body, div, p, ul, li, dl, dt, dd, em, i, span, a, img, input, h1, h2, h3, h4, h5 {
+  margin: 0;
+  padding: 0
+}
+
+a, img, input {
+  border: none;
+}
+
+body {
+  font: 14px/1.75 -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+a {
+  text-decoration: none;
+}
+
+ul, li {
+  list-style: none
+}
+
+a, img {
+  -webkit-touch-callout: none; /* 禁止长按链接与图片弹出菜单 */
+}
+
+html, body {
+  -webkit-user-select: none; /* 禁止选中文本（如无文本选中需求，此为必选项） */
+  user-select: none;
+}

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>命名规范</title>
+</head>
+<body>
+<h2>命名</h2>
+<hr>
+<h3>样式命名</h3>
+<pre>
+  1. class、 id都需小写
+  2. 命名使用英语，禁止使用特殊字符
+  3. 样式名不能包含ad、 guanggao、ads、 gg是广告含义的关键词，避免元素被网页拓展、插件屏蔽
+  4. 命名间隔使用 - 符号
+  5. 设计数据、交互需要联调的部分，禁止通过id选择器定义样式，以免开发过程中id名变化，引起页面错乱
+  6. 类名命名需要语义化，参考示例
+  ```css
+    .wrap {}            // 外层容器
+    .mod-box {}         // 模块容器
+    .btn-start {}       // 开始
+    .btn-download-ios   // ios下载
+    .btn-download-android {} // android下载
+    .btn-head-nav1 {}  // 头部导航链接1
+    .btn-news-more {}     // 更多新闻
+    .btn-play {}        // 播放视频
+    .btn-ico {}         // 播放ico
+    .btn-lottery {}     // 开始抽奖
+    .side-nav {}        // 侧栏导航
+    .side-nav-btn1 {}   // 侧栏导航-链接1
+    .btn-more {}        // 更多
+
+  ```
+</pre>
+
+
+<h3>图片命名</h3>
+<pre>
+  1. 图片名称必须小写，禁止使用特殊字符、中文
+  2. 使用英文或拼音缩写，禁止特殊字符
+  3. 名称间隔使用-符号
+  4. 命名需要能提现图片大概的用途
+  5. 禁止文件名和实际图片内容不符。
+
+  ```text
+  // 常用示例：
+  bg.jpg      // 背景图片
+  mod-bg.jpg  // 模块背景
+  sprites.png  // 精灵图
+  btn-start.png  // 开始按钮
+  ico-play.png  // 修饰性图片
+  ```
+
+</pre>
+</body>
+</html>
