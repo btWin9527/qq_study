@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>JavaScript中获取屏幕，窗口和网页大小</title>
+  <style>
+    /* 客户区 */
+    .client-size .client-region {
+      width: 200px;
+      height: 200px;
+      padding: 10px;
+      line-height: 200px;
+      text-align: center;
+      color: #fff;
+      font-size: 50px;
+      font-weight: bold;
+      background-color: indianred;
+    }
+  </style>
+</head>
+<body>
+<div class="content">
+  <!-- 屏幕尺寸 -->
+  <div class="screen-size">
+    <button id="screenSizeBtn">获取屏幕尺寸</button>
+    <div id="screenSize"></div>
+    <hr>
+  </div>
+  <!-- 可用屏幕尺寸 -->
+  <div class="screenavail-size">
+    <button id="screenAvailSizeBtn">获取屏幕尺寸</button>
+    <div id="screenAvailSize"></div>
+    <hr>
+  </div>
+  <!-- 浏览器到屏幕的距离 -->
+  <div class="browsertoscreen-size">
+    <button id="browserToScreenSizeBtn">获取屏幕尺寸</button>
+    <div id="browserToScreen"></div>
+    <hr>
+  </div>
+  <!-- 获取窗口外部尺寸 -->
+  <div class="windowouter-size">
+    <button id="windowOuterSizeBtn">获取窗口外部尺寸</button>
+    <div id="windowOuterSize"></div>
+    <hr>
+  </div>
+  <!-- 获取窗口内部尺寸 -->
+  <div class="windowinner-size">
+    <button id="windowInnerSizeBtn">获取窗口内部尺寸</button>
+    <div id="windowInnerSize"></div>
+    <hr>
+  </div>
+  <!-- 客户区大小(client dimension) -->
+  <div class="client-size">
+    <button id="clientSizeBtn">获取客户区域大小</button>
+    <div class="client-region" id="clientRegion">client</div>
+    <div id="clientSize"></div>
+    <hr>
+  </div>
+</div>
+<script>
+  var GLOBAL_WIN = window;
+  // 获取浏览器相关距离
+  var windowSize = {
+    data: {
+      screenSizeBtnDom: document.getElementById('screenSizeBtn'), // 获取屏幕尺寸按钮dom元素
+      screenAvailSizeBtnDom: document.getElementById('screenAvailSizeBtn'), // 获取屏幕可用尺寸按钮dom元素
+      browserToScreenSizeBtnDom: document.getElementById('browserToScreenSizeBtn'), // 获取浏览器距屏幕尺寸按钮dom元素
+      windowOuterSizeBtnDom: document.getElementById('windowOuterSizeBtn'), // 获取窗口外部尺寸按钮dom元素
+      windowInnerSizeBtnDom: document.getElementById('windowInnerSizeBtn'), // 获取窗口内部尺寸按钮dom元素
+      clientSizeBtnDom: document.getElementById('clientSizeBtn'), // 获取客户区按钮dom元素
+
+    },
+    // 初始化
+    init: function () {
+      this.bind();
+    },
+    // 绑定点击事件
+    bind: function () {
+      this.data.screenSizeBtnDom.addEventListener('click', this.getScreenSize);
+      this.data.screenAvailSizeBtnDom.addEventListener('click', this.getScreenAvailSize);
+      this.data.browserToScreenSizeBtnDom.addEventListener('click', this.getBrowserToScreenSize);
+      this.data.windowOuterSizeBtnDom.addEventListener('click', this.getWindowOuterSize);
+      this.data.windowInnerSizeBtnDom.addEventListener('click', this.getWindowInnerSize);
+      this.data.clientSizeBtnDom.addEventListener('click', this.getClientSize);
+    },
+    /*
+    * 获取屏幕尺寸
+    * @description
+    * 屏幕尺寸是屏幕的宽度和高度：显示器或移动端屏幕
+    * window.screen是保存屏幕尺寸信息的对象
+    * screen.width: 屏幕的宽
+    * screen.height: 屏幕的搞
+    * */
+    getScreenSize: function () {
+      var screenWidth = GLOBAL_WIN.screen.width;
+      var screenHeight = GLOBAL_WIN.screen.height;
+      var screenSizeDom = document.getElementById('screenSize');
+      screenSizeDom.innerHTML =
+        `<div>
+          <p>屏幕宽度:${screenWidth}</p>
+          <p>屏幕高度:${screenHeight}</p>
+        </div>`;
+    },
+    /*
+    * 可用屏幕尺寸
+    * @description
+    * 可用屏幕大小由活动屏幕的宽度和高度组成，无操作工具栏
+    * screen.availWidth 可利用的宽
+    * screen.availHeight 可利用的高
+    * */
+    getScreenAvailSize: function () {
+      var screenAvailWidth = GLOBAL_WIN.screen.availWidth;
+      var screenAvailHeight = GLOBAL_WIN.screen.availHeight;
+      var screenAvailSizeDom = document.getElementById('screenAvailSize');
+      screenAvailSizeDom.innerHTML =
+        `<div>
+          <p>可利用的宽:${screenAvailWidth}</p>
+          <p>可利用的高:${screenAvailHeight}</p>
+        </div>`;
+    },
+    /*
+    * 获取屏幕距离
+    * @description
+    * screenTop 浏览器窗口左上角到屏幕上边缘的距离
+    * screenLeft 浏览器窗口左上角到屏幕左边缘的距离
+    * firefox不支持上面属性,需要使用screenX(screenLeft)  screenY(screenTop)
+    * */
+    getBrowserToScreenSize: function () {
+      var browserToScreenTop = GLOBAL_WIN.screenTop || GLOBAL_WIN.screenY;
+      var browserToScreenLeft = GLOBAL_WIN.screenLeft || GLOBAL_WIN.screenX;
+      var screenAvailSizeDom = document.getElementById('browserToScreen');
+      screenAvailSizeDom.innerHTML =
+        `<div>
+          <p>浏览器距离屏幕上方距离:${browserToScreenTop}</p>
+          <p>浏览器距离屏幕左侧距离:${browserToScreenLeft}</p>
+        </div>`;
+    },
+    /*
+    * 获取窗口外部尺寸
+    * @description
+    * 窗口的外部大小由整个浏览器窗口的宽度和高度组成，包含地址栏，选项卡栏和其他浏览器面板
+    * window.outerWidth: 浏览器窗口的宽
+    * window.outerHeight: 浏览器窗口的高
+    * */
+    getWindowOuterSize() {
+      var windowOuterWidth = GLOBAL_WIN.outerWidth;
+      var windowOuterHeight = GLOBAL_WIN.outerHeight;
+      var windowOuterSizeDom = document.getElementById('windowOuterSize');
+      windowOuterSizeDom.innerHTML =
+        `<div>
+          <p>浏览器窗口的宽:${windowOuterWidth}</p>
+          <p>浏览器窗口的高:${windowOuterHeight}</p>
+        </div>`;
+    },
+    /*
+  * 获取窗口内部尺寸
+  * @description
+  * 窗口的内部大小由显示网页的视口的宽度和高度组成，包含滚动条
+  * window.innerWidth: 浏览器视口的宽
+  * window.innerHeight: 浏览器视口的高
+  * */
+    getWindowInnerSize() {
+      var windowInnerWidth = GLOBAL_WIN.innerWidth;
+      var windowInnerHeight = GLOBAL_WIN.innerHeight;
+      var windowInnerSizeDom = document.getElementById('windowInnerSize');
+      windowInnerSizeDom.innerHTML =
+        `<div>
+          <p>浏览器视口的宽:${windowInnerWidth}</p>
+          <p>浏览器视口的高:${windowInnerHeight}</p>
+        </div>`;
+    },
+    /*
+    * 获取客户区尺寸
+    * @description
+    * 元素内容及其内边距锁占据的空间大小
+    * clientWidth: 内容可视区的宽度
+    * clientHeight: 内容可视区的高度
+    * */
+    getClientSize() {
+      var clientRegionDom = document.getElementById('clientRegion');
+      var clientSizeDom = document.getElementById('clientSize');
+      var eleClientWidth = clientRegionDom.clientWidth;
+      var eleClientHeight = clientRegionDom.clientHeight;
+      clientSizeDom.innerHTML =
+        `<div>
+          <p>客户区的宽:${eleClientWidth}</p>
+          <p>客户区的高:${eleClientHeight}</p>
+        </div>`;
+    }
+  };
+
+  window.onload = function () {
+    windowSize.init();
+  }
+</script>
+</body>
+</html>
