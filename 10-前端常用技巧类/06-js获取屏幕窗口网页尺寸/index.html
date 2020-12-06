@@ -19,6 +19,38 @@
       font-weight: bold;
       background-color: indianred;
     }
+
+    /* 页面区 */
+    .page-region {
+      width: 200px;
+      height: 200px;
+      overflow: scroll;
+      padding: 10px;
+      text-align: center;
+      color: #fff;
+      font-size: 50px;
+      font-weight: bold;
+      background-color: indianred;
+    }
+
+    .page-region-des {
+      line-height: 80px;
+    }
+
+    /* 滚动区 */
+    .scroll-region {
+      text-align: center;
+      color: #fff;
+      font-size: 50px;
+      font-weight: bold;
+      background-color: mediumseagreen;
+      width: 100%;
+      padding: 20px;
+    }
+
+    .scroll-region-des {
+      line-height: 100px;
+    }
   </style>
 </head>
 <body>
@@ -60,6 +92,30 @@
     <div id="clientSize"></div>
     <hr>
   </div>
+  <!-- 页面大小(page size) -->
+  <div class="page-size">
+    <button id="pageSizeBtn">获取页面区域大小</button>
+    <div class="page-region" id="pageRegion">
+      <p class="page-region-des">page</p>
+      <p class="page-region-des">page</p>
+      <p class="page-region-des">page</p>
+      <p class="page-region-des">page</p>
+    </div>
+    <div id="pageSize"></div>
+    <hr>
+  </div>
+  <!-- 滚动距离 -->
+  <div class="scroll-size">
+    <button id="scrollBtn">获取滚动距离</button>
+    <div id="scrollSize"></div>
+    <div class="scroll-region" id="scrollRegion">
+      <p class="scroll-region-des">scroll</p>
+      <p class="scroll-region-des">scroll</p>
+      <p class="scroll-region-des">scroll</p>
+      <p class="scroll-region-des">scroll</p>
+      <p class="scroll-region-des">scroll</p>
+    </div>
+  </div>
 </div>
 <script>
   var GLOBAL_WIN = window;
@@ -72,6 +128,8 @@
       windowOuterSizeBtnDom: document.getElementById('windowOuterSizeBtn'), // 获取窗口外部尺寸按钮dom元素
       windowInnerSizeBtnDom: document.getElementById('windowInnerSizeBtn'), // 获取窗口内部尺寸按钮dom元素
       clientSizeBtnDom: document.getElementById('clientSizeBtn'), // 获取客户区按钮dom元素
+      pageSizeBtnDom: document.getElementById('pageSizeBtn'), // 获取页面大小按钮dom元素
+      scrollSizeBtnDom: document.getElementById('scrollBtn'), // 获取页面滚进距离按钮dom元素
 
     },
     // 初始化
@@ -86,6 +144,8 @@
       this.data.windowOuterSizeBtnDom.addEventListener('click', this.getWindowOuterSize);
       this.data.windowInnerSizeBtnDom.addEventListener('click', this.getWindowInnerSize);
       this.data.clientSizeBtnDom.addEventListener('click', this.getClientSize);
+      this.data.pageSizeBtnDom.addEventListener('click', this.getPageSize);
+      this.data.scrollSizeBtnDom.addEventListener('click', this.getScrollSize);
     },
     /*
     * 获取屏幕尺寸
@@ -190,7 +250,61 @@
           <p>客户区的宽:${eleClientWidth}</p>
           <p>客户区的高:${eleClientHeight}</p>
         </div>`;
-    }
+    },
+    /*
+  * 获取网页大小
+  * @description
+  * 网页大小由呈现的页面内容的宽度和高度组成
+  * scrollWidth: 实际内容宽度 (没有垂直滚动条时与clientWidth相同，否则等于实际内容的宽度+padding)
+  * scrollHeight: 实际内容高度(没有垂直滚动条时与clientHeight相同，否则等于实际的高度+padding)
+  * */
+    getPageSize() {
+      var pageSizeDom = document.getElementById('pageSize');
+      var pageRegionDom = document.getElementById('pageRegion');
+      var pageWidth = pageRegionDom.scrollWidth;
+      var pageHeight = pageRegionDom.scrollHeight;
+      var eleVisibleWidth = pageRegionDom.clientWidth;
+      var eleVisibleHeight = pageRegionDom.clientHeight;
+      pageSizeDom.innerHTML =
+        `<div>
+          <p>页面的宽:${pageWidth}</p>
+          <p>页面的高:${pageHeight}</p>
+          <p>可视区域的宽:${eleVisibleWidth}</p>
+          <p>可视区域的高:${eleVisibleHeight}</p>
+        </div>`;
+    },
+    /*
+  * 获取滚动距离
+  * @description
+  * 元素卷进去的高度
+  * scrollLeft: 元素最左端和窗口中可见内容最左端之间的距离。即当前左滚的距离
+  * scrollTop: 元素最顶端和窗口可见内容最顶端之间的距离。即当前上滚的距离
+  *
+  * 兼容处理
+  * 获取scrollLeft
+  * window.scrollX
+  * window.pageXOffset
+  * document.documentElement.scrollLeft
+  * 1. window对象的pageXOffset属性总是可以返回滚动的长度，不管doctype是什么类型，索引浏览器都支持该属性（除ie8及更低版本的ie浏览器）
+  * 2. window对象的scrollX属性总是返回滚动的长度，不管doctype是什么类型，Firefox, Chrome和Safari都支持该属性
+  * 3. 如果文档中没有指明文档类型，在IE, Firefox, Opera, Chrome和Safari中，通过body的scrollLeft可以获取滚动的数值
+  * 4. 如果有指明文档类型，那么在IE, Firefox和Opera中，可以通过html的scrollLeft属性获取滚动的数值，但是在Chrome和Safari中的值总是为0
+  * 5. 如果没有指明文档类型，那么html的scrollLeft属性总是返回0
+  *
+  * 兼容写法：
+   var scrollLeft = window.scrollX != undefined? window.scrollX: window.pageXOffset;
+   scrollLeft = scrollLeft != undefined? scrollLeft : (document.documentElement || document.body).scrollLeft;
+  * */
+    getScrollSize() {
+      var scrollSizeDom = document.getElementById('scrollSize');
+      var scrollLeft = document.documentElement.scrollLeft;
+      var scrollTop = document.documentElement.scrollTop;
+      scrollSizeDom.innerHTML =
+        `<div>
+          <p>页面卷进去的左侧距离:${scrollLeft}</p>
+          <p>页面卷进去的顶部距离:${scrollTop}</p>
+        </div>`;
+    },
   };
 
   window.onload = function () {
