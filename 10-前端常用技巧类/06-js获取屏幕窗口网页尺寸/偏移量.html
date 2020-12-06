@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>偏移量</title>
+</head>
+<body>
+<!--
+偏移量：
+  包括元素在屏幕上占用的所有可见的空间。元素的可见大小由其高度、宽度决定，包括所有内边距、滚动条和边框大小（注意，不包括外边距
+常用参数：
+  offsetHeight: 元素在垂直方向上占用的空间大小，包括元素的高度、（可见的）水平滚动条的高度、上边框高度和下边框高度
+  offsetWidth: 元素在水平方向上占用的空间大小。包括元素的宽度、（可见的）垂直滚动条的宽度、左边框宽度和右边框宽度
+  offsetLeft: 当前元素内容区域（包括border）左边缘到 offsetParent 内容区域（不包括border）左边缘的距离
+  offsetTop: 当前元素内容区域（包括border）顶部到 offsetParent 内容区域（不包括border）顶部的距离
+
+  【尺寸计算】offsetWidth = 元素宽 + padding（左右）+ border（左右）+ 滚动条宽度
+
+  offsetParent
+  1. 元素自身有fixed定位，父元素不存在定位，则offsetParent的结果为null（firefox中为：body，其他浏览器返回为null）
+  2. 元素自身无fixed定位，且父元素也不存在定位，offsetParent为body
+  3. 元素自身无fixed定位，且父元素存在定位，offsetParent为离自身最近且经过定位的父元素
+  4. 当元素的 style.display 设置为 "none" 时，offsetParent 返回 null。
+  5. body的offsetParent是null
+-->
+
+<!-- offsetParent例子 -->
+<div id="test1" style="position: fixed"></div>
+<div id="test2"></div>
+<div id="div0" style="position: absolute">
+  <div id="div1" style="position: absolute">
+    <div id="test3"></div>
+  </div>
+</div>
+<div id="test4" style="display: none"></div>
+
+<!-- 偏移量尺寸例子 -->
+<main style="position: relative" id="main">
+  <article>
+    <div id="example" style="position: absolute; left: 180px; top: 180px">...</div>
+  </article>
+</main>
+
+<!-- 偏移量图解 -->
+<div>
+  <img src="./img/img.png" alt="">
+  <img src="./img/img_1.png" alt="">
+  <img src="./img/img_2.png" alt="">
+  <img src="./img/img_3.png" alt="">
+</div>
+<script>
+  /* offsetParent */
+  console.log(document.getElementById('test1').offsetParent); //【1】:null
+  console.log(document.getElementById('test2').offsetParent); // 【2】:<body>
+  console.log(document.getElementById('test3').offsetParent); // 【3】:<div id="div1">
+  console.log(document.getElementById('test4').offsetParent); // 【4】null
+  console.log(document.body.offsetParent); // 【5】null
+  /* 偏移量数据 */
+  console.log(example.offsetParent.id); // main
+  console.log(example.offsetLeft); // 180
+  console.log(example.offsetTop); // 180
+</script>
+</body>
+</html>
