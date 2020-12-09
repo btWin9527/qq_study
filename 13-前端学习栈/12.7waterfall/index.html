@@ -5,9 +5,131 @@
   <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>瀑布流布局</title>
 </head>
 <body>
+<!--
+  思路解析：
+  1. 获取最矮的一列
+  2. 新加进入盒子的定位
+    + left: 最矮盒子的索引 * (盒子的宽度 + 间距)
+    + top: 这个盒子的高度 + 间距
+  3. 间距计算
+    var space = (wParent - col * width) / (col - 1);
+    // wParent 父盒子的宽度, width是子盒子的宽度,col是列数
+  4. 第一排的盒子的定位
+    + top: 0
+    + left: 索引 *(width + space)
+  5. 第二排的盒子的定位
+    + top: minHeight + space
+    + left: 索引 * (width + space)
+  6.
+ -->
+<!-- 页面容器 -->
+<div class="container">
+  <!-- 所有item的几何，距离顶部有距离 -->
+  <div class="items">
+    <div class="item">
+      <img src="" alt="">
+      <p>hello</p>
+    </div>
+    <div class="item">
+      <img src="" alt="">
+      <p>hello</p>
+    </div>
+  </div>
+</div>
+<div class="btn">正在加载...</div>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  /*
+  * 需求分析
+  * 加载第一页的时候
+  *   1. 加载第一页的数据 ajax
+  *   2. 按钮需要显示成加载更多
+  *   3. 加载完成渲染到页面当中 artTemplate
+  *   4. 初始化成瀑布流布局 waterfall
+  * 加载下一页的时候
+  *   + 手动加载：点击按钮加载下一页的数据
+  *   + 自动加载：滚动到底部的时候主动加载下一页
+  *   1. 加载数据
+  *   2. 按钮需要显示“正在加载中...”不能点击 防止重复提交
+  *   3. 加载完成渲染到页面当中
+  *   4. 初始化成瀑布流布局
+  *   5. 按钮需要显示成加载更多
+  * 没有更多数据 把按钮禁用 显示“没有更多数据了”
+  * */
+  (function ($) {
+    $.waterfall = function () {
+      /* this指向的是当前调用这个方法的元素集 */
+      // 当前瀑布流容器
+      var items = $(this);
+      // 父容器宽度
+      var wParent = items.width();
+      // 当前的瀑布流子容器
+      var child = items.children();
+      // 获取子容器的宽度
+      var width = child.width();
+      // 假设排多少列
+      var col = 5;
+      // 计算间距(父元素的宽度减所有盒子的宽度/4)
+      var space = (wParent - col * width) / (col - 1);
+      // 记录每列高度的数组
+      var colHeightArr = [];
 
+      // 遍历每一个子元素
+      $.each(child, function (i, item) {
+        var $item = $(item);
+        var height = $item.height();
+
+        // 设置定位
+        // 第一排的元素都是靠顶部的，所以索引从0开始，小于5的时候都是靠顶部
+        if (i < col) {
+          $item.css({
+            top: 0,
+            left: i * (width + space)
+          });
+          // 把高度添加进数组中
+          colHeightArr[i] = height;
+          // 其它需要根据最矮的一列进行排列
+        } else {
+          // 找到最矮的那一列进行排序
+          // 索引
+          var index = 0;
+          // 假设最小高度是第一个索引对应的高度
+          var minHeight = colHeightArr[index];
+          // 遍历数组,找到最小值和最小值对应的索引
+          // k是索引，v是值
+          $.each(colHeightArr, function (k, v) {
+            if (minHeight > v) {
+              index = k;
+              minHeight = v;
+            }
+          });
+
+          // 定位
+          $item.css({top: minHeight + space, left: index * (width + space)});
+          // 当前数组中最小的高度进行新的高度的更新
+          colHeightArr[index] = minHeight + space + height;
+        }
+      });
+
+      // 设置父容器的高度
+      var maxHeight = colHeightArr[0];
+      $.each(colHeightArr, function (k, v) {
+        if (maxHeight < v) {
+          maxHeight = v;
+        }
+      });
+      items.height(maxHeight);
+    }
+  })(jQuery);
+
+  /* 页面上所有的资源加载完毕进行布局，否则获取不到图片的尺寸撑不开盒子的高度 */
+  //为什么不用jquery的，因为这个是在dom元素下载完毕之后进行加载这个方法，需要等所有的资源加载完之后进行排列
+  window.onload = function () {
+    $(".items").waterfall();
+  }
+</script>
 </body>
 </html>
