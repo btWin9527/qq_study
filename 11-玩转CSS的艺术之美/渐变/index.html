@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>渐变</title>
+  <style>
+    .elem {
+      width: 400px;
+      height: 200px;
+      background-image: linear-gradient(to bottom, #f66 0, #66f 20%, #f90 40%, #09f 60%, #9c3 80%, #3c9 100%);
+
+      /*background-image: linear-gradient(to bottom, #f66, #66f);*/
+      /* 等价于 */
+      /*background-image: linear-gradient(to bottom, #f66 0, #66f 100%);*/
+    }
+
+    /*
+    径向渐变：
+    background-image: radial-gradient(shape size at position, color-stop)
+      shape: 形状 (ellipse 默认，椭圆, circle)
+      size: farthest-corner: 从圆心到离圆心最远的角为半径 (默认)
+            farthest-side： 从圆心到离圆心最远的边为半径
+            closest-corner: 从圆心到离圆心最近的角为半径
+            closest-side: 从圆心到离圆心最近的边为半径
+            size: 可用任何长度单位，宽和高必须同时声明
+      position: 位置
+      colorStop: 色标
+    */
+    .circle-gradient {
+      width: 400px;
+      height: 200px;
+      /*background-image: radial-gradient(100px 100px, #f66, #66f);*/
+      /* 等价于 */
+      background-image: radial-gradient(ellipse 100px 100px at center, #f66, #66f);
+    }
+
+    .conic-gradient {
+      width: 400px;
+      height: 200px;
+      background-image: conic-gradient(#f66 0, #66f 100%);
+    }
+
+    /* 渐变背景 */
+    .gradient-bg {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      background: linear-gradient(135deg, #f66, #f90, #3c9, #09f, #66f) left center/400% 400%;
+      font-weight: bold;
+      font-size: 100px;
+      color: #fff;
+      animation: move 10s infinite;
+    }
+
+    @keyframes move {
+      0%, 100% {
+        background-position-x: left;
+      }
+      50% {
+        background-position-x: right;
+      }
+    }
+
+    /* 文字渐变 */
+    .gradient-text {
+      background-image: linear-gradient(90deg, #f66, #f90);
+      -webkit-background-clip: text;
+      line-height: 60px;
+      font-size: 60px;
+      color: transparent;
+      animation: hue 5s linear infinite;
+    }
+
+    @keyframes hue {
+      from {
+        filter: hue-rotate(0);
+      }
+      to {
+        filter: hue-rotate(-1turn);
+      }
+    }
+
+    /* 闪烁文本 */
+    .blink-text {
+      width: 100%;
+      background-image: linear-gradient(-45deg, #f66 30%, #fff 50%, #f66 70%);
+      background-size: 200%;
+      -webkit-background-clip: text;
+      background-blend-mode: hard-light; /* hard-light强光模式模拟闪烁效果 */
+      font-weight: bold;
+      font-size: 20px;
+      color: transparent;
+      animation: shine 2s infinite;
+    }
+
+    @keyframes shine {
+      from {
+        background-position: 100%;
+      }
+      to {
+        background-position: 0;
+      }
+    }
+
+    /* 方格背景 */
+    .square-bg {
+      width: 500px;
+      height: 300px;
+      background-image: linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%),
+      linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%);
+      background-position: 0 0, 20px 20px;
+      background-size: 40px 40px;
+    }
+
+    /* 网格背景 */
+    .grid-bg {
+      width: 500px;
+      height: 300px;
+      background-color: #3c9;
+      background-image: linear-gradient(0deg, #fff 5%, transparent 5%, transparent),
+      linear-gradient(90deg, #fff 5%, transparent 5%, transparent);
+      background-position: 0 0, 20px 20px;
+      background-size: 20px 20px;
+    }
+
+    /* 遮罩 */
+    .mask-bg {
+      display: flex;
+      overflow: hidden;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      height: 100%;
+
+    }
+
+    .mask-bg::after {
+      position: absolute;
+      left: -20px;
+      right: -20px;
+      top: -20px;
+      bottom: -20px;
+      background: url("https://static.yangzw.vip/codepen/mountain.jpg") no-repeat center/cover;
+      filter: blur(10px);
+      content: "";
+    }
+
+    .mask-bg div {
+      position: relative;
+      z-index: 9;
+      width: 600px;
+      height: 300px;
+      background: url("https://static.yangzw.vip/codepen/snow.jpg") left center/150% auto;
+      mask: url("https://static.yangzw.vip/codepen/logo.png") center/cover;
+      animation: move 10s infinite;
+    }
+
+    @keyframes move {
+      0% {
+        background-position-x: 0;
+      }
+      50% {
+        background-position-x: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+<h3>线性渐变</h3>
+<div class="elem"></div>
+<h3>径向渐变</h3>
+<div class="circle-gradient"></div>
+<h3>锥形渐变</h3>
+<div class="conic-gradient"></div>
+<h3>渐变背景</h3>
+<div class="gradient-bg">icss</div>
+<h3>渐变文本</h3>
+<div class="gradient-text">Full Stack Developer</div>
+<h3>闪烁文本</h3>
+<p class="blink-text tac">🔥若对CSS技巧很感兴趣，请关注我喔</p>
+<h3>方格背景</h3>
+<div class="square-bg"></div>
+<h3>网格背景</h3>
+<div class="grid-bg"></div>
+<h3>镂空背景</h3>
+<div class="mask-bg">
+  <div></div>
+</div>
+</body>
+</html>

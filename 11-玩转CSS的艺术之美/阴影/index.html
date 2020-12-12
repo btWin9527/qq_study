@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>阴影</title>
+  <style>
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      width: 1000px;
+    }
+
+    .shadow {
+      margin-left: 50px;
+      border: 1px solid #f66;
+      width: 200px;
+      height: 200px;
+      margin-bottom: 10px;
+    }
+
+    .shadow:nth-of-type(4n-3) {
+      margin-left: 0;
+    }
+
+    .left {
+      box-shadow: -10px 0 5px -5px #f66;
+    }
+
+    .right {
+      box-shadow: 10px 0 5px -5px #f66;
+    }
+
+    .up {
+      box-shadow: 0 -10px 5px -5px #f66;
+    }
+
+    .down {
+      box-shadow: 0 10px 5px -5px #f66;
+    }
+
+    .left-up {
+      box-shadow: -10px 0 5px -5px #f66, 0 -10px 5px -5px #f66;
+    }
+
+    .left-down {
+      box-shadow: -10px 0 5px -5px #f66, 0 10px 5px -5px #f66;
+    }
+
+    .right-up {
+      box-shadow: 10px 0 5px -5px #f66, 0 -10px 5px -5px #f66;
+    }
+
+    .right-down {
+      box-shadow: 10px 0 5px -5px #f66, 0 10px 5px -5px #f66;
+    }
+
+    /* 专栏头像 */
+    .article-avatar {
+      display: flex;
+      flex-flow: column wrap;
+      justify-content: center;
+      align-items: center;
+      border-radius: 100%;
+      width: 250px;
+      height: 250px;
+      background-color: #f66;
+      box-shadow: 0 0 50px 5px rgba(0, 0, 0, .2) inset;
+      line-height: 50px;
+      text-shadow: 5px 5px 10px rgba(0, 0, 0, .5);
+      font-weight: bold;
+      font-size: 24px;
+      color: #fff;
+    }
+
+    .article-avatar .left {
+      border-top: 3px solid #fff;
+      text-indent: -1em;
+
+    }
+
+    .article-avatar .right {
+      text-indent: 2em;
+      font-size: 36px;
+    }
+
+    /* 聚焦区域 */
+    .img-cliper {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .img-cliper img {
+      width: 400px;
+    }
+
+    .img-cliper i {
+      position: absolute;
+      left: 50px;
+      top: 30px;
+      border-radius: 100%;
+      width: 100px;
+      height: 50px;
+      box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+<!--
+box-shadow: offset-x offset-y blur spread color position
+
+-->
+<div class="container">
+  <div class="shadow left"></div>
+  <div class="shadow right"></div>
+  <div class="shadow up"></div>
+  <div class="shadow down"></div>
+  <div class="shadow left-up"></div>
+  <div class="shadow left-down"></div>
+  <div class="shadow right-up"></div>
+  <div class="shadow right-down"></div>
+</div>
+<!-- 专栏头像 -->
+<div class="article-avatar">
+  <p class="left">JowayYoung</p>
+  <p class="right">谈前端</p>
+</div>
+<!-- 聚焦区域 -->
+<div class="img-cliper">
+  <img src="https://static.yangzw.vip/codepen/gz.jpg">
+  <i></i>
+</div>
+</body>
+</html>
