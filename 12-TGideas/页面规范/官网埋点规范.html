@@ -6,8 +6,25 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>官网埋点</title>
+
 </head>
 <body>
 
+<script src="//ossweb-img.qq.com/images/js/PTT/ping_tcss_tgideas_https_min.js"></script>
+<script>
+  // 此段代码不能放在外链js中
+  var setSite = {
+    siteType: 'os', //必填项:"os"代表是官网，如果不是，则填写actName例如a20160701xxx
+    pageType: 'newsdetail', // 必填项:本页面的定位；按照页面含义填写例如main||list||detail||download||share||page1||pageN,不支持点(.)、下划线(_)
+    pageName: '新闻详情', // 必填项:页面中文名
+    project: 'base', // 选填项:如果是官网模块则是必填;按照模块内容，填写固定的对应值;官网微社区base;同人站doujin;赛事match;故事站story;文化站history;粉丝站fans;爆料站coming;论坛bbs;皮肤skin;默认other;
+    osact: 'pc', // 选填项:默认是0。osact=0表示非官网专题；osact=pc表示pc官网/pc官网专题；osact=m表示移动官网/移动官网专题；osact=ingame表示微社区/微社区专题
+    targetId: '12345', // 文章id
+    targetType: 'news', // 文章类型：'news' || 'video' || 'moment' || 'other'
+    from: 'v4', // 文章出处：'v4'||'ams'||'tgl'||'ingame'||'other'
+  };
+  if (typeof (pgvMain) == 'function') pgvMain();
+  //动态请求内容的详情页，需要把以上放入到请求回调中执行，因为targetId只有在请求成功后才有值，才能完整上报
+</script>
 </body>
 </html>
