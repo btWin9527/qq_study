@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>canvas入门</title>
+  <style>
+    #canvas {
+      background-color: #000;
+    }
+    #canvas2 {
+      background-color: #000;
+    }
+  </style>
+</head>
+<body>
+<!-- 直接在元素上设置画板尺寸 -->
+<canvas id="canvas" width="400" height="400"></canvas>
+<!-- 使用js设置画板尺寸 -->
+<canvas id="canvas2"></canvas>
+<script>
+  var canvas = document.getElementById('canvas');
+  var context = canvas.getContext('2d');
+
+  context.beginPath();
+  context.arc(100, 100, 50, 0, Math.PI * 2, true);
+  context.closePath();
+  context.fillStyle = 'rgb(254,234,23)';
+  context.fill();
+
+  var canvas2 = document.getElementById('canvas2');
+  var context2 = canvas2.getContext('2d');
+  var cx = canvas2.width = 400;
+  var cy = canvas2.height = 400;
+
+  context2.beginPath();
+  context2.arc(100, 100, 50, 0, Math.PI * 2, true);
+  context2.closePath();
+  context2.fillStyle = 'rgb(254,234,23)';
+  context2.fill();
+
+</script>
+</body>
+</html>
