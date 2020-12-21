@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>canvas绘制颜色、样式和阴影</title>
+  <style>
+    .canvas {
+      background-color: #000;
+    }
+  </style>
+</head>
+<body>
+<!-- 设置阴影 -->
+<h2>设置阴影</h2>
+<div class="content">
+  <canvas class="canvas" id="shadowCanvas"></canvas>
+</div>
+<hr>
+<!-- 设置渐变 -->
+<h2>设置渐变</h2>
+<div class="content">
+  <canvas class="canvas" id="gradientCanvas"></canvas>
+</div>
+<script>
+  /* 绘制阴影 */
+  /*
+   fillStyle	设置或返回用于填充绘画的颜色、渐变或模式
+   strokeStyle	设置或返回用于笔触的颜色、渐变或模式
+   shadowColor	设置或返回用于阴影的颜色
+   shadowBlur	设置或返回用于阴影的模糊级别
+   shadowOffsetX	设置或返回阴影距形状的水平距离
+   shadowOffsetY	设置或返回阴影距形状的垂直距离
+  * */
+  let shadowCanvas = document.querySelector('#shadowCanvas');
+  let shadowContext = shadowCanvas.getContext('2d');
+  let shadowCanvasW = shadowCanvas.width = 400;
+  let shadowCanvasH = shadowCanvas.height = 400;
+  shadowContext.beginPath();
+  shadowContext.arc(100, 100, 50, 0, Math.PI * 2, true);
+  shadowContext.closePath();
+  shadowContext.fillStyle = '#fff';
+  shadowContext.shadowBlur = 20;
+  shadowContext.shadowColor = '#fff';
+  shadowContext.fill();
+
+  /* 绘制渐变 */
+  /*
+  createLinearGradient()	创建线性渐变（用在画布内容上）
+  createPattern()	在指定的方向上重复指定的元素
+  createRadialGradient()	创建放射状/环形的渐变（用在画布内容上）
+  addColorStop()	规定渐变对象中的颜色和停止位置
+  context.createLinearGradient(x0,y0,x1,y1);
+  x0：开始渐变的 x 坐标
+  y0：开始渐变的 y 坐标
+  x1：结束渐变的 x 坐标
+  y1：结束渐变的 y 坐标
+  * */
+  let gradientCanvas = document.querySelector('#gradientCanvas');
+  let gradientContext = gradientCanvas.getContext('2d');
+  let gradientCanvasW = gradientCanvas.width = 400;
+  let gradientCanvasH = gradientCanvas.height = 400;
+  // let grd = gradientContext.createLinearGradient(50, 100, 50, 200);
+  // grd.addColorStop(0, 'pink');
+  // grd.addColorStop(1, '#fff');
+  // gradientContext.fillStyle = grd;
+  // gradientContext.fillRect(50, 100, 200, 100);
+  // 彩虹渐变
+  let grd = gradientContext.createLinearGradient(0, 0, 0, 400);
+  grd.addColorStop(0, 'rgb(255, 0, 0)');
+  grd.addColorStop(0.2, 'rgb(255, 165, 0)');
+  grd.addColorStop(0.3, 'rgb(255, 255, 0)');
+  grd.addColorStop(0.5, 'rgb(0, 255, 0)');
+  grd.addColorStop(0.7, 'rgb(0, 127, 255)');
+  grd.addColorStop(0.9, 'rgb(0, 0, 255)');
+  grd.addColorStop(1, 'rgb(139, 0, 255)');
+  gradientContext.fillStyle = grd;
+  gradientContext.fillRect(0, 0, 400, 400);
+</script>
+</body>
+</html>
