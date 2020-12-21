@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>canvas绘制简单图形</title>
+  <style>
+    .canvas {
+      background-color: #000;
+    }
+  </style>
+</head>
+<body>
+<!--
+  canvas绘制图像步骤：
+  1. 开始一个路径  beginPath()
+  2. 绘制路径  context.arc(x,y,r,startAngle,endAngle,counterclockwise)
+              counterclockwise  可选，规定逆时针还是顺时针绘制, false  顺时针， true  逆时针
+  3. 关闭路径  closePath()
+  4. 设置填充颜色或描边颜色  context.fillStyle = 'rgb(255,255,255)'
+  5. 填充颜色或描边  context.fill()
+ -->
+<h2>canvas绘制圆形</h2>
+<div class="content">
+  <div class="img">
+    <img src="./img/img.png" alt="">
+  </div>
+  <!-- 绘制顺时针1/4圆 -->
+  <canvas id="arcCanvas" class="canvas"></canvas>
+</div>
+<hr>
+<h2>绘制直线</h2>
+<div class="content">
+  <canvas id="lineCanvas" class="canvas"></canvas>
+</div>
+<hr>
+<h2>绘制矩形</h2>
+<div class="content">
+  <canvas id="rectCanvas" class="canvas"></canvas>
+</div>
+<script>
+  /* 绘制顺时针1/4圆 -- 描边 */
+  let arcCanvas = document.querySelector('#arcCanvas');
+  let arcContext = arcCanvas.getContext('2d');
+  let arcCanvasW = arcCanvas.width = 400;
+  let arcCanvasH = arcCanvas.height = 400;
+  arcContext.beginPath();
+  arcContext.arc(200, 200, 50, 0, Math.PI / 2, false);
+  arcContext.strokeStyle = 'rgb(255,255,255)';
+  arcContext.stroke();
+
+  /* 绘制直线 */
+  /*
+  * lineCap	    设置或返回线条的结束端点样式
+    lineJoin	  设置或返回两条线相交时，所创建的拐角类型
+    lineWidth	  设置或返回当前的线条宽度
+    miterLimit	设置或返回最大斜接长度
+  * */
+  let lineCanvas = document.querySelector('#lineCanvas');
+  let lineContext = lineCanvas.getContext('2d');
+  let lineCanvasW = lineCanvas.width = 400;
+  let lineCanvasH = lineCanvas.height = 400;
+  lineContext.beginPath();
+  lineContext.moveTo(50, 50);
+  lineContext.lineTo(100, 100);
+  lineContext.lineTo(200, 50);
+  lineContext.strokeStyle = '#fff';
+  lineContext.lineWidth = 2; // 设置线宽
+  lineContext.lineCap = 'round'; // 设置线终点
+  lineContext.lineJoin = 'round'; // 设置拐点
+  lineContext.stroke();
+
+  /* 绘制矩形
+  * strokeRect  空心矩形
+  * fillRect    实心矩形
+  *  */
+  let rectCanvas = document.querySelector('#rectCanvas');
+  let rectContext = rectCanvas.getContext('2d');
+  let rectCanvasW = rectCanvas.width = 400;
+  let rectCanvasH = rectCanvas.height = 400;
+  rectContext.beginPath();
+  rectContext.strokeStyle = '#fff'; // 先设置描边颜色，后描边（否则不显示描边颜色）
+  rectContext.strokeRect(100, 100, 100, 50); // strokeRect(x,y,width,height)
+  rectContext.stroke();
+</script>
+</body>
+</html>
