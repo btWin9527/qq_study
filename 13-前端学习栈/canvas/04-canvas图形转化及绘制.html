@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>canvas图像转换及绘制</title>
+  <style>
+    .canvas {
+      background-color: #000;
+    }
+  </style>
+</head>
+<body>
+<h2>canvas图形转换</h2>
+<div class="content">
+  <canvas class="canvas" id="figureCanvas"></canvas>
+</div>
+<h2>canvas图像绘制</h2>
+<div class="content">
+  <canvas class="canvas" id="imgCanvas"></canvas>
+</div>
+<script>
+  /* 图形转换 */
+  /*
+  scale()	缩放当前绘图至更大或更小
+  rotate()	旋转当前绘图
+  translate()	重新映射画布上的 (0,0) 位置
+  transform()	替换绘图的当前转换矩阵
+  setTransform()	将当前转换重置为单位矩阵，然后运行 transform()
+  * */
+  let figureCanvas = document.querySelector('#figureCanvas');
+  let figureContext = figureCanvas.getContext('2d');
+  let figureCanvasW = figureCanvas.width = 400;
+  let figureCanvasH = figureCanvas.height = 400;
+  figureContext.strokeStyle = '#fff';
+  figureContext.strokeRect(5, 5, 50, 25);
+  figureContext.scale(2, 2);
+  figureContext.strokeRect(5, 5, 50, 25);
+  figureContext.scale(2, 2);
+  figureContext.rotate(30 * Math.PI / 180);
+  figureContext.strokeRect(5, 5, 50, 25);
+
+  /* 图像绘制 */
+  /*
+  context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);
+
+  img：规定要使用的图像、画布或视频
+  sx：可选。开始剪切的 x 坐标位置
+  sy：可选。开始剪切的 y 坐标位置
+  swidth：可选。被剪切图像的宽度
+  sheight：可选。被剪切图像的高度
+  x：在画布上放置图像的 x 坐标位置
+  y：在画布上放置图像的 y 坐标位置
+  width：可选。要使用的图像的宽度（伸展或缩小图像）
+  height：可选。要使用的图像的高度（伸展或缩小图像）
+  * */
+</script>
+</body>
+</html>
