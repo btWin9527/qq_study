@@ -9,5 +9,47 @@
 </head>
 <body>
 
+<script>
+  /* 在常规情况下，一般同一时间只会存在一个全局弹窗，我们可以实现单例模式，保证每次实例化时返回的实际上是同一个方法 */
+  // 需求：获取单一实例
+  class MessageBox {
+    show() {
+      console.log('show');
+    }
+
+    hide() {
+    }
+
+    static getInstance() {
+      if (!MessageBox.instance) {
+        MessageBox.instance = new MessageBox();
+      }
+      return MessageBox.instance;
+    }
+  }
+
+  let box3 = MessageBox.getInstance();
+  let box4 = MessageBox.getInstance();
+  console.log(box3 === box4); // true
+
+
+  // 需求：获取不同实例
+  /* 获取单个实例 */
+  function getSingleton(ClassName) {
+    let instance;
+    return () => {
+      if (!instance) {
+        instance = new ClassName();
+      }
+      return instance;
+    };
+  }
+
+  const createMessageBox1 = getSingleton(MessageBox);
+  const createMessageBox2 = getSingleton(MessageBox);
+  let box5 = createMessageBox1();
+  let box6 = createMessageBox2();
+  console.log(box5 === box6); // false (生成两个不同实例)
+</script>
 </body>
 </html>

@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>策略模式-表单判断</title>
+</head>
+<body>
+<!--
+  策略模式的主要作用：将层级相同的逻辑封装成可以组合和替换的策略方法，减少if...else代码，方便扩展后续功能
+-->
+<script>
+  function onFormSubmit(params) {
+    if (!params.nickname) return showError("请填写昵称");
+    if (params.nickname.length > 6) return showError("昵称最多6位字符");
+    if (!/^1\d{10}$/.test(params.phone)) return showError("请填写正确的手机号");
+  }
+
+  /*
+  * if...else缺点
+  * 1. 将所有字段的校验规则都堆叠在一起，如果想查看某个字段的校验规则，则需要将所有的判断都看一遍
+  * 2. 在遇见错误时，直接通过 return 跳过了后面的判断；如果产品希望直接展示每个字段的错误，则改动的工作量可不谓不少。
+  * */
+
+  /* 校验器封装 */
+  class Schema {
+    constructor(descriptor) {
+      this.descriptor = descriptor;
+    }
+
+    validate(data) {
+      return new Promise((resolve, reject) => {
+        let keys = Object.keys(data);
+        let errors = [];
+        for (let key of keys) {
+          const config = this.descriptor[key];
+          if (!config) continue;
+
+          const {validator} = config;
+          try {
+            validator(data[key]);
+          } catch (e) {
+            errors.push(e.toString());
+          }
+        }
+        if (errors.length) {
+          reject(errors);
+        } else {
+          resolve();
+        }
+      })
+    }
+  }
+
+  // 首先声明每个字段的校验规则
+  const descriptor = {
+    nickname: {
+      validator(val) {
+        if (!val) {
+          throw "请填写昵称";
+        }
+        if (val.length < 6) {
+          throw "昵称最少显示6位字符s";
+        }
+      }
+    },
+    phone: {
+      validator(val) {
+        if (!val) {
+          throw "请填写电话号码";
+        }
+        if (!/^1\d{10}$/.test(val)) {
+          throw "请填写正确的手机号";
+        }
+      }
+    }
+  }
+
+  // 开始校验
+  const validator = new Schema(descriptor);
+  const params = {nickname: "1234567", phone: "12300000000"};
+  validator.validate(params).then(() => {
+    console.log('success')
+  }).catch((e) => {
+    console.log(e);
+  })
+
+  // -------------------------------------  分割线  ------------------------------------------------------
+  // 支持require,len,min/max校验逻辑
+  const descriptor2 = {
+    nickname: [
+      {key: "required", message: "请填写昵称"},
+      {key: "max", params: 6, message: "昵称最多6位字符"},
+    ],
+    phone: [
+      {key: "require", message: "请填写电话号码"},
+      {
+        key: "validator",
+        params(val) {
+          return !/^1\d{10}$/.test(val);
+        },
+        message: "请填写正确的电话号码"
+      }
+    ]
+  }
+
+  class Schema2 {
+    constructor(descriptor) {
+      this.descriptor = descriptor;
+    }
+
+    handleRule(val, rule) {
+      const {key, params, message} = rule;
+      let ruleMap = {
+        required() {
+          return !val;
+        },
+        max() {
+          return !(val > params);
+        },
+        validator() {
+          return params(val);
+        },
+      };
+
+      let handler = ruleMap[key];
+      if (handler && handler()) {
+        throw message;
+      }
+    }
+
+    validate(data) {
+      return new Promise((resolve, reject) => {
+        let keys = Object.keys(data);
+        let errors = [];
+        for (let key of keys) {
+          const ruleList = this.descriptor[key];
+          if (!Array.isArray(ruleList) || !ruleList.length) continue;
+
+          const val = data[key];
+          for (let rule of ruleList) {
+            try {
+              this.handleRule(val, rule);
+            } catch (e) {
+              console.log(e, 'errr')
+              errors.push(e.toString());
+            }
+          }
+        }
+        if (errors.length) {
+          reject(errors);
+        } else {
+          resolve();
+        }
+      });
+    }
+
+  }
+
+  // 开始校验2
+  const validator2 = new Schema2(descriptor2);
+  const params2 = {nickname: "12346", phone: "12300000000"};
+  validator2.validate(params2).then(() => {
+    console.log('success')
+  }).catch((e) => {
+    console.log(e);
+  })
+
+</script>
+</body>
+</html>
