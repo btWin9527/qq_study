@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>迭代模式</title>
+</head>
+<body>
+<!--
+  迭代模式：平台判断
+  提供一种方法顺序访问一个聚合对象中的各种元素，而又不暴露该对象的内部表示
+ -->
+<script>
+  function isApp(ua) {
+    return /xxx_app/i.test(ua);
+  }
+
+  function isWx(ua) {
+    return /MicroMessenger/i.test(ua);
+  }
+
+  function isTiktok(ua) {
+    return /aweme|NewsArticle/i.test(ua);
+  }
+
+  function isBili(ua) {
+    return /BiliApp/i.test(ua);
+  }
+
+  function isKwai(ua) {
+    return /Kwai/i.test(ua);
+  }
+
+  let platformList = [
+    {name: "app", validator: isApp},
+    {name: "wx", validator: isWx},
+    {name: "tiktok", validator: isTiktok},
+    {name: "bili", validator: isBili},
+    {name: "kwai", validator: isKwai},
+  ];
+
+  function getPageType() {
+    // 每个平台的名称与检测方法
+    const ua = navigator.userAgent;
+    // 遍历
+    for (let {name, validator} in platformList) {
+      if (validator(ua)) {
+        return name;
+      }
+    }
+  }
+</script>
+</body>
+</html>

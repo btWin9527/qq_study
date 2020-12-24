@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>工厂模式</title>
+</head>
+<body>
+<!--
+ 工厂模式提供了一种创建对象的方法，对使用方隐藏了对象的具体实现细节，并使用一个公共的接口来创建对象
+ -->
+
+<script>
+  const storageMap = new Map();
+
+  function createStorageModel(key, storage = localStorage) {
+    // 相同key返回单例
+    if (storageMap.has(key)) {
+      return storageMap.get(key);
+    }
+
+    const model = {
+      key,
+      set(val) {
+        storage.setItem(this.key, JSON.stringify(val));
+      },
+      get() {
+        let val = storage.getItem(this.key);
+        return val && JSON.parse(val);
+      },
+      remove() {
+        storage.removeItem(this.key);
+      }
+    };
+    storageMap.set(key, model);
+    return model;
+  }
+
+  const themeModel = createStorageModel('local_theme', localStorage);
+  themeModel.set({test: '123'}); // 设置数据
+  let themeData = themeModel.get(); // 读取数据
+  console.log(themeData, '读取数据');
+  const utmSourceModel = createStorageModel('utm_source', sessionStorage);
+  utmSourceModel.set({time: 12321123});
+  let utmSourceData = utmSourceModel.get();
+  console.log(utmSourceData, '读取数据');
+</script>
+</body>
+</html>

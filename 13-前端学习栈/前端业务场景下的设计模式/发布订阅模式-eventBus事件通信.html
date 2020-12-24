@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>发布订阅模式-eventBus事件通信</title>
+  <style>
+
+
+  </style>
+</head>
+<body>
+
+<!--
+ 场景：
+  · 上报某个特定的埋点
+  · 判断是否在活动期间，如果是活动期则弹出优惠券弹窗
+ -->
+<script>
+  const eventBus = {
+    on() {
+    },
+    emit() {
+    }
+  };
+
+  const activity = {
+    init() {
+      eventBus.on('enterIndexPage', () => {
+        this.showCouponDialog();
+      });
+    },
+    showCouponDialog() {
+      console.log('恭喜你获得优惠券')
+    },
+  };
+
+  const logger = {
+    init() {
+      eventBus.on('enterIndexPage', () => {
+        this.pageView('index');
+      })
+    },
+    pageView(page) {
+      reportLog('page_view', page);
+    },
+  };
+  const indexPage = {
+    mounted() {
+      console.log('mounted');
+      eventBus.emit('enterIndexPage');
+    }
+  }
+
+  // 各个模块按需要监听事件
+  activity.init();
+  logger.init();
+
+  // 触发时间
+  indexPage.mounted();
+</script>
+</body>
+</html>
