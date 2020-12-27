@@ -45,6 +45,10 @@ const compileUtil = {
     const value = this.getVal(expr, vm);
     this.updater.modelUpdater(node, value);
   },
+  bind(node, expr, vm, attrName) {
+    const value = this.getVal(expr, vm);
+    node.setAttribute(attrName, value);
+  },
   on(node, expr, vm, eventName) {
     let fn = vm.$options.methods && vm.$options.methods[expr];
     node.addEventListener(eventName, fn.bind(vm), false);
@@ -117,6 +121,13 @@ class Compile {
         compileUtil['on'](node, value, this.vm, eventName);
         // 删除索引指令的标签上的属性
         node.removeAttribute('@' + eventName);
+      } else if (this.isAttrName(name)) {
+        console.log(name, 'name')
+        let [, attrName] = name.split(':');
+        // 更新数据 数据驱动视图
+        compileUtil['bind'](node, value, this.vm, attrName);
+        // 删除索引指令的标签上的属性
+        node.removeAttribute(':' + attrName);
       }
     })
   }
@@ -125,7 +136,6 @@ class Compile {
   compileText(node) {
     let content = node.textContent;
     if (/\{\{(.+?)\}\}/.test(content)) {
-      console.log(content, 'content')
       compileUtil['text'](node, content, this.vm);
     }
   }
@@ -143,6 +153,11 @@ class Compile {
   // 是否为@简写的事件绑定
   isEventName(name) {
     return name.startsWith('@');
+  }
+
+  // 是否为:简写的属性绑定
+  isAttrName(name) {
+    return name.startsWith(':');
   }
 
   // 是否为dom节点

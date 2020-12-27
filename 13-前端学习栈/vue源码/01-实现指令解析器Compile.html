@@ -16,6 +16,8 @@
   <div v-html="htmlStr"></div>
   <button v-on:click="handleClick">按钮</button>
   <button @click="handleClick">按钮2</button>
+  <img v-bind:src="imgSrc" alt="">
+  <img :src="imgSrc" alt="">
   <ul>
     <li>1</li>
     <li>2</li>
@@ -43,11 +45,12 @@
       htmlStr: '<span style="color: red;">test</span>',
       person: {
         name: 'text'
-      }
+      },
+      imgSrc: "//www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png"
     },
     methods: {
       handleClick() {
-        console.log('click',this)
+        console.log('click', this)
       }
     }
   })
