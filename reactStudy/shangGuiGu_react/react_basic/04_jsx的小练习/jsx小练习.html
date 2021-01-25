@@ -18,8 +18,25 @@
 <script src="../js/babel.min.js"></script>
 
 <script type="text/babel">/* babel转义 */
+/*
+* 注意区分：【js语句】与【js表达式】
+* 1. 表达式： 一个表达式会产生一个值，可以放在任何地方
+*     (1) a
+*     (2) a+b
+*     (3) demo(1)
+*     (4) arr.map()
+*     (5) function test() {}
+* 2. 语句（代码）
+*     + if(){}
+*     + for(){}
+*     + switch(){}
+* */
 const Fragment = React.Fragment;
 const data = ['angular', 'react', 'vue'];
+const obj = {
+  a: 1,
+  b: 2
+}
 // 1. 创建虚拟dom
 const VDOM = (
   <Fragment>
@@ -29,6 +46,9 @@ const VDOM = (
         data.map(item => (<li key={item}>{item}</li>))
       }
     </ul>
+    {
+      Object.keys(obj).map(item => <div key={item}>{obj[item]}</div>)
+    }
   </Fragment>
 );
 // 2. 渲染虚拟dom到页面
