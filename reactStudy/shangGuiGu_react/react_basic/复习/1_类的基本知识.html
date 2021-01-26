@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>1_类的基础知识</title>
+</head>
+<body>
+<script>
+  // 创建Person类
+  class Person {
+    // 构造器方法
+    constructor(name, age) {
+      // 构造器中的this是类的实例对象
+      this.name = name;
+      this.age = age;
+    }
+
+    // 一般方法
+    speak() {
+      // speak方法放在哪里? --- 类的原型对象上
+      // 通过Person实例调用speak时，speak中的this就是Person实例
+      console.log(`我叫${this.name},年龄是${this.age}`)
+    }
+  }
+
+  // 创建一个Person的实例对象
+  const p1 = new Person('tom', 19);
+  const p2 = new Person('jerry', 19);
+
+  console.log(p1, 'p1')
+  console.log(p2, 'p2')
+  p1.speak()
+  p2.speak()
+</script>
+</body>
+</html>
