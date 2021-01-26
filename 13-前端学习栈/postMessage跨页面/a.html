@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>A页面</title>
+</head>
+<body>
+<iframe
+  src="http://localhost:63342/qq_study/13-%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E6%A0%88/postMessage%E8%B7%A8%E9%A1%B5%E9%9D%A2/b.html?_ijt=7vtu6v8elq9p65uq90u68r75jo"
+  frameborder="1"></iframe>
+<script>
+  /* 父页面接收子页面传递信息 */
+  window.addEventListener('message', function (e) {
+    console.log(e.data)
+  }, false)
+  /* 父页面像子页面传递信息 */
+  window.onload = function () {
+    var frame1 = window.frames[0];
+    frame1.postMessage('父页面向子页面传递信息', '*');
+  }
+</script>
+</body>
+</html>

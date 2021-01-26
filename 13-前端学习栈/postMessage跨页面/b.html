@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>B页面</title>
+</head>
+<body>
+<h1>b页面</h1>
+<script>
+  // otherWindow.postMessage(message, targetOrigin, [transfer]);
+  // message  将要发送到其他 window的数据。它将会被结构化克隆算法序列化。这意味着你可以不受什么限制的将数据对象安全的传送给目标窗口而无需自己序列化
+  // targetOrigin  其值可以是字符串"*"（表示无限制）或者一个URI
+  // transfer  是一串和message 同时传递的 Transferable 对象. 这些对象的所有权将被转移给消息的接收方，而发送一方将不再保有所有权
+  /* 子页面传父页面信息 */
+  window.top.postMessage('message from iframe1', '*');
+
+  /* 子页面接收父页面传递的信息 */
+  window.addEventListener('message', function (e) {
+    console.log(e.data)
+  }, false)
+</script>
+</body>
+</html>
