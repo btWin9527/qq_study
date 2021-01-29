@@ -27,13 +27,19 @@ function speak() {
 
 // 1. 创建组件
 class Person extends React.Component {
+  constructor(props) {
+    // 构造器是否接收props，是否传递给super,取决于是否希望在构造器中通过this访问props
+    super(props);
+    console.log('constructor', this.props)
+  }
+
   // static 不需要实例化类，即可直接通过该类来调用的方法，即称之为“静态方法”
   // 限制props参数限制
   static propTypes = {
     name: PropTypes.string.isRequired, // string类型 必须
     sex: PropTypes.string,
     age: PropTypes.number,
-    speak: PropTypes.func, // 函数
+    // speak: PropTypes.func, // 函数
   }
 // 指定默认标签属性值
   static defaultProps = {
@@ -55,10 +61,10 @@ class Person extends React.Component {
 }
 
 
-const p = {name: 'ab'}
-ReactDOM.render(<Person name="tom" age={18} sex="男" sepack={speak}/>, document.getElementById('test1'))
+ReactDOM.render(<Person name="tom" age={18} sex="男"/>, document.getElementById('test1'))
 // 简写
-ReactDOM.render(<Person {...p}/>, document.getElementById('test'))
+// const p = {name: 'ab'}
+// ReactDOM.render(<Person {...p}/>, document.getElementById('test'))
 </script>
 </body>
 </html>
