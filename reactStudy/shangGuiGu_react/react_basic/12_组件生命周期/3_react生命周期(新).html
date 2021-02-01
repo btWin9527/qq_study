@@ -21,6 +21,23 @@
 
 // 创建组件
 class Count extends React.Component {
+  /*
+        1. 初始化阶段: 由ReactDOM.render()触发---初次渲染
+                1.	constructor()
+                2.	getDerivedStateFromProps
+                3.	render()
+                4.	componentDidMount() =====> 常用
+                      一般在这个钩子中做一些初始化的事，例如：开启定时器、发送网络请求、订阅消息
+        2. 更新阶段: 由组件内部this.setSate()或父组件重新render触发
+                1.	getDerivedStateFromProps
+                2.	shouldComponentUpdate()
+                3.	render()
+                4.	getSnapshotBeforeUpdate
+                5.	componentDidUpdate()
+        3. 卸载组件: 由ReactDOM.unmountComponentAtNode()触发
+                1.	componentWillUnmount()  =====> 常用
+                      一般在这个钩子中做一些收尾的事，例如：关闭定时器、取消订阅消息
+      */
 
   // 构造器
   constructor(props) {
@@ -51,9 +68,16 @@ class Count extends React.Component {
   }
 
   // 使用状态：即state在任何时候都取决于props（不建议使用）
- static  getDerivedStateFromProps(props,state) {
-    console.log('Count -- getDerivedStateFromProps',props,state)
-   return props
+  static getDerivedStateFromProps(props, state) {
+    console.log('Count -- getDerivedStateFromProps', props, state)
+    // return props
+    return null
+  }
+
+  // 获取数据更新之前的状态的钩子函数 (在更新之前获取快照)
+  getSnapshotBeforeUpdate() {
+    console.log('Count -- getSnapshotBeforeUpdate')
+    return 'snpashot';
   }
 
   // 2. 组件挂载完成钩子函数
@@ -73,8 +97,8 @@ class Count extends React.Component {
   }
 
   // 组件更新完成钩子函数
-  componentDidUpdate() {
-    console.log('Count -- componentDidUpdate')
+  componentDidUpdate(preProps, preState, snapshotValue) {
+    console.log('Count -- componentDidUpdate', preProps, preState, snapshotValue)
   }
 
   render() {
