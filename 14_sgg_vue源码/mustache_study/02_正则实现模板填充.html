@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<script>
+  // 实现模板字符串功能 <h2>我买了一个{{thing}}, 好{{mood}}</h2>
+  var templateStr = `<h2>我买了一个{{thing}}, 我好{{mood}}</h2>`;
+  var data = {
+    thing: '华为手机',
+    mood: '开心'
+  }
+
+  // replace的第二个参数可以是一个函数，提供捕获的东西的参数，$1
+  function render(templateStr, data) {
+    return templateStr.replace(/\{\{(\w+)\}\}/g, function (findStr, $1) {
+      return data[$1]
+    })
+  }
+
+  console.log(render(templateStr, data))
+</script>
+</body>
+</html>

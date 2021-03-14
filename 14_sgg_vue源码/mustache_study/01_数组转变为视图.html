@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<ul id="list"></ul>
+
+<script>
+  var arr = [
+    {'name': '小强', age: 12, sex: '男'},
+    {'name': '小东', age: 12, sex: '男'},
+    {'name': '小西', age: 12, sex: '女'},
+  ];
+
+  var list = document.querySelector('#list');
+  for (let i = 0; i < arr.length; i++) {
+    // list.innerHTML += [
+    //   '<li>',
+    //   '<div className="hd"></div>',
+    //   '<div className="bd">',
+    //   '<p>姓名: ' + arr[i].name + '</p>',
+    //   '<p>年龄: </p>',
+    //   '<p>性别: </p>',
+    //   '</div>',
+    //   '</li>'
+    // ].join('');
+
+    // es6模板字符串
+    list.innerHTML += `
+      <li>
+        <div className="hd"></div>
+        <div className="bd">
+          <p>姓名: ${arr[i].name} </p>
+          <p>年龄: </p>
+          <p>性别: </p>
+          </div>
+      </li>`;
+  }
+</script>
+</body>
+</html>
